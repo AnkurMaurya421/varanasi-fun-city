@@ -1,0 +1,50 @@
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: bolder;
+  color: #5fb6d6;
+  text-decoration: none;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.navLinks a {
+  font-size: 0.95rem;
+  color: #333333;
+  text-decoration: none;
+}
+
+.navLinks a:hover {
+  color: #0F6E56;
+}
+
+.bookBtn {
+  background-color: #0F6E56;
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+}
+
+.bookBtn:hover {
+  background-color: #085041;
+}
