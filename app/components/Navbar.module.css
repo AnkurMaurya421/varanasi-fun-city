@@ -14,7 +14,7 @@
 .logo {
   font-size: 1.3rem;
   font-weight: bolder;
-  color: #5fb6d6;
+  color: #0F6E56;
   text-decoration: none;
 }
 
@@ -46,5 +46,56 @@
 }
 
 .bookBtn:hover {
-  background-color: #085041;
+  background-color: #0F6E56;
+}
+.menuBtn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navLinks {
+    display: none;
+  }
+  .menuBtn {
+    display: block;
+  }
+}
+
+.mobileNav {
+  position: absolute;
+  top: 57px; /* navbar height */
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+}
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  padding: 16px 0;
+}
+
+.mobileNavLinks a {
+  font-size: 1.2rem;
+  color: #333333;
+  text-decoration: none;
+  width: 100%;
+  transition: color 0.3s ease;
+
+}
+
+.mobileNavLinks a:hover {
+  color: #eb8140;
 }
