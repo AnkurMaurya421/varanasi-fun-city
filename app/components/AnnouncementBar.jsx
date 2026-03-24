@@ -1,5 +1,5 @@
-
 import styles from './AnnouncementBar.module.css';
+
 export default function AnnouncementBar() {
     return (
         <div className={styles.announcementbar}>
