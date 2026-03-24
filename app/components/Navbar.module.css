@@ -16,6 +16,7 @@
   font-weight: bolder;
   color: #0F6E56;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .navLinks {
