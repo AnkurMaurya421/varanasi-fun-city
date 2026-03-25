@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image';
 import styles from "./Navbar.module.css";
 import {useState} from "react";
 import { Menu } from "lucide-react";
@@ -10,7 +11,7 @@ export default function Navbar() {
     return (<>
         <nav className={styles.navbar}>
             <div className={styles.logo}>
-                Varanasi <span >Fun City</span>
+                <Image src="/mainlogo.png" alt="Hero Image" width={267} height={150}  style={{ maxWidth: "100%", height: "auto" }}/>
             </div>
             <ul className={styles.navLinks}>
                 <li><a href="/">About</a></li>

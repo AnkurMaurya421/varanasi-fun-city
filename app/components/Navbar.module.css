@@ -1,34 +1,38 @@
 
 .navbar {
+  position:fixed;
   display: flex;
   align-items: center;
+  background: transparent;
   justify-content: space-between;
-  padding: 16px 40px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-  position: sticky;
-  top: 0;
+  
+  background-color: transparent;
+ padding-right: 40px;
+ padding-top: 10px;
+  
+  top: 3rem;
   z-index: 100;
+  width: 100%;
 }
 
 .logo {
-  font-size: 1.3rem;
-  font-weight: bolder;
-  color: #0F6E56;
-  text-decoration: none;
-  white-space: nowrap;
+  height: auto;
+  width: 40%;
+  display: flex;
+  align-items: center;
 }
 
 .navLinks {
   display: flex;
   align-items: center;
   gap: 32px;
+  
   list-style: none;
 }
 
 .navLinks a {
   font-size: 0.95rem;
-  color: #333333;
+  color: white;
   text-decoration: none;
 }
 
@@ -42,6 +46,7 @@
   padding: 10px 22px;
   border-radius: 8px;
   font-size: 0.9rem;
+  border-radius: 0.5rem;
   border: none;
   cursor: pointer;
 }
@@ -51,12 +56,13 @@
 }
 .menuBtn {
   display: none;
+  color: white;
   background: none;
   border: none;
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .navLinks {
     display: none;
   }
@@ -66,20 +72,22 @@
 }
 
 .mobileNav {
-  position: absolute;
+  position: fixed;
   top: 57px; /* navbar height */
   left: 0;
   width: 100%;
-  z-index: 99;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  
   width: 100%;
-  background-color: #ffffff;
+  
+  margin-top: 5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
  
 }
 .mobileNavLinks {
+  background:rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,7 +98,7 @@
 
 .mobileNavLinks a {
   font-size: 1.2rem;
-  color: #333333;
+  color: white;
   text-decoration: none;
   width: 100%;
   transition: color 0.3s ease;
