@@ -25,8 +25,9 @@
 .navLinks {
   display: flex;
   align-items: center;
-  gap: 32px;
-  
+  gap: clamp(0.1vw, 2vw, 3vw);
+  font-weight: bolder;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   list-style: none;
 }
 
@@ -43,12 +44,15 @@
 .bookBtn {
   background-color: #0F6E56;
   color: #ffffff;
-  padding: 10px 22px;
-  border-radius: 8px;
-  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
+  font-size: 0.95rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border-radius: 0.5rem;
+  font-weight: bolder;
   border: none;
   cursor: pointer;
+  margin: 0.5rem;
 }
 
 .bookBtn:hover {
@@ -73,38 +77,81 @@
 
 .mobileNav {
   position: fixed;
-  top: 57px; /* navbar height */
-  left: 0;
+   /* navbar height */
+
   width: 100%;
-  
-  
-  width: 100%;
-  
-  margin-top: 5rem;
+  height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
  
 }
 .mobileNavLinks {
+  
   background:rgba(0, 0, 0, 0.8);
   display: flex;
+
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+
+  width: 50%;
   list-style: none;
-  padding: 16px 0;
+  border-radius: 1rem;
+  
+  transform: translateY(-300%)  ; /* hidden above screen */
+  transition: transform 0.5s ease-in-out;
+  
+  
+}
+
+.mobileNavLinks.open {
+  transform: translateY(0)  ; /* slide down into view */
+   /* slide down into view */
+}
+
+.mobileNavLinks li{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
+
 }
 
 .mobileNavLinks a {
-  font-size: 1.2rem;
-  color: white;
+  display: flex;
+  justify-content: center;
+ 
+  border-bottom: 1px solid rgba(255, 255, 255, 1);
+  color:wheat;
+  padding: 0.5rem;
   text-decoration: none;
-  width: 100%;
-  transition: color 0.3s ease;
+  font-family: cursive;
+  width:100%;
+  
 
 }
+.mobileNavLinks .contactBtn {
+  border-bottom: 0px solid rgba(255, 255, 255, 1);
+}
+.bookBtn {
+  background-color: #0F6E56;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
+  font-size:clamp(16px, 3vw, 32px);
+   font-size: clamp(14px, 3vw, 18px);
+  padding: clamp(8px, 2vw, 14px) clamp(16px, 4vw, 24px);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 1rem;
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+  margin: 0.5rem;
+}
 
+.bookBtn:hover {
+  background-color: #0F6E56;
+}
 .mobileNavLinks a:hover {
   color: #eb8140;
 }

@@ -9,3 +9,31 @@
     height: 100vh;
     width: 100%;
 }
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+    color: white;
+    padding: 0 1rem;
+    margin-bottom: 20%;
+    font-weight: bold;
+    
+    
+}
+.bookBtn {
+  background-color: #0F6E56;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
+  font-size:clamp(16px, 3vw, 32px);
+   font-size: clamp(14px, 3vw, 18px);
+  padding: clamp(8px, 2vw, 14px) clamp(16px, 4vw, 24px);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 1rem;
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+  margin: 0.5rem;
+}
