@@ -105,7 +105,7 @@
 }
 
 .mobileNavLinks.open {
-  transform: translateY(0)  ; /* slide down into view */
+  transform: translateY(0%)  ; /* slide down into view */
    /* slide down into view */
 }
 
@@ -125,7 +125,7 @@
   color:wheat;
   padding: 0.5rem;
   text-decoration: none;
-  font-family: cursive;
+  font-family: serif;
   width:100%;
   
 
