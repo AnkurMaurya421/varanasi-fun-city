@@ -1,7 +1,6 @@
-
-.hero{
+.hero {
     margin-top: 0px;
-    display:flex;
+    display: flex;
     justify-content: center;
     background-image: url("/main.jpg");
     background-size: cover;
@@ -9,6 +8,7 @@
     height: 100dvh;
     width: 100%;
 }
+
 .content {
     display: flex;
     flex-direction: column;
@@ -19,22 +19,32 @@
     padding: 0 1rem;
     margin-bottom: 10%;
     font-weight: bold;
-  
     
-    
+
+
+
 }
+
 .bookBtn {
-  background-color: #0F6E56;
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 0.2rem;
-  font-size:clamp(16px, 3vw, 32px);
-   font-size: clamp(14px, 3vw, 18px);
-  padding: clamp(8px, 2vw, 14px) clamp(16px, 4vw, 24px);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border-radius: 1rem;
-  font-weight: bolder;
-  border: none;
-  cursor: pointer;
-  margin: 0.5rem;
+    cursor: pointer;
+    background-color: #0F6E56;
+    color: #ffffff;
+    border-radius: 0.2rem;
+    font-size: clamp(14px, 3vw, 18px);
+    padding: clamp(8px, 2vw, 14px) clamp(16px, 4vw, 24px);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 1rem;
+    font-weight: bolder;
+    border: none;
+    z-index: 100;
+    margin: 0.5rem;
+
+}
+
+.glassBox {
+    backdrop-filter: blur(47px) saturate(180%);
+    -webkit-backdrop-filter: blur(5px) saturate(180%);
+    background-color: rgba(28, 163, 236, 0.2);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
 }

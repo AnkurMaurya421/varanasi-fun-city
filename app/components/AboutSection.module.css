@@ -1,0 +1,104 @@
+
+
+.about {
+  
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+}
+.about h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.about p {
+
+  line-height: 1.6;
+  color: rgb(37, 221, 253);
+}
+.iframe{
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+
+  
+}
+
+.content {
+    margin: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #169ae7;
+    padding: 0 1rem;
+    font-size: 1rem;
+    
+    border: 3px solid rgba(238, 27, 27, 0.125);
+}
+.highlights {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #fc931b;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+@media (max-width: 750px) {
+.show{
+    display: block !important;
+}
+.hide{
+    display: none !important;
+}
+  .about {
+  
+    flex-direction: column;
+  }
+  .about h2 {
+    font-size: 1.5rem;
+  }
+  .about p {
+    font-size: 1rem;
+  }
+  .iframe
+    { 
+    
+        width: 90%;
+
+    }
+    .toggleButtons {
+        display: flex !important;
+    }
+ 
+   
+}
+
+.toggleButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  display: none;
+  position: relative;   
+  z-index: 200;         
+}
+.toggleButtons button {
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  background: #ccc;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.toggleButtons button.active {
+  background: #169ae7;
+  color: white;
+}
