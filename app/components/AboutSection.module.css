@@ -1,66 +1,85 @@
 
-
-.about {
+.aboutSection {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top:1rem;
   background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgb(250, 164, 4);
   border-radius: 8px;
-  margin-bottom: 2rem;
+  width: 90%;
+  margin-left: 5%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow: hidden;
+
+  
+}
+.about {
+  
+  border-radius: 8px;
+
   display: flex;
   flex-direction:row;
   justify-content: center;
   align-items: center;
   width: 100%;
-  border: 2px solid rgb(250, 164, 4);
+  
   border-top: none;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  height: 70dvh;
-  width: 90%;
-  margin-left: 5%;
+  
+
+ 
+}
+
+.toggleButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  display: none;
+  position: relative;
+  border-top-left-radius: 10px;   
+}
+.toggleButtons button {
+   width: 100%;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  background: #ccc;
+  overflow: hidden;
+  font-weight: bold;
+  transition: 0.3s;
 }
 .content {
 
-    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: #169ae7;
-   
-    font-size: 1rem;
+    text-decoration: wavy;
     
 }
-.iframe{
-  padding-top: 1rem;
-  border: none;
-  border-radius: 8px;
-  height: 100%;
-    box-sizing: border-box;
-}
 
 
 
 
-.about h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
+
+
 .about p {
 
-  line-height: 1.6;
-  color: rgb(37, 221, 253);
+
+  
 }
 
 
 
-.highlights {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-    color: #fc931b;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
+
 @media (max-width: 750px) {
 .show{
     display: block !important;
@@ -71,58 +90,61 @@
   .about {
   
     flex-direction: column;
+   
+    
   }
-  .about h2 {
-    font-size: 1.5rem;
+  .content{
+ box-sizing: border-box;
+    padding: 1rem;
   }
+
   .about p {
     font-size: 1rem;
+    font-weight: bold;
+    font-style: italic;
+    color: #169ae7;
+    line-height: 2rem;
+
   }
+  .highlights{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    
+    
+  }
+  .highlights p{
+    background-color: #0f2909;
+    border-radius: 5px;
+    margin-top: 1rem;
+    font-size: clamp(0.8rem,1rem,1.5rem);
+    font-style: normal;
+    color: rgb(250, 164, 4);
+    display: flex;
+    height: 5rem;
+    justify-content: center;
+    flex-direction: column;
+     box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow: hidden;
+
+
+   }
   .iframe
     { 
     
-        width: 90%;
+        width: 100%;
 
     }
     .toggleButtons {
         display: flex !important;
     }
-    .content{
-      width: 90%;
-    }
-
+   
  
    
 }
 
-.toggleButtons {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 90%;
-  margin-left: 5%;
-  margin-top: 1rem;
-  display: none;
-  position: relative;   
-  border-top: 2px solid rgb(250, 164, 4);
-  border-left: 2px solid rgb(250, 164, 4);
-  border-right: 2px solid rgb(250, 164, 4);
-  z-index: 200;         
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  
-}
-.toggleButtons button {
-   width: 100%;
-  padding: 8px 16px;
-  border: none;
-  cursor: pointer;
-  background: #ccc;
-  overflow: hidden;
-  
-  
-  transition: 0.3s;
-}
 
 .toggleButtons button.active {
   background: #169ae7;

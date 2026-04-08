@@ -8,6 +8,7 @@ export default function AboutSection() {
 
     return (
         <>
+           <div className={styles.aboutSection}>
             {/* Toggle Buttons */}
             <div className={styles.toggleButtons}>
                 <button
@@ -32,7 +33,7 @@ export default function AboutSection() {
                     className={`${styles.content} ${isAboutOpen ? styles.show : styles.hide
                         }`}
                 >
-                    <h2 className={styles.title}>About Varanasi Fun City</h2>
+                  
 
                     <p className={styles.description}>Varanasi Fun City is Varanasi's largest
                         waterpark, situated at Pandeypur Panchkosi
@@ -63,6 +64,7 @@ export default function AboutSection() {
                         }`}
                 />
             </section>
+            </div>
         </>
     );
 }

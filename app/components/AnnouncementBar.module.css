@@ -11,6 +11,7 @@
   font-weight: bolder;
   font-size: clamp(0.3rem,0.8rem,2rem);
   
+  
 }
 
 @keyframes pulse-animation {
@@ -38,7 +39,12 @@
 }
 
 
-  .announcementbar {
-    top: 15.5dvw;
-  }
   
+  
+@media (max-width: 750px) {
+  .announcementbar
+  {
+    margin-top:1.5rem;
+    top:5dvw;
+  }
+}
