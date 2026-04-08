@@ -9,7 +9,7 @@
   width: 100%;
   text-align: center;
   font-weight: bolder;
-  font-size: clamp(10px, 1.5vw, 22px);
+  font-size: clamp(0.3rem,0.8rem,2rem);
   
 }
 
@@ -18,14 +18,14 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.1);
   }
   100% {
     transform: scale(1);
   }
 }
 .title {
-  color:rgb(246, 55, 144);
+  color:rgb(209, 36, 195);
   font-weight: bolder;
   
 }
@@ -34,17 +34,11 @@
   animation: pulse-animation 2s ease-in-out infinite;
   z-index: 1000;
  /* From https://css.glass */
-background: rgba(255, 255, 255, 0.11);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(15.5px);
--webkit-backdrop-filter: blur(15.5px);
-border: 1px solid rgba(255, 255, 255, 0.23);
-}
-
-@media (max-width: 750px) {
-  .announcementbar {
-    top: 3.5rem;
-  }
   
 }
+
+
+  .announcementbar {
+    top: 15.5dvw;
+  }
+  

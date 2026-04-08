@@ -8,7 +8,7 @@
   
   background-color: transparent;
  
- background-color: white;
+ background-color: rgb(250, 244, 244);
  border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   z-index: 104;
@@ -17,7 +17,7 @@
 
 .logo {
   height: auto;
-  width: 30%;
+  width: 10rem;
   display: flex;
   align-items: center;
 }
@@ -30,18 +30,19 @@
   font-weight: bolder;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   list-style: none;
+  margin-right: 1rem;
 }
 
 .navLinks a {
  
   font-size: 0.95rem;
-  color: white;
+  color: rgb(233, 142, 39);
  
   text-decoration: none;
 }
 
 .navLinks a:hover {
-  color: #0F6E56;
+  color: #36bcf1;
 }
 
 .bookBtn {
@@ -77,6 +78,10 @@
   .menuBtn {
     display: block;
   }
+  .logo{
+    width: 5rem;
+  }
+ 
 
 }
 
@@ -93,7 +98,7 @@
 }
 .mobileNavLinks {
   
-  background:white;
+  background-color: rgb(250, 244, 244);
   display: flex;
 
   flex-direction: column;
