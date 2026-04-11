@@ -4,35 +4,31 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  user-select: none;
+
+  width: 95%;
+  margin-left: 2.5%;
   margin-top: 1rem;
+
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid #e0e0e0;
+
   border-radius: 8px;
-  width: 95%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-  margin-left: 2.5%;
-  box-sizing: border-box;
-  overflow-wrap: break-word;
-  word-break: break-word;
   overflow: hidden;
-
 
 }
 
 .about {
 
   border-radius: 8px;
-
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
-  border-top: none;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-
-
+  box-sizing: border-box ;
 
 }
 
@@ -75,6 +71,9 @@
   padding: 4rem 2rem;
   margin: 2rem auto;
   max-width: 1200px;
+   user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 
 }
 
@@ -84,35 +83,24 @@
   line-height: 1.8;
   font-size: 1rem;
   text-align: left;
+   user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 }
 
 .highlights {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  
   gap: 1rem;
+   user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 
 
 }
 
-.highlights p {
-  background-color: white;
-  border-radius: 5px;
-  margin-top: 1rem;
-  font-size: clamp(1.25rem, 1.5rem, 1.75rem);
-  border: 1px solid rgb(45, 212, 245);
-  font-style: normal;
-  color: rgb(250, 164, 4);
 
-  display: flex;
-  height: 5rem;
-  justify-content: center;
-  flex-direction: column;
-  box-sizing: border-box;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  overflow: hidden;
-
-}
 
 .toggleButtons button.active {
   background: #169ae7;
@@ -166,21 +154,17 @@
 
   .highlights {
     margin-top: 2rem;
+    margin-right: 1rem;
     gap: 4rem;
 
   }
 
-  .highlights p {
-    font-size: clamp(1.5rem, 2rem, 2.5rem);
-    background-color: #169ae7;
-    color: white;
-    border: none;
-    font: sans-serif;
-    padding: 10px;
-  }
+  
 
   .about p {
     font-size: 1.25rem;
+     user-select: none;
+    font-weight: 600;
   }
 }
 
@@ -205,8 +189,11 @@
   .content {
     box-sizing: border-box;
     padding: 1rem;
-   
-    
+     user-select: none;
+   user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  cursor: default;
   }
 
   .about p {
@@ -215,8 +202,14 @@
     font-size: 1rem;
     text-align: left;
     font-weight: 600;
+     user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 
   }
+  .description {
+     pointer-events: none; 
+     user-select: none;}
 
   .highlights {
     margin-top: 2rem;
@@ -241,6 +234,8 @@
 
 }
 
+
+
 /* Responsive Styles for Tablet */
 @media (min-width: 751px) and (max-width: 1200px) {
   .highlights {
@@ -252,7 +247,7 @@
   }
 
   .content {
-    overflow-y: scroll;
+    box-sizing: border-box;
     padding: 0.1rem;
   }
 
