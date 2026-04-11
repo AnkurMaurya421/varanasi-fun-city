@@ -1,23 +1,38 @@
 
 "use client";
 import styles from "./AboutSection.module.css";
-import { useState } from "react";
+import { useState,useRef,useEffect } from "react";
 
 export default function AboutSection() {
     const [isAboutOpen, setIsAboutOpen] = useState(true);
+    const videoRef = useRef(null);
+    const touchStartX=useRef(0);
+    useEffect(() => {
+        const videoElement = videoRef.current;
+        if (videoElement) {
+            if (isAboutOpen) {
+                videoElement.pause();
+            } else {
+                videoElement.play();
+            }
+        }
+    }, [isAboutOpen]);
+    
+
+
 
     return (
         <>
-            <div className={styles.aboutSection}>
-                {/* Toggle Buttons */}
+            <div className={styles.aboutSection}
+            onTouchStart={(e)=>{
+                touchStartX=e.changedTouches[0].clientX;
+            }}
+            
+        >
                 <div className={styles.toggleButtons}>
-                    <button
-                        onClick={() => setIsAboutOpen(true)}
-                        className={isAboutOpen ? styles.active : ""}
-                    >
+                    <button onClick={() => setIsAboutOpen(true)} className={isAboutOpen ? styles.active : ""}>
                         About
                     </button>
-
                     <button
                         onClick={() => setIsAboutOpen(false)}
                         className={!isAboutOpen ? styles.active : ""}
@@ -27,8 +42,6 @@ export default function AboutSection() {
                 </div>
 
                 <section className={styles.about}>
-
-                    {/* About */}
                     <div
                         className={`${styles.content} ${isAboutOpen ? styles.show : styles.hide
                             }`}
@@ -40,8 +53,8 @@ export default function AboutSection() {
                             Road in the heart of Kashi. Built extensively
                             with fiberglass and decorated with mermaids,
                             it offers a rare combination of modern
-                            technology and tradition.</p>
-                        <p className={styles.description}>From thrilling water rides and a massive wave
+                            technology and tradition.
+                            From thrilling water rides and a massive wave
                             pool to a kids play area and rain dance —
                             there is something for every age group.
                             We also offer day and night sessions, making
@@ -63,18 +76,19 @@ export default function AboutSection() {
                             </div>
                             <div className={styles.highlightItem}>
                                 <span className={styles.highlightNumber}>Large</span>
-                                <span className={styles.highlightLabel}>WavePool</span> 
-                              </div>
+                                <span className={styles.highlightLabel}>WavePool</span>
+                            </div>
 
                         </div>
                     </div>
-
-                    {/* Video */}
                     <video
                         src="/waterparkvideo.mp4"
                         controls
-                        className={`${styles.iframe} ${!isAboutOpen ? styles.show : styles.hide
-                            }`}
+                        muted
+                        ref={videoRef}
+                        onMouseEnter={() => videoRef.current.play()}
+                        onMouseLeave={() => videoRef.current.pause()}
+                        className={`${styles.iframe} ${!isAboutOpen ? styles.show : styles.hide}`}
                     />
                 </section>
             </div>

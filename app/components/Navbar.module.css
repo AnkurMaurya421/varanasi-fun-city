@@ -1,170 +1,169 @@
-
 .navbar {
-  position:fixed;
-  display: flex;
-  align-items: center;
-  background: transparent;
-  justify-content: space-between;
-  
-  background-color: transparent;
- 
+ position: fixed;
+ display: flex;
+ align-items: center;
+ background: transparent;
+ justify-content: space-between;
+
+ background-color: transparent;
+
  background-color: rgb(250, 244, 244);
  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  z-index: 104;
-  width: 100%;
+ border-bottom-right-radius: 0.5rem;
+ z-index: 104;
+ width: 100%;
 }
 
 .logo {
-  height: auto;
-  width: 10rem;
-  display: flex;
-  align-items: center;
+ height: auto;
+ width: 10rem;
+ display: flex;
+ align-items: center;
 }
 
 .navLinks {
-  
-  display: flex;
-  align-items: center;
-  gap: clamp(0.1vw, 2vw, 3vw);
-  font-weight: bolder;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  list-style: none;
-  margin-right: 1rem;
+
+ display: flex;
+ align-items: center;
+ gap: clamp(0.1vw, 2vw, 3vw);
+ font-weight: bolder;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ list-style: none;
+ margin-right: 1rem;
 }
 
 .navLinks a {
- 
-  font-size: 0.95rem;
-  color: rgb(233, 142, 39);
- 
-  text-decoration: none;
+
+ font-size: 0.95rem;
+ color:#0F6E56;
+
+ text-decoration: none;
 }
 
 .navLinks a:hover {
-  color: #36bcf1;
+ color: #36bcf1;
 }
 
 .bookBtn {
-  background-color: #0F6E56;
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 0.2rem;
-  font-size: 0.95rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border-radius: 0.5rem;
-  font-weight: bolder;
-  border: none;
-  cursor: pointer;
-  margin: 0.5rem;
+ background-color: #0F6E56;
+ color: #ffffff;
+ padding: 0.5rem 1rem;
+ border-radius: 0.2rem;
+ font-size: 0.95rem;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ border-radius: 0.5rem;
+ font-weight: bolder;
+ border: none;
+ cursor: pointer;
+ margin: 0.5rem;
 }
 
 .bookBtn:hover {
-  background-color: #0F6E56;
+ background-color: #0F6E56;
 }
+
 .menuBtn {
-  display: none;
-  color: rgb(37, 221, 253);
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-right: 1rem;
+ display: none;
+ color: #0F6E56;
+ background: none;
+ border: none;
+ cursor: pointer;
+ margin-right: 1rem;
 }
 
 @media (max-width: 750px) {
-  .navLinks {
-    display: none;
-  }
-  .menuBtn {
-    display: block;
-  }
-  .logo{
-    width: 5rem;
-  }
- 
+ .navLinks {
+ display: none;
+ }
+
+ .menuBtn {
+ display: block;
+ }
+
+ .logo {
+ width: 5rem;
+ }
+
 
 }
 
 .mobileNav {
-  position: fixed;
-   /* navbar height */
-
-  width: 100%;
-  height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+ position: fixed;
  
+
+ width: 100%;
+ height: 100dvh;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+
 }
+
 .mobileNavLinks {
-  
-  background-color: rgb(250, 244, 244);
-  display: flex;
 
-  flex-direction: column;
-  align-items: center;
+ background-color: rgb(250, 244, 244);
+ display: flex;
 
-  width: 50%;
-  list-style: none;
-  border-radius: 1rem;
-  
-  transform: translateY(-300%)  ; /* hidden above screen */
-  transition: transform 0.5s ease-in-out;
- 
+ flex-direction: column;
+ align-items: center;
 
-  
-  
+ width: 50%;
+ list-style: none;
+ border-radius: 1rem;
+ transform: translateY(-300%);
+ transition: transform 0.5s ease-in-out;
 }
 
 .mobileNavLinks.open {
-  transform: translateY(0%)  ; /* slide down into view */
-   /* slide down into view */
+ transform: translateY(0%);
 }
 
-.mobileNavLinks li{
-  font-weight: bolder;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  font-size: clamp(1rem, 3.5vw, 1.8rem);
+.mobileNavLinks li {
+ font-weight: bolder;
+ width: 100%;
+ display: flex;
+ justify-content: center;
+ font-size: clamp(1rem, 3.5vw, 1.8rem);
 
 }
 
 .mobileNavLinks a {
-  display: flex;
-  justify-content: center;
- 
-  border-bottom: 2px solid rgb(233, 142, 39);;
-  color: rgb(37, 221, 253);
-  padding: 0.5rem;
-  text-decoration: none;
-  font-family: serif;
-  width:100%;
-  
+ display: flex;
+ justify-content: center;
+ border-bottom: 1px solid rgb(184, 183, 183);
+ color:#0F6E56;
+ padding: 0.5rem;
+ text-decoration: none;
+ font-family: serif;
+ width: 100%;
+
 
 }
+
 .mobileNavLinks .contactBtn {
-  border-bottom: 0px solid rgba(255, 255, 255, 1);
+ border-bottom: 0px solid rgba(255, 255, 255, 1);
 }
+
 .bookBtn {
-  background-color: #0F6E56;
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 0.2rem;
- 
-   font-size: clamp(14px, 3vw, 18px);
-  padding: clamp(8px, 2vw, 14px) clamp(16px, 4vw, 24px);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border-radius: 1rem;
-  font-weight: bolder;
-  border: none;
-  cursor: pointer;
-  margin: 0.5rem;
+ background-color: #0F6E56;
+ color: #ffffff;
+ padding: 0.5rem 1rem;
+ border-radius: 0.2rem;
+
+ font-size: clamp(14px, 3vw, 18px);
+ padding: clamp(8px, 2vw, 14px) clamp(16px, 4vw, 24px);
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ border-radius: 1rem;
+ font-weight: bolder;
+ border: none;
+ cursor: pointer;
+ margin: 0.5rem;
 }
 
 .bookBtn:hover {
-  background-color: #0F6E56;
+ background-color: #0F6E56;
 }
+
 .mobileNavLinks a:hover {
-  color: #eb8140;
+ color: #eb8140;
 }
