@@ -6,7 +6,7 @@ export default function AboutSection() {
     const [isAboutOpen, setIsAboutOpen] = useState(true);
     const videoRef = useRef(null);
     const touchStartX = useRef(0);
-    const contentRef = useRef(null);
+
 
 
     useEffect(() => {
@@ -20,32 +20,7 @@ export default function AboutSection() {
         }
     }, [isAboutOpen]);
 
-    useEffect(() => {
-        const element = contentRef.current
-        if (!element) return   
-
-        const handleTouchStart = (e) => {
-            console.log('touch start fired', e.touches[0].clientX)
-            touchStartX.current = e.touches[0].clientX
-        }
-
-        const handleTouchEnd = (e) => {
-             console.log('touch end fired', e.changedTouches[0].clientX)
-            handleSwipe(e.changedTouches[0].clientX)
-        }
-
-        element.addEventListener('touchstart', handleTouchStart, { passive: false })
-        element.addEventListener('touchend', handleTouchEnd, { passive: false })
-
-        return () => {
-            element.removeEventListener('touchstart', handleTouchStart)
-            element.removeEventListener('touchend', handleTouchEnd)
-        }
-    }, [])
-
-useEffect(() => {
-  console.log('contentRef:', contentRef.current)
-}, [])
+  
 
     function handleSwipe(endPos) {
         let swipeLength = touchStartX.current - endPos;
@@ -61,7 +36,7 @@ useEffect(() => {
         <>
             <div
                 className={styles.aboutSection}
-                onTouchStart={(e) => {
+                 onTouchStart={(e) => {
                     touchStartX.current = e.touches[0].clientX;
                 }}
                 onTouchEnd={(e) => handleSwipe(e.changedTouches[0].clientX)}
@@ -85,7 +60,10 @@ useEffect(() => {
                     <div
                         className={`${styles.content} ${isAboutOpen ? styles.show : styles.hide
                             }`}
-                        ref={contentRef}
+                        onTouchStart={(e) => {
+                    touchStartX.current = e.touches[0].clientX;
+                }}
+                onTouchEnd={(e) => handleSwipe(e.changedTouches[0].clientX)}
                     >
                         <p className={styles.description}>
                             Varanasi Fun City is Varanasi's largest waterpark, situated at

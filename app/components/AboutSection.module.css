@@ -61,7 +61,7 @@
 }
 
 .content {
-
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: space-around;
@@ -186,16 +186,14 @@
 
   
 
-  .content {
+ .content {
     box-sizing: border-box;
     padding: 1rem;
-     user-select: none;
-   user-select: none;
-  -webkit-user-select: none;
-  touch-action: none;
-  cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    cursor: default;
   }
-
   .about p {
     color: #333333;
     line-height: 1.8;
@@ -208,10 +206,12 @@
 
   }
   .description {
-     pointer-events: none; 
-     user-select: none;}
+  pointer-events: none;
+  touch-action: none;  
+}
 
   .highlights {
+    pointer-events: none;
     margin-top: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
