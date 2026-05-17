@@ -1,37 +1,31 @@
-import OpenAI from "openai";
+import Groq from "groq-sdk";
 import { buildSystemPrompt } from "@/lib/buildSystemPrompt";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 // ── In-memory rate limiter ──────────────────────────────────────────
-// Resets on server restart (fine for Vercel serverless — each instance
-// tracks its own window; good enough to stop casual spam).
 const WINDOW_MS = 60 * 60 * 1000; // 1 hour
-const MAX_REQUESTS = 30;           // per IP per hour
+const MAX_REQUESTS = 60;           // per IP per hour
 
-const ipStore = new Map(); // { ip: { count, resetAt } }
+const ipStore = new Map();
 
 function isRateLimited(ip) {
   const now = Date.now();
   const record = ipStore.get(ip);
 
   if (!record || now > record.resetAt) {
-    // Fresh window
     ipStore.set(ip, { count: 1, resetAt: now + WINDOW_MS });
     return false;
   }
 
-  if (record.count >= MAX_REQUESTS) {
-    return true;
-  }
+  if (record.count >= MAX_REQUESTS) return true;
 
   record.count += 1;
   return false;
 }
 
-// Clean up old entries every hour to prevent memory leak
 setInterval(() => {
   const now = Date.now();
   for (const [ip, record] of ipStore.entries()) {
@@ -42,13 +36,11 @@ setInterval(() => {
 // ── Route handler ───────────────────────────────────────────────────
 export async function POST(request) {
   try {
-    // Get IP
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       request.headers.get("x-real-ip") ||
       "unknown";
 
-    // Check rate limit
     if (isRateLimited(ip)) {
       return new Response(
         JSON.stringify({
@@ -70,11 +62,11 @@ export async function POST(request) {
       });
     }
 
-    // Limit conversation history to last 10 messages to save tokens
+    // Trim to last 10 messages to save tokens
     const trimmedMessages = messages.slice(-10);
 
-    const stream = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const stream = await groq.chat.completions.create({
+      model: "llama-3.1-8b-instant",
       messages: [
         { role: "system", content: buildSystemPrompt() },
         ...trimmedMessages,

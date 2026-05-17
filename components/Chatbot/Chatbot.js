@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./Chatbot.module.css";
 
 // ── Limits ────────────────────────────────────────────────────────
-const SESSION_MESSAGE_LIMIT = 20; // max user messages per browser session
+const SESSION_MESSAGE_LIMIT = 40; // max user messages per browser session
 const SESSION_KEY = "vfc_chat_count";
 
 function getSessionCount() {
