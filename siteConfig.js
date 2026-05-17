@@ -30,7 +30,7 @@ export const siteConfig = {
   announcements: [
     { status: "open", label: "Live", text: "Waterpark is open now — dive in!" },
     { status: "info", label: "Tonight", text: "Night Shift open, check rules below" },
-    { status: "info", label: "New", text: "Monsoon Splash Festival every weekend" },
+    
     // { status: "closed", label: "Notice", text: "Closed for season — reopening 5th March 2026" },
   ],
 
