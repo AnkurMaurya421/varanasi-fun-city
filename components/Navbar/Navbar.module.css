@@ -66,7 +66,11 @@
   color: var(--clr-sky-600);
   background: var(--clr-sky-50);
 }
-
+.logoImg {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
 .ctaDesktop {
   display: none;
   font-size: 0.88rem;

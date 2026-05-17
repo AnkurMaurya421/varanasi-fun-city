@@ -6,12 +6,12 @@ import { siteConfig } from "@/siteConfig";
 import styles from "./Navbar.module.css";
 
 const navLinks = [
-  { href: "#about",        label: "About" },
-  { href: "#timings",      label: "Timings" },
-  { href: "#pricing",      label: "Pricing" },
-  { href: "#rides",        label: "Rides" },
+  { href: "#about", label: "About" },
+  { href: "#timings", label: "Timings" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#rides", label: "Rides" },
   { href: "#testimonials", label: "Reviews" },
-  { href: "#contact",      label: "Contact" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -37,7 +37,13 @@ export default function Navbar() {
       <div className={`${styles.inner} shell`}>
         {/* Logo */}
         <Link href="#top" className={styles.logo} onClick={close} aria-label="Varanasi Fun City — home">
-          <span className={styles.logoText}>{siteConfig.name}</span>
+          <img
+            src={siteConfig.logo}
+            alt={siteConfig.name}
+            className={styles.logoImg}
+            width={120}
+            height={40}
+          />
         </Link>
 
         {/* Desktop nav */}
