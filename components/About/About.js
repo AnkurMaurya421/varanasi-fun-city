@@ -27,7 +27,7 @@ export default function About() {
             {/* Highlights */}
             <div className={styles.highlights}>
               <div className={styles.hlCard}>
-                <span className={styles.hlNum}>15+</span>
+                <span className={styles.hlNum}>20+</span>
                 <span className={styles.hlLabel}>Thrilling Rides</span>
               </div>
               <div className={styles.hlCard}>
