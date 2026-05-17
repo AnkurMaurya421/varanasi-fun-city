@@ -1,0 +1,123 @@
+.section {
+  background: var(--clr-white);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+.card {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ---- Photo ---- */
+.photo {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--clr-sky-100);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .photo img {
+  transform: scale(1.05);
+}
+
+/* ---- Placeholder ---- */
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: linear-gradient(135deg, var(--clr-sky-100), var(--clr-sky-200));
+}
+
+.placeholderIcon {
+  font-size: 2.5rem;
+  opacity: 0.4;
+}
+
+.placeholderText {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--clr-sky-600);
+  opacity: 0.6;
+}
+
+/* ---- Body ---- */
+.body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+/* ---- Tag ---- */
+.tag {
+  display: inline-flex;
+  width: fit-content;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+.tagBlue   { background: #dbeafe; color: #1d4ed8; }
+.tagRed    { background: #fee2e2; color: #dc2626; }
+.tagPurple { background: #ede9fe; color: #7c3aed; }
+.tagGreen  { background: #dcfce7; color: #16a34a; }
+.tagTeal   { background: #ccfbf1; color: #0d9488; }
+.tagOrange { background: #ffedd5; color: #ea580c; }
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--clr-ocean-dark);
+  line-height: 1.25;
+}
+
+.desc {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  line-height: 1.65;
+}
+
+/* ---- Desktop ---- */
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

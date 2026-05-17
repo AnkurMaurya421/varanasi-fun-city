@@ -1,0 +1,343 @@
+.section {
+  background: var(--clr-white);
+}
+
+/* ---- Tabs ---- */
+.tabs {
+  display: flex;
+  background: var(--clr-sky-50);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-full);
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: var(--space-6);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-full);
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+  min-height: 42px;
+  min-width: 90px;
+}
+
+.tab:hover { color: var(--clr-sky-600); }
+
+.activeTab {
+  background: var(--clr-accent);
+  color: var(--clr-white) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---- Cards ---- */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+/* ---- Card base ---- */
+.card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  border: 1.5px solid transparent;
+  overflow: hidden;
+}
+
+/* ---- Day card — warm cream ---- */
+.dayCard {
+  background: #fffbf0;
+  border-color: #fde68a;
+}
+
+/* ---- Night card ---- */
+.nightCard {
+  background: #f5f7ff;
+  border-color: #c7d2fe;
+}
+
+/* ---- Closed night — pink diagonal stripes ---- */
+.closedCard {
+  background-color: #fff1f2;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(253, 164, 175, 0.3) 8px,
+    rgba(253, 164, 175, 0.3) 16px
+  );
+  border-color: #fecdd3;
+}
+
+/* ---- Status pill ---- */
+.statusPill {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.28rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.pillDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.pillOpen {
+  background: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.pillOpen .pillDot { background: #16a34a; }
+
+.pillClosed {
+  background: #ffe4e6;
+  color: #e11d48;
+  border: 1px solid #fecdd3;
+}
+
+.pillClosed .pillDot { background: #e11d48; }
+
+/* ---- Card header ---- */
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.cardIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sunIcon {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.moonIcon {
+  background: #e0e7ff;
+  color: #4f46e5;
+}
+
+.moonClosed {
+  background: #ffe4e6;
+  color: #e11d48;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--clr-ocean-dark);
+}
+
+.cardSub {
+  font-size: 0.8rem;
+  color: var(--clr-text-muted);
+}
+
+.dimText { opacity: 0.45; }
+
+/* ---- Dashed divider ---- */
+.divider {
+  border: none;
+  border-top: 1.5px dashed #d1d5db;
+  margin-block: var(--space-3);
+}
+
+.closedCard .divider {
+  border-color: #fecdd3;
+}
+
+/* ---- Price rows ---- */
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.dimRows { opacity: 0.45; }
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-1);
+}
+
+.rowName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--clr-ocean-dark);
+}
+
+.rowMeta {
+  font-size: 0.75rem;
+  color: var(--clr-text-muted);
+}
+
+.amount {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--clr-ocean-dark);
+}
+
+.free {
+  color: #16a34a;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* ---- Reopens note ---- */
+.reopensNote {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid #fecdd3;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #e11d48;
+}
+
+/* ---- Extras ---- */
+.extras {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.extraCard {
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5) var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.extraHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.extraIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--clr-sky-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-sky-600);
+  flex-shrink: 0;
+}
+
+.extraTitle {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--clr-ocean-dark);
+}
+
+.compulsoryBadge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  margin-left: auto;
+}
+
+.extraRows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.extraRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3);
+  background: var(--clr-sky-50);
+  border-radius: var(--radius-md);
+}
+
+.extraName {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+.extraVals {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.extraFee {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--clr-sky-700);
+}
+
+.extraDeposit {
+  font-size: 0.72rem;
+  color: var(--clr-text-muted);
+}
+
+/* ---- Desktop ---- */
+@media (min-width: 640px) {
+  .cards {
+    flex-direction: row;
+  }
+
+  .card { flex: 1; }
+
+  .extras {
+    flex-direction: row;
+  }
+
+  .extraCard { flex: 1; }
+}

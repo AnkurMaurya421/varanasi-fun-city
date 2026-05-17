@@ -1,90 +1,27 @@
 
+import Navbar from "@/components/Navbar/Navbar";
+import Hero from "@/components/Hero/Hero";
+import About from "@/components/About/About";
+import Timings from "@/components/Timings/Timings";
+import Pricing from "@/components/Pricing/Pricing";
+import Rides from "@/components/Rides/Rides";
+import Testimonials from "@/components/Testimonials/Testimonials";
+import Footer from "@/components/Footer/Footer";
+
 export default function Home() {
   return (
-    <main>
-      <h1>Welcome to the VFC Frontend!</h1>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <h1>Welcome to the VFC Frontend!</h1>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <h1>Welcome to the VFC Frontend!</h1>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <h1>Welcome to the VFC Frontend!</h1>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <h1>Welcome to the VFC Frontend!</h1>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <h1>Welcome to the VFC Frontend!</h1>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <h1>Welcome to the VFC Frontend!</h1>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      <p>This is the main page of the VFC application.</p>
-      aefaef
-
-      aef
-      ae
-      fae
-
-    </main>
-  )
+    <>
+      
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Timings />
+        <Pricing />
+        <Rides />
+        <Testimonials />
+      </main>
+      <Footer />
+    </>
+  );
 }

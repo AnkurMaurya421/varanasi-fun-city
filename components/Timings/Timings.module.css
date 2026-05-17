@@ -1,0 +1,207 @@
+.section {
+  background: var(--clr-sky-50);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+.card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border: 1.5px solid transparent;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ---- Day card — warm cream ---- */
+.dayCard {
+  background: #fffbf0;
+  border-color: #fde68a;
+}
+
+/* ---- Night card ---- */
+.nightCard {
+  background: #f5f7ff;
+  border-color: #c7d2fe;
+}
+
+/* ---- Closed night card — pink diagonal stripes ---- */
+.closedCard {
+  background-color: #fff1f2;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(253, 164, 175, 0.35) 8px,
+    rgba(253, 164, 175, 0.35) 16px
+  );
+  border-color: #fecdd3;
+}
+
+/* ---- Icon ---- */
+.iconWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: #fef3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d97706;
+  margin-bottom: var(--space-1);
+  flex-shrink: 0;
+}
+
+.iconWrap svg {
+  width: 24px;
+  height: 24px;
+}
+
+.nightIcon {
+  background: #e0e7ff;
+  color: #4f46e5;
+}
+
+.closedCard .nightIcon {
+  background: #ffe4e6;
+  color: #e11d48;
+}
+
+/* ---- Status badge ---- */
+.statusBadge {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.statusBadge.open {
+  background: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.statusBadge.open .statusDot { background: #16a34a; }
+
+.statusBadge.closed {
+  background: #ffe4e6;
+  color: #e11d48;
+  border: 1px solid #fecdd3;
+}
+
+.statusBadge.closed .statusDot { background: #e11d48; }
+
+/* ---- Text ---- */
+.sublabel {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--clr-text-muted);
+}
+
+.closedCard .sublabel { color: #9f1239; opacity: 0.6; }
+
+.shiftName {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--clr-ocean-dark);
+  line-height: 1.2;
+}
+
+.closedCard .shiftName { color: #4c0519; opacity: 0.7; }
+
+.hours {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--clr-ocean-dark);
+}
+
+.closedCard .hours { opacity: 0.5; }
+
+.days {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--clr-text-muted);
+}
+
+.closedCard .days { opacity: 0.5; }
+
+/* ---- Note box — pushed to bottom ---- */
+.noteBox {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-top: auto;
+}
+
+.closedCard .noteBox {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.note {
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+}
+
+.closedCard .note { opacity: 0.5; }
+
+/* ---- Reopens ---- */
+.reopens {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid #fecdd3;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #e11d48;
+  margin-top: var(--space-2);
+}
+
+.reopens svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: #e11d48;
+}
+
+/* ---- Desktop ---- */
+@media (min-width: 640px) {
+  .grid {
+    flex-direction: row;
+  }
+
+  .card { flex: 1; }
+}
