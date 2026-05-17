@@ -30,7 +30,7 @@ export const siteConfig = {
   announcements: [
     { status: "open", label: "Live", text: "Waterpark is open now — dive in!" },
     { status: "info", label: "Tonight", text: "Night Shift open, check rules below" },
-    
+
     // { status: "closed", label: "Notice", text: "Closed for season — reopening 5th March 2026" },
   ],
 
@@ -126,8 +126,8 @@ export const siteConfig = {
     costume: {
       label: "Costume Rental",
       compulsory: true,  // shows warning badge
-      male: { charge: 50, deposit: 100 },
-      female: { charge: 50, deposit: 100 },
+      male: { charge: 50, deposit: 200 },
+      female: { charge: 50, deposit: 200 },
     },
   },
 
@@ -210,8 +210,10 @@ export const siteConfig = {
   //  CONTACT & LOCATION
   // ----------------------------------------------------------
   contact: {
-    phone: "99183 75703",
+    phone: "9918375703",
     phoneHref: "tel:+919918375703",
+    phone2: "99184 04351",        // add this
+    phone2Href: "tel:+919918404351",
     email: "varanasifuncity@gmail.com",
     address: "Sona Talab Pandeypur, Panchkoshi Rd, in front of St. Mary Convent School, Daniyalpur, Varanasi, Uttar Pradesh 221007",
     mapUrl: "https://goo.gl/maps/uzaa7EXVEd3uv7v18",
@@ -224,7 +226,7 @@ export const siteConfig = {
   socials: {
     youtube: "https://www.youtube.com/@varanasifuncity100",
     instagram: "https://www.instagram.com/varanasifuncitywaterpark/",
-    
+
   },
 
   // ----------------------------------------------------------

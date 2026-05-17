@@ -73,7 +73,7 @@ export default function Footer() {
               <a href={socials.instagram} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Instagram">
                 <InstagramIcon />
               </a>
-             
+
               <a href={contact.mapUrl} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Google Maps">
                 <MapIcon />
               </a>
@@ -96,7 +96,7 @@ export default function Footer() {
               />
             </div>
             <p className={styles.address}>{contact.address}</p>
-            
+
           </div>
 
           {/* Contact */}
@@ -105,6 +105,10 @@ export default function Footer() {
             <a href={contact.phoneHref} className={styles.phoneLink}>
               <PhoneIcon />
               {contact.phone}
+            </a>
+            <a href={contact.phone2Href} className={styles.phoneLink}>
+              <PhoneIcon />
+              {contact.phone2}
             </a>
             {contact.email && !contact.email.startsWith("// TODO") && (
               <a href={`mailto:${contact.email}`} className={styles.emailLink}>

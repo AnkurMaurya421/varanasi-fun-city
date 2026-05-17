@@ -62,7 +62,7 @@ export default function Hero() {
             {/* Stats */}
             <div className={styles.stats}>
               <div className={styles.stat}>
-                <span className={styles.statNum}>15+</span>
+                <span className={styles.statNum}>20+</span>
                 <span className={styles.statLabel}>Rides</span>
               </div>
               <div className={styles.statDivider} aria-hidden="true" />
