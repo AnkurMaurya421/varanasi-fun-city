@@ -12,7 +12,7 @@ export const metadata = {
   creator: "Ankur Maurya",
   metadataBase: new URL(siteConfig.seo.canonicalUrl),
   alternates: {
-    canonical: "/",
+    canonical: "https://varanasifuncity.com",
   },
   openGraph: {
     type: "website",
