@@ -258,4 +258,8 @@ export const siteConfig = {
     latitude: 25.3176,    // TODO: verify exact coordinates
     longitude: 82.9739,   // TODO: verify exact coordinates
   },
+  agency :{
+    name:"OntoWeb",
+    url:"https://www.ontoweb.in/",
+  },
 };

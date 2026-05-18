@@ -46,7 +46,7 @@
   align-items: center;
 }
 
-/* ---- Left copy ---- */
+
 .copy {
   display: flex;
   flex-direction: column;
@@ -54,7 +54,7 @@
   flex: 1;
 }
 
-/* ---- Announce pill ---- */
+
 .announce {
   display: inline-flex;
   align-items: center;
@@ -66,8 +66,8 @@
   width: fit-content;
   box-shadow: var(--shadow-sm);
    max-width: 100%;         
- 
   overflow: hidden;
+ 
 }
 
 .announceDot {

@@ -43,7 +43,7 @@ function PhoneIcon() {
 }
 
 export default function Footer() {
-  const { name, contact, socials, seo } = siteConfig;
+  const { name, contact, socials, agency } = siteConfig;
 
   return (
     <footer className={styles.footer} id="contact">
@@ -65,7 +65,6 @@ export default function Footer() {
             <p className={styles.brandDesc}>
               The biggest waterpark in Varanasi. Open all year — splash through summer, dance through monsoon.
             </p>
-            {/* Social icons */}
             <div className={styles.socials}>
               <a href={socials.youtube} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="YouTube">
                 <YoutubeIcon />
@@ -73,7 +72,9 @@ export default function Footer() {
               <a href={socials.instagram} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Instagram">
                 <InstagramIcon />
               </a>
-
+              <a href={socials.facebook} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Facebook">
+                <FacebookIcon />
+              </a>
               <a href={contact.mapUrl} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Google Maps">
                 <MapIcon />
               </a>
@@ -96,7 +97,6 @@ export default function Footer() {
               />
             </div>
             <p className={styles.address}>{contact.address}</p>
-
           </div>
 
           {/* Contact */}
@@ -135,7 +135,17 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className={styles.bottom}>
           <p>© {new Date().getFullYear()} {name}. All rights reserved.</p>
-          <p>Designed &amp; Developed by Ankur Maurya</p>
+          <p>
+            Designed &amp; Developed by{" "}
+            <a
+              href={agency.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.agencyLink}
+            >
+              {agency.name}
+            </a>
+          </p>
         </div>
       </div>
     </footer>

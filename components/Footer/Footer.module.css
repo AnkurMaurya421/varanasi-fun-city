@@ -188,3 +188,18 @@
     text-align: left;
   }
 }
+
+.agencyLink {
+  color: var(--clr-sky-400);
+  font-weight: 800;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--clr-sky-400), #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: opacity var(--transition);
+}
+
+.agencyLink:hover {
+  opacity: 0.8;
+}
