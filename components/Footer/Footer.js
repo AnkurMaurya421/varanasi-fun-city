@@ -137,14 +137,15 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} {name}. All rights reserved.</p>
           <p>
             Designed &amp; Developed by{" "}
-            <a
+            {/*<a
               href={agency.url}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.agencyLink}
             >
               {agency.name}
-            </a>
+            </a> */}
+            
           </p>
         </div>
       </div>
