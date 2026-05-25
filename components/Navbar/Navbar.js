@@ -56,7 +56,7 @@ export default function Navbar() {
         </nav>
 
         {/* Desktop CTA */}
-        <a href="#pricing" className={styles.ctaDesktop}>Book Tickets</a>
+        <a href="#pricing" className={styles.ctaDesktop}>Check Tickets</a>
 
         {/* Hamburger */}
         <button
