@@ -66,7 +66,7 @@ export const siteConfig = {
   // ----------------------------------------------------------
   pricing: {
     weekday: {
-      label: "Weekdays",
+      label: "Mon–Fri",
       day: {
         adult: 400,    // TODO: confirm
         kid: 300,      // TODO: confirm — kids 3ft–4ft
@@ -79,7 +79,7 @@ export const siteConfig = {
       },
     },
     weekend: {
-      label: "Weekends",
+      label: "Sat–Sun",
       day: {
         adult: 500,    // TODO: confirm
         kid: 400,      // TODO: confirm
