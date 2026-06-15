@@ -11,9 +11,9 @@ export const siteConfig = {
   name: "Varanasi Fun City",
   tagline: "Water Park Where Everyone Feels the Thrill!",
   subTagline: "Varanasi's largest waterpark — slides, wave pool, rain dance & more.",
-  logo: "https://res.cloudinary.com/dkgafhfn9/image/upload/f_auto,q_auto/mainlogo_goeafx",
-  heroImage: "https://res.cloudinary.com/dkgafhfn9/image/upload/f_auto,q_auto/main_ajqe81",
-  reelVideo: "https://res.cloudinary.com/dkgafhfn9/video/upload/v1779023123/waterparkvideo_zrt33g.mp4",
+  logo: "/mainlogo.png",
+  heroImage: "/main.jpg",
+  reelVideo: "/waterparkvideo.mp4",
 
   // ----------------------------------------------------------
   //  PARK STATUS
@@ -133,7 +133,7 @@ export const siteConfig = {
 
   // ----------------------------------------------------------
   //  RIDES & ATTRACTIONS
-  //  Add/remove ride objects freely. image is a Cloudinary URL.
+  //  Add/remove ride objects freely. image is a path under /public.
   // ----------------------------------------------------------
   rides: [
     {
@@ -141,21 +141,21 @@ export const siteConfig = {
       name: "Wave Pool",
       tag: "Signature",
       desc: "Ride the ocean right in Varanasi. ",
-      image: "https://res.cloudinary.com/dkgafhfn9/image/upload/v1779023955/night1_opxcu1.jpg",
+      image: "/night1.jpg"
     },
     {
       id: "mega-slides",
       name: "Mega Slide Tower",
       tag: "Thrill",
       desc: "Cyclone,Pendulum,tornado and what not...we have extensive range of rides.",
-      image: "https://res.cloudinary.com/dkgafhfn9/image/upload/v1779023968/bigrides1_tzqtow.jpg",
+      image: "/bigrides1.jpg",
     },
     {
       id: "rain-dance",
       name: "Rain Dance",
       tag: "Party",
       desc: "Bollywood beats, sprinklers everywhere, and the best dance floor in town.",
-      image: "https://res.cloudinary.com/dkgafhfn9/image/upload/v1779023964/raindance2_zkxgyz.jpg",
+      image: "/raindance2.jpg",
     },
 
     {
@@ -163,14 +163,14 @@ export const siteConfig = {
       name: "Child Pool",
       tag: "Family",
       desc: "Calm, shallow pool designed for the youngest visitors. Lifeguards always present.",
-      image: "https://res.cloudinary.com/dkgafhfn9/image/upload/q_auto/f_auto/v1779026411/a_spectacular_high_end_children_s_splash_pool_at_a_premium_waterpark._the_pool_1_ckxmmf.png",
+      image: "/childpool1.jpg",
     },
     {
       id: "night-zone",
       name: "Night Zone",
       tag: "Chill",
       desc: "Enjoy cool night weather with your family and friends.",
-      image: "https://res.cloudinary.com/dkgafhfn9/image/upload/v1779023964/night3_ldvjqo.jpg",
+      image: "/night3.jpg",
     },
 
   ],
@@ -241,7 +241,7 @@ export const siteConfig = {
     keywords:
       "water park Varanasi, waterpark Varanasi, best waterpark Varanasi, water rides Varanasi, wave pool Varanasi, amusement park Varanasi, Varanasi Fun City, funcity Varanasi, water world Varanasi, largest waterpark Varanasi",
     canonicalUrl: "https://varanasifuncity.com",
-    ogImage: "// TODO: Cloudinary URL — OG image (1200x630px recommended)",
+    ogImage: "/main.jpg",
     twitterHandle: "// TODO: Add if exists",
     themeColor: "#0ea5e9",
   },
