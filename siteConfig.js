@@ -28,8 +28,8 @@ export const siteConfig = {
   //  status: "open" | "closed" | "info"
   // ----------------------------------------------------------
   announcements: [
-    { status: "open", label: "Live", text: "Waterpark is open now — dive in!" },
-    { status: "info", label: "Tonight", text: "Night Shift open, check rules below" },
+    { status: "closed", label: "Notice", text: "Night Shift will remain closed on 26th June" },
+    { status: "closed", label: "Notice", text: "Night Shift will remain closed on 26th June" },
 
     // { status: "closed", label: "Notice", text: "Closed for season — reopening 5th March 2026" },
   ],
