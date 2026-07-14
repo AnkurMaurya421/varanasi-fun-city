@@ -42,7 +42,7 @@ export const siteConfig = {
       enabled: true,
       label: "Day Shift",
       sublabel: "Sun-up splash",
-      hours: "11:00 AM – 4:00 PM",
+      hours: "11:00 AM – 5:00 PM",
       days: "Open all 7 days",
       note: "Best for families with kids. Includes wave pool, rain dance and all slides.",
       icon: "sun",   // "sun" | "moon"
