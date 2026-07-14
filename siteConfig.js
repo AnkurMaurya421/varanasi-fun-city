@@ -48,7 +48,7 @@ export const siteConfig = {
       icon: "sun",   // "sun" | "moon"
     },
     night: {
-      enabled: true,   // set true when night shift season opens
+      enabled: false,   // set true when night shift season opens
       label: "Night Shift",
       sublabel: "After-dark splash",
       hours: "5:00 PM – 8:00 PM",
