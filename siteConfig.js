@@ -259,7 +259,7 @@ export const siteConfig = {
     longitude: 82.9739,   // TODO: verify exact coordinates
   },
   agency :{
-    name:"Ankur Maurya",
-    url:"",
+    name:"Ontoweb",
+    url:"https://www.ontoweb.in/",
   },
 };
