@@ -49,6 +49,10 @@ export default function Hero() {
             </h1>
 
             <p className={styles.sub}>{subTagline}</p>
+            <p className={styles.kicker}>
+              Also Varanasi&apos;s wedding lawn &amp; event venue —{" "}
+              <a href="#occasions" className={styles.kickerLink}>see weddings &amp; events ↓</a>
+            </p>
 
             <div className={styles.actions}>
               <a href="#pricing" className={styles.ctaPrimary}>

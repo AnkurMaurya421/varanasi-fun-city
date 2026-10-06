@@ -1,4 +1,5 @@
 import { siteConfig } from "@/siteConfig";
+import { services } from "@/servicesConfig";
 import "./globals.css";
 
 export const metadata = {
@@ -12,7 +13,7 @@ export const metadata = {
   creator: "Ankur Maurya",
   metadataBase: new URL(siteConfig.seo.canonicalUrl),
   alternates: {
-    canonical: "https://varanasifuncity.com",
+    canonical: siteConfig.seo.canonicalUrl,
   },
   openGraph: {
     type: "website",
@@ -49,14 +50,19 @@ export const metadata = {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
+};
+
+export const viewport = {
   themeColor: siteConfig.seo.themeColor,
 };
 
 // JSON-LD Local Business Schema
 function JsonLd() {
+  const eventServices = services.filter((s) => s.category !== "park");
+
   const schema = {
     "@context": "https://schema.org",
-    "@type": siteConfig.schema.type,
+    "@type": [siteConfig.schema.type, "EventVenue"],
     name: siteConfig.name,
     description: siteConfig.seo.description,
     url: siteConfig.seo.canonicalUrl,
@@ -74,31 +80,46 @@ function JsonLd() {
       latitude: siteConfig.schema.latitude,
       longitude: siteConfig.schema.longitude,
     },
+    areaServed: [
+      { "@type": "City", name: "Varanasi" },
+      { "@type": "Place", name: "Pandeypur, Varanasi" },
+      { "@type": "Place", name: "Ashapur, Varanasi" },
+      { "@type": "Place", name: "Pahariya, Varanasi" },
+    ],
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: [
           "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
         ],
-        opens: "10:30",
-        closes: "16:00",
+        opens: "11:00",
+        closes: "17:00",
       },
     ],
     priceRange: siteConfig.schema.priceRange,
     currenciesAccepted: siteConfig.schema.currenciesAccepted,
     paymentAccepted: siteConfig.schema.paymentAccepted,
-    image: siteConfig.seo.ogImage,
+    image: `${siteConfig.seo.canonicalUrl}${siteConfig.seo.ogImage}`,
     offers: {
       "@type": "Offer",
       price: "400",
       priceCurrency: "INR",
       description: "General admission ticket",
     },
+    makesOffer: eventServices.map((s) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: s.h1,
+        serviceType: s.keyword,
+        url: `${siteConfig.seo.canonicalUrl}/${s.slug}/`,
+      },
+    })),
     sameAs: [
       siteConfig.socials.facebook,
       siteConfig.socials.instagram,
       siteConfig.socials.youtube,
-    ],
+    ].filter(Boolean),
   };
 
   return (

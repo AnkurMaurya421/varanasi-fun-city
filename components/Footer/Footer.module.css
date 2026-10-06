@@ -178,8 +178,14 @@
 @media (min-width: 768px) {
   .grid {
     display: grid;
-    grid-template-columns: 1.4fr 1.2fr 1fr 1fr;
-    gap: var(--space-8);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: 1.2fr 1fr 0.9fr 0.9fr 1fr;
   }
 
   .bottom {

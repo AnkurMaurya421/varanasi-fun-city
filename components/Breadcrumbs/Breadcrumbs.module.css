@@ -1,0 +1,32 @@
+.crumbs {
+  padding-block: var(--space-4);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.item a {
+  color: var(--clr-sky-600);
+  font-weight: 600;
+}
+
+.item a:hover {
+  text-decoration: underline;
+}
+
+.sep {
+  color: var(--clr-border);
+  margin-inline-start: var(--space-1);
+}

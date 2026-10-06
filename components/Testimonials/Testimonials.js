@@ -26,7 +26,7 @@ export default function Testimonials() {
         <div className={styles.track}>
           {testimonials.map((t) => (
             <article key={t.id} className={styles.card}>
-              <span className={styles.quoteMark} aria-hidden="true">"</span>
+              <span className={styles.quoteMark} aria-hidden="true">&quot;</span>
               <Stars count={t.stars} />
               <p className={styles.text}>{t.text}</p>
               <div className={styles.person}>

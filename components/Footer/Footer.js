@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { siteConfig } from "@/siteConfig";
 import styles from "./Footer.module.css";
 
@@ -72,9 +73,11 @@ export default function Footer() {
               <a href={socials.instagram} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Instagram">
                 <InstagramIcon />
               </a>
-              <a href={socials.facebook} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Facebook">
-                <FacebookIcon />
-              </a>
+              {socials.facebook && (
+                <a href={socials.facebook} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Facebook">
+                  <FacebookIcon />
+                </a>
+              )}
               <a href={contact.mapUrl} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Google Maps">
                 <MapIcon />
               </a>
@@ -122,11 +125,30 @@ export default function Footer() {
             <h4 className={styles.colTitle}>Quick Links</h4>
             <nav aria-label="Footer navigation">
               <ul className={styles.links}>
-                <li><a href="#about">About</a></li>
-                <li><a href="#timings">Timings</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#rides">Rides</a></li>
-                <li><a href="#testimonials">Reviews</a></li>
+                <li><Link href="/#about">About</Link></li>
+                <li><Link href="/#timings">Timings</Link></li>
+                <li><Link href="/#pricing">Pricing</Link></li>
+                <li><Link href="/#rides">Rides</Link></li>
+                <li><Link href="/#testimonials">Reviews</Link></li>
+                <li><Link href="/gallery/">Gallery</Link></li>
+              </ul>
+            </nav>
+          </div>
+
+          {/* Weddings & Events */}
+          <div className={styles.col}>
+            <h4 className={styles.colTitle}>Weddings &amp; Events</h4>
+            <nav aria-label="Weddings and events navigation">
+              <ul className={styles.links}>
+                <li><Link href="/wedding-lawn-varanasi/">Wedding Lawn</Link></li>
+                <li><Link href="/reception-venue-varanasi/">Reception Venue</Link></li>
+                <li><Link href="/engagement-venue-varanasi/">Engagement Venue</Link></li>
+                <li><Link href="/event-venue-varanasi/">Event Venue</Link></li>
+                <li><Link href="/corporate-events-varanasi/">Corporate Events</Link></li>
+                <li><Link href="/party-venue-varanasi/">Party Venue</Link></li>
+                <li><Link href="/birthday-party-varanasi/">Birthday Party</Link></li>
+                <li><Link href="/kitty-party-varanasi/">Kitty Party</Link></li>
+                <li><Link href="/pool-party-varanasi/">Pool Party</Link></li>
               </ul>
             </nav>
           </div>

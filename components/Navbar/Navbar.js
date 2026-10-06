@@ -6,12 +6,13 @@ import { siteConfig } from "@/siteConfig";
 import styles from "./Navbar.module.css";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#timings", label: "Timings" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#rides", label: "Rides" },
-  { href: "#testimonials", label: "Reviews" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/water-park-varanasi/", label: "Water Park" },
+  { href: "/wedding-lawn-varanasi/", label: "Weddings" },
+  { href: "/party-venue-varanasi/", label: "Events & Parties" },
+  { href: "/gallery/", label: "Gallery" },
+  { href: "/contact/", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -36,7 +37,7 @@ export default function Navbar() {
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`} id="top">
       <div className={`${styles.inner} shell`}>
         {/* Logo */}
-        <Link href="#top" className={styles.logo} onClick={close} aria-label="Varanasi Fun City — home">
+        <Link href="/" className={styles.logo} onClick={close} aria-label="Varanasi Fun City — home">
           <img
             src={siteConfig.logo}
             alt={siteConfig.name}
@@ -49,14 +50,14 @@ export default function Navbar() {
         {/* Desktop nav */}
         <nav className={styles.desktopNav} aria-label="Primary">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className={styles.navLink}>
+            <Link key={l.href} href={l.href} className={styles.navLink}>
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* Desktop CTA */}
-        <a href="#pricing" className={styles.ctaDesktop}>Check Tickets</a>
+        <Link href="/#pricing" className={styles.ctaDesktop}>Check Tickets</Link>
 
         {/* Hamburger */}
         <button
@@ -78,13 +79,13 @@ export default function Navbar() {
       >
         <nav className={styles.mobileNav} aria-label="Mobile primary">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className={styles.mobileLink} onClick={close}>
+            <Link key={l.href} href={l.href} className={styles.mobileLink} onClick={close}>
               {l.label}
-            </a>
+            </Link>
           ))}
-          <a href="#pricing" className={styles.mobileCta} onClick={close}>
+          <Link href="/#pricing" className={styles.mobileCta} onClick={close}>
             🎟️ Check Tickets
-          </a>
+          </Link>
         </nav>
       </div>
 

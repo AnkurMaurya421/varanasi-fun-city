@@ -10,12 +10,11 @@ export default function About() {
           <div className={styles.body}>
             <span className="eyebrow">About the park</span>
             <h2 className={`section-title ${styles.title}`}>
-              North India's coolest waterpark splash
+              North India&apos;s coolest waterpark splash
             </h2>
             <p className={styles.para}>
               Varanasi Fun City is an excellent water recreation paradise appealing to people
-              of all age groups. Situated at the center of Varanasi on Pandeypur-Panchkosi Road
-              in the heart of Kashi.
+              of all age groups. Situated in Pandeypur, on Panchkoshi Road, in the heart of Kashi.
             </p>
             <p className={styles.para}>
               Decorated by mermaids and built extensively with fibreglass, it is a rare combination

@@ -222,11 +222,78 @@ export const siteConfig = {
 
   // ----------------------------------------------------------
   //  SOCIAL MEDIA
+  //  TODO: Add facebook URL if/when a page exists — omit to skip the icon/schema entry.
   // ----------------------------------------------------------
   socials: {
     youtube: "https://www.youtube.com/@varanasifuncity100",
     instagram: "https://www.instagram.com/varanasifuncitywaterpark/",
+  },
 
+  // ----------------------------------------------------------
+  //  WEDDINGS, EVENTS & PARTIES — verified facts only
+  //  This is the single source of truth for what the venue actually
+  //  offers beyond the water park. Every wedding/event/party page reads
+  //  from here. Do not add a fact here unless it has been confirmed —
+  //  downstream pages and the chatbot all trust this block directly.
+  // ----------------------------------------------------------
+  events: {
+    offered: true,
+    eventTypes: [
+      "Weddings",
+      "Wedding receptions",
+      "Engagement ceremonies",
+      "Birthday parties",
+      "Kitty parties",
+      "Corporate events",
+      "Seminars",
+      "Family functions",
+      "Pool parties",
+    ],
+    // Confirmed via the venue's own promotional video (on-screen facility
+    // list + room/hall footage) and a direct confirmation call: two AC
+    // banquet halls, an open lawn, and on-site AC Deluxe Rooms for guest
+    // stays. Room count/pricing/night rates are still unconfirmed, so
+    // roomsNote hedges rather than guessing a number.
+    facilities: [
+      {
+        id: "lawn",
+        label: "Open lawn / ground space",
+        note: "A dedicated open-ground area for outdoor functions, separate from the water-park pools.",
+      },
+      {
+        id: "hall",
+        label: "Two air-conditioned banquet halls",
+        note: "Two indoor, air-conditioned halls for functions that need enclosed space.",
+      },
+      {
+        id: "rooms",
+        label: "AC Deluxe Rooms (guest stay)",
+        note: "On-site air-conditioned rooms are available for overnight stays — ask about availability when you book.",
+      },
+      {
+        id: "parking",
+        label: "On-site parking",
+        note: "Paid parking is available on-site for guest vehicles.",
+      },
+      {
+        id: "catering",
+        label: "Catering",
+        note: "In-house catering or approved outside caterers can be arranged.",
+      },
+      {
+        id: "stage",
+        label: "Stage, decoration & DJ/sound",
+        note: "Basic stage setup, decoration and DJ/sound arrangements are available for functions.",
+      },
+    ],
+    // No fixed number of rooms or nightly rate is published — route to an
+    // enquiry instead of guessing.
+    roomsNote:
+      "Room availability and rates for AC Deluxe Room stays — call to check for your dates.",
+    // No fixed number is published — capacity depends on layout, so we
+    // route guests to an enquiry instead of guessing a figure.
+    capacityNote:
+      "Guest capacity depends on whether you book the lawn, the hall, or both — call us to discuss your group size.",
   },
 
   // ----------------------------------------------------------
@@ -234,13 +301,18 @@ export const siteConfig = {
   //  Used in app/layout.js via Next.js metadata API
   // ----------------------------------------------------------
   seo: {
-    title: "Varanasi Fun City | Best Waterpark in Varanasi",
+    // Homepage defaults to the water-park identity — wedding/event/party
+    // pages carry their own titles and own that positioning individually.
+    title: "Varanasi Fun City | Water Park in Varanasi",
     titleTemplate: "%s | Varanasi Fun City",
     description:
-      "Varanasi Fun City — the largest waterpark in Varanasi. Thrilling water slides, wave pool, rain dance, kids zone & night shift. Affordable tickets. Located on Pandeypur Panchkoshi Road.",
+      "Varanasi Fun City is Varanasi's largest water park — wave pool, mega slides, rain dance and a kids' zone on Pandeypur-Panchkoshi Road. Also a wedding lawn, banquet hall & event venue.",
     keywords:
-      "water park Varanasi, waterpark Varanasi, best waterpark Varanasi, water rides Varanasi, wave pool Varanasi, amusement park Varanasi, Varanasi Fun City, funcity Varanasi, water world Varanasi, largest waterpark Varanasi",
-    canonicalUrl: "https://varanasifuncity.com",
+      "water park Varanasi, waterpark Varanasi, wave pool Varanasi, Varanasi Fun City, fun city water park, wedding lawn Varanasi, event venue Varanasi, party venue Varanasi",
+    // Production (Vercel) redirects the apex domain to www — this must match
+    // that live behavior, or canonical tags/sitemap point at a URL that
+    // immediately redirects, splitting ranking signal across two hosts.
+    canonicalUrl: "https://www.varanasifuncity.com",
     ogImage: "/main.jpg",
     twitterHandle: "// TODO: Add if exists",
     themeColor: "#0ea5e9",

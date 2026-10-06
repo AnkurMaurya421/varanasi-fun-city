@@ -105,13 +105,26 @@
   50%       { opacity: 0.5; transform: scale(0.8); }
 }
 
-/* ---- Title ---- */
 .title {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 7vw, 4rem);
   font-weight: 700;
   color: var(--clr-ocean-dark);
   line-height: 1.1;
+}
+
+/* ---- Secondary wedding/event mention (below subtitle) ---- */
+.kicker {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+}
+
+.kickerLink {
+  color: var(--clr-sky-600);
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 .titleAccent {
