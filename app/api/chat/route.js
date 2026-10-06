@@ -66,13 +66,15 @@ export async function POST(request) {
     const trimmedMessages = messages.slice(-10);
 
     const stream = await groq.chat.completions.create({
-      model: "llama-3.1-8b-instant",
+      model: "openai/gpt-oss-20b",
       messages: [
         { role: "system", content: buildSystemPrompt() },
         ...trimmedMessages,
       ],
       stream: true,
-      max_tokens: 300,
+      reasoning_effort: "low",
+      include_reasoning: false,
+      max_completion_tokens: 800,
       temperature: 0.7,
     });
 
