@@ -13,7 +13,8 @@ const DIR = process.env.GOOGLE_MEDIA_DIR || path.join(root, "public/google-media
 const PUBLIC_PREFIX = process.env.GOOGLE_MEDIA_PREFIX || "/google-media";
 const PHOTO_LIMIT = Number(process.env.MEDIA_PHOTO_LIMIT || 36);
 const VIDEO_LIMIT = Number(process.env.MEDIA_VIDEO_LIMIT || 8);
-const SIZE = "w900"; // gallery thumbnails don't need full resolution; also part of the file name so a size change re-downloads
+const SIZE = "w900"; // gallery thumbnails don't need full resolution
+const TAG = "w900j"; // part of the file name, so changing size/format re-downloads everything
 const SKIP_CATEGORIES = new Set(["PROFILE"]); // the logo
 const ours = new Set(WEDDING_PHOTOS.map((p) => p.description)); // already shown in the site's own wedding gallery
 
@@ -22,17 +23,23 @@ const LABELS = {
   MENU: "Menu", COMMON_AREA: "Common area", ROOMS: "Rooms", TEAMS: "Our team", ADDITIONAL: "More photos",
 };
 
+// Google serves lossless PNG by default (700KB+). "-rj" asks for a real, compressed JPEG.
 async function download(url, dest) {
   const bare = url.replace(/=[swh]\d+[^/]*$/i, "");
-  for (const candidate of [`${bare}=${SIZE}`, url]) {
+  let fallback = null;
+  for (const candidate of [`${bare}=${SIZE}-rj`, `${bare}=${SIZE}`, url]) {
     try {
       const res = await fetch(candidate, { signal: AbortSignal.timeout(30000) });
-      if (!res.ok || !(res.headers.get("content-type") || "").startsWith("image/")) continue;
-      fs.writeFileSync(dest, Buffer.from(await res.arrayBuffer()));
-      return true;
+      const type = res.headers.get("content-type") || "";
+      if (!res.ok || !type.startsWith("image/")) continue;
+      const bytes = Buffer.from(await res.arrayBuffer());
+      if (type.includes("jpeg")) { fs.writeFileSync(dest, bytes); return true; }
+      fallback ??= bytes;
     } catch { /* try the next candidate */ }
   }
-  return false;
+  if (!fallback) return false;
+  fs.writeFileSync(dest, fallback);
+  return true;
 }
 
 try {
@@ -53,7 +60,7 @@ try {
   const items = [];
   for (const m of chosen) {
     const id = m.name.split("/").pop().replace(/[^A-Za-z0-9_-]/g, "");
-    const file = `${id}_${SIZE}.jpg`;
+    const file = `${id}_${TAG}.jpg`;
     const dest = path.join(DIR, file);
     if (!fs.existsSync(dest) && !(await download(m.googleUrl, dest))) { console.log(`Could not download ${id}; skipping.`); continue; }
     const category = m.locationAssociation?.category || "ADDITIONAL";
