@@ -369,3 +369,39 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ---- Photo gallery ---- */
+.heroGridSolo {
+  grid-template-columns: 1fr;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.galleryImg {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.galleryImg:first-child {
+  grid-column: span 2;
+}
+
+@media (min-width: 900px) {
+  .galleryGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+  }
+
+  .galleryImg:first-child {
+    grid-row: span 2;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+}

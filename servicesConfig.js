@@ -159,7 +159,13 @@ export const services = [
       },
     ],
     related: ["reception-venue-varanasi", "engagement-venue-varanasi", "event-venue-varanasi"],
-    hero: { image: "/varanasi-fun-city-wedding-stage.jpg", alt: "Decorated wedding stage and mandap on the lawn at Varanasi Fun City" },
+    gallery: [
+      { image: "/varanasi-fun-city-wedding-stage.jpg", alt: "Decorated wedding stage and mandap on the lawn at Varanasi Fun City" },
+      { image: "/varanasi-fun-city-banquet-hall.jpg", alt: "Air-conditioned banquet hall at Varanasi Fun City" },
+      { image: "/varanasi-fun-city-wedding-entrance.jpg", alt: "Decorated wedding entrance walkway at Varanasi Fun City" },
+      { image: "/varanasi-fun-city-wedding-event.jpg", alt: "Wedding reception in progress at Varanasi Fun City" },
+      { image: "/varanasi-fun-city-ac-room.jpg", alt: "AC Deluxe Room for wedding guest stays at Varanasi Fun City" },
+    ],
   },
   {
     slug: "reception-venue-varanasi",

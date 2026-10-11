@@ -26,7 +26,7 @@ export default function ServicePage({ service }) {
       {/* Hero */}
       <section className={styles.hero}>
         <div className="shell">
-          <div className={styles.heroGrid}>
+          <div className={`${styles.heroGrid} ${!service.hero?.image && service.gallery ? styles.heroGridSolo : ""}`}>
             <div>
               <span className="eyebrow">{service.eyebrow}</span>
               <h1 className={styles.h1}>{service.h1}</h1>
@@ -41,22 +41,42 @@ export default function ServicePage({ service }) {
               </div>
             </div>
 
-            <div className={styles.heroMedia}>
-              {service.hero?.image ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img src={service.hero.image} alt={service.hero.alt} className={styles.heroImg} />
-              ) : (
-                <div className={styles.photoPlaceholder}>
-                  <span className={styles.placeholderIcon}>📷</span>
-                  <span className={styles.placeholderText}>
-                    Real event photographs coming soon
-                  </span>
-                </div>
-              )}
-            </div>
+            {(service.hero?.image || !service.gallery) && (
+              <div className={styles.heroMedia}>
+                {service.hero?.image ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img src={service.hero.image} alt={service.hero.alt} className={styles.heroImg} />
+                ) : (
+                  <div className={styles.photoPlaceholder}>
+                    <span className={styles.placeholderIcon}>📷</span>
+                    <span className={styles.placeholderText}>
+                      Real event photographs coming soon
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </section>
+
+      {/* Photo gallery */}
+      {service.gallery && (
+        <section className={`${styles.section} section alt`}>
+          <div className="shell">
+            <div className="section-head">
+              <span className="eyebrow">Photos</span>
+              <h2 className="section-title">See the Venue</h2>
+            </div>
+            <div className={styles.galleryGrid}>
+              {service.gallery.map((g) => (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img key={g.image} src={g.image} alt={g.alt} loading="lazy" className={styles.galleryImg} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Why choose */}
       {service.whyChoose && (
