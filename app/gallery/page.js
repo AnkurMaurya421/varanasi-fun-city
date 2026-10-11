@@ -3,6 +3,7 @@ import Footer from "@/components/Footer/Footer";
 import Chatbot from "@/components/Chatbot/Chatbot";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { siteConfig } from "@/siteConfig";
+import VideoTile from "@/components/VideoTile/VideoTile";
 import googleMedia from "@/data/google-media.json";
 import styles from "./gallery.module.css";
 
@@ -114,11 +115,7 @@ export default function GalleryPage() {
                 <div className={styles.grid}>
                   {googleMedia.items.filter((m) => m.video).map((m) => (
                     <figure key={m.id} className={styles.gfig}>
-                      <a href={siteConfig.contact.mapUrl} target="_blank" rel="noopener noreferrer" aria-label="Video from Varanasi Fun City, watch on Google">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={m.file} alt="Video preview from Varanasi Fun City" loading="lazy" className={styles.photo} />
-                        <span className={styles.play} aria-hidden="true">▶</span>
-                      </a>
+                      <VideoTile poster={m.file} src={m.videoFile} fallbackHref={siteConfig.contact.mapUrl} photoClass={styles.photo} playClass={styles.play} />
                       {m.credit && <figcaption className={styles.credit}>Video: {m.credit}</figcaption>}
                     </figure>
                   ))}

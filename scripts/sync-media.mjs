@@ -1,6 +1,6 @@
 // Copies your Google Business Profile photos into the site (public/google-media + data/google-media.json).
 // Google image links are not permanent, so we download the files instead of hotlinking them.
-// Videos can't be played via the API (only a preview image is provided), so they link back to the profile.
+// Videos: the API only gives a preview image, but Google also serves a compressed MP4 at "<url>=m18" (~1-2MB), which we copy too.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -42,6 +42,18 @@ async function download(url, dest) {
   return true;
 }
 
+async function downloadVideo(url, dest) {
+  const bare = url.replace(/=[swh]\d+[^/]*$/i, "");
+  try {
+    const res = await fetch(`${bare}=m18`, { signal: AbortSignal.timeout(120000) });
+    if (!res.ok || !(res.headers.get("content-type") || "").startsWith("video/")) return false;
+    const bytes = Buffer.from(await res.arrayBuffer());
+    if (bytes.length > 15_000_000) return false;
+    fs.writeFileSync(dest, bytes);
+    return true;
+  } catch { return false; }
+}
+
 try {
   const token = await getAccessToken();
   const loc = await resolveLocation(token);
@@ -63,11 +75,19 @@ try {
     const file = `${id}_${TAG}.jpg`;
     const dest = path.join(DIR, file);
     if (!fs.existsSync(dest) && !(await download(m.googleUrl, dest))) { console.log(`Could not download ${id}; skipping.`); continue; }
+    let videoFile = null;
+    if (m.mediaFormat === "VIDEO") {
+      const vname = `${id}_m18.mp4`;
+      const vdest = path.join(DIR, vname);
+      if (fs.existsSync(vdest) || (await downloadVideo(m.googleUrl, vdest))) videoFile = `${PUBLIC_PREFIX}/${vname}`;
+      else console.log(`Could not download video ${id}; it will link to the profile.`);
+    }
     const category = m.locationAssociation?.category || "ADDITIONAL";
     items.push({
       id,
       file: `${PUBLIC_PREFIX}/${file}`,
       video: m.mediaFormat === "VIDEO",
+      videoFile,
       category,
       label: LABELS[category] || "Photos",
       createdAt: m.createTime || null,
@@ -78,8 +98,8 @@ try {
   }
 
   // remove files that are no longer on the profile
-  const keep = new Set(items.map((i) => i.file.split("/").pop()));
-  for (const f of fs.readdirSync(DIR)) if (f.endsWith(".jpg") && !keep.has(f)) fs.rmSync(path.join(DIR, f));
+  const keep = new Set(items.flatMap((i) => [i.file, i.videoFile]).filter(Boolean).map((f) => f.split("/").pop()));
+  for (const f of fs.readdirSync(DIR)) if ((f.endsWith(".jpg") || f.endsWith(".mp4")) && !keep.has(f)) fs.rmSync(path.join(DIR, f));
 
   const next = {
     fetchedAt: new Date().toISOString(),
