@@ -1,7 +1,50 @@
 {
-  "fetchedAt": null,
-  "rating": null,
-  "total": null,
+  "fetchedAt": "2026-10-11T12:52:57.403Z",
+  "rating": 4.3,
+  "total": 8662,
   "reviewsUrl": "https://goo.gl/maps/uzaa7EXVEd3uv7v18",
-  "reviews": []
+  "reviews": [
+    {
+      "id": "AbFvOqlps8As5QzT2hlXRWyyUxvnYIM1pHYvQWBm6lUCzrGEbYxlortJjDaGtXRNoecWiP7yb9Qm",
+      "name": "Nawal kumar",
+      "stars": 5,
+      "text": "Full paisa wasool hai mast enjoy kijiye Best experience raha hai jane ke baad ..\n\n\nFull paisa wasool is there, enjoy it a lot, it was the best experience after going there.",
+      "date": "2026-09-03T14:17:03.138109Z"
+    },
+    {
+      "id": "AbFvOqkMcdhMAPaqGYFvlCBkhkXxiP_Nmky431jwv69tc7d5jLj3MQP4IN-6z2FVPj7k9sVbtrCk",
+      "name": "Muskan Chaursiya",
+      "stars": 4,
+      "text": "Best fun in this waterparkkk I like this😀",
+      "date": "2026-08-27T06:53:01.121409Z"
+    },
+    {
+      "id": "AbFvOqnsAvLFueEoTT7qVLR5KpDmjw5u5DgKuUw2M2GCmIf7HiA21Tt1S9pgOHQ2ylauomwZahPifw",
+      "name": "Ajay Kumar",
+      "stars": 5,
+      "text": "Staff is professional and service is good 👍🏻👍🏻👍🏻",
+      "date": "2026-07-29T05:46:22.575186Z"
+    },
+    {
+      "id": "AbFvOqkVZUBOr4BdTp_ADBcpB7USHraP53LlWZoC5B2UfyZyRnAlbhGoufE2faVLxkwV52dLSKX_WA",
+      "name": "R.B. Bharti",
+      "stars": 5,
+      "text": "Our experience is awesome. Good slide and nice services..",
+      "date": "2026-07-26T07:09:45.575712Z"
+    },
+    {
+      "id": "AbFvOqmPMBXJnffk-ROMll4dEYFuy-Db9utSl3dtaYqiy1PskeM2456IjJ5wHCUNyz_KvuJmAkrPeQ",
+      "name": "Nisha Devi",
+      "stars": 5,
+      "text": "Banaras ki best Waterpark kabhi aao to sahi Maja aa jayega lajwab sandar\n\n\nIf you ever come to Banaras's best water park, you will truly enjoy the amazing beauty.",
+      "date": "2026-07-24T06:48:46.286301Z"
+    },
+    {
+      "id": "AbFvOqm15buXdf96e0EVYSanaIs9OHmTm1BNlLl59NcTIeZPax_dbxoTR9OpKL0ex7sYZed5sBQoqw",
+      "name": "Mrityunjay Mishra",
+      "stars": 5,
+      "text": "Lifegaurd is alert and staff is professional",
+      "date": "2026-07-24T06:40:27.385872Z"
+    }
+  ]
 }
