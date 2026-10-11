@@ -97,7 +97,8 @@ export default function ServicePage({ service }) {
         </section>
       )}
 
-      {/* How booking works — shared process, same for every service page */}
+      {/* How booking works — event enquiries only; the water park is a walk-in day visit, not a function booking */}
+      {service.category !== "park" && (
       <section className={`${styles.section} section`}>
         <div className="shell">
           <div className="section-head">
@@ -123,7 +124,7 @@ export default function ServicePage({ service }) {
               <span className={styles.stepNum}>3</span>
               <div>
                 <h3 className={styles.stepTitle}>Visit the venue if you&apos;d like</h3>
-                <p className={styles.stepText}>Come see the lawn or hall in person before confirming, especially for a wedding or larger function.</p>
+                <p className={styles.stepText}>Come and see the space in person before confirming, if you would like to.</p>
               </div>
             </li>
             <li>
@@ -136,6 +137,7 @@ export default function ServicePage({ service }) {
           </ol>
         </div>
       </section>
+      )}
 
       {/* Planning tips — per page */}
       {service.planningTips && (
@@ -143,7 +145,7 @@ export default function ServicePage({ service }) {
           <div className="shell">
             <div className="section-head">
               <span className="eyebrow">Worth knowing</span>
-              <h2 className="section-title">Good to Know Before You Book</h2>
+              <h2 className="section-title">{service.category === "park" ? "Good to Know Before You Visit" : "Good to Know Before You Book"}</h2>
             </div>
             <ul className={styles.tipList}>
               {service.planningTips.map((tip, i) => (
@@ -266,9 +268,11 @@ export default function ServicePage({ service }) {
       {/* Enquiry CTA */}
       <section id="enquire" className={styles.enquire}>
         <div className={`shell ${styles.enquireInner}`}>
-          <h2 className={styles.enquireTitle}>Plan Your Booking at Varanasi Fun City</h2>
+          <h2 className={styles.enquireTitle}>{service.category === "park" ? "Plan Your Visit to Varanasi Fun City" : "Plan Your Booking at Varanasi Fun City"}</h2>
           <p className={styles.enquireSub}>
-            Call or email us with your date and requirements — we&apos;ll walk you through what&apos;s available.
+            {service.category === "park"
+              ? "Questions about tickets, timings or a group or school visit? Call or email us and we'll help."
+              : "Call or email us with your date and requirements — we'll walk you through what's available."}
           </p>
           <div className={styles.actions}>
             <a href={siteConfig.contact.phoneHref} className={styles.ctaPrimary}>

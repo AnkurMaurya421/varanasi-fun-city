@@ -23,7 +23,7 @@ export const services = [
     keyword: "water park in Varanasi",
     title: "Water Park in Varanasi",
     metaDescription:
-      "Varanasi Fun City is Varanasi's largest water park and amusement park in Pandeypur — wave pool, mega slides, rain dance and a dedicated kids' pool on Panchkoshi Road.",
+      "Varanasi Fun City is Varanasi's largest water park in Pandeypur — wave pool, mega slides, rain dance and a kids' pool on Panchkoshi Road.",
     h1: "Water Park in Varanasi",
     eyebrow: "Rides & pools",
     intro: [
@@ -89,18 +89,18 @@ export const services = [
     keyword: "wedding lawn in Varanasi",
     title: "Wedding Lawn & Banquet Hall in Varanasi",
     metaDescription:
-      "Varanasi Fun City is a wedding lawn and two air-conditioned banquet halls in Varanasi, with on-site AC guest rooms, parking, catering and stage/decoration support for weddings and marriage functions.",
+      "Wedding lawn and two air-conditioned banquet halls in Varanasi, with AC guest rooms, parking, catering and stage/decoration support for weddings.",
     h1: "Wedding Lawn & Banquet Hall in Varanasi",
     eyebrow: "Weddings",
     intro: [
       "Varanasi Fun City hosts weddings across three spaces — an open-ground lawn and two air-conditioned banquet halls — all separate from the water-park pools, in Pandeypur on Panchkoshi Road in the heart of Varanasi. Between them, the venue can handle marriage functions from the baraat and ceremony through to the reception, indoors or outdoors.",
-      "The lawn suits families who want an outdoor wedding with room to move — a mandap area, seating spread across the grounds, and space for a baraat procession to arrive. The two halls suit functions that want an enclosed, air-conditioned setting instead — useful in peak summer, during the monsoon, or simply if an indoor banquet feel is what you're after.",
+      "The lawn suits families who want an outdoor wedding with room to move — ask us how the space can be laid out for your ceremony, seating and baraat arrival. The two halls suit functions that want an enclosed, air-conditioned setting instead — useful in peak summer, during the monsoon, or simply if an indoor banquet feel is what you're after.",
       "On-site AC Deluxe Rooms are also available for guest stays — useful if family is travelling in from outside Varanasi for the wedding. Parking, catering and basic stage and decoration support are arranged on-site too, so the core logistics are handled in one place rather than coordinated across separate vendors and locations.",
     ],
     whyChoose: [
       "Choice of an open lawn or one of two air-conditioned banquet halls",
       "On-site AC Deluxe Rooms for outstation wedding guests",
-      "One of the few Varanasi wedding venues also offering a full water park on-site",
+      "Wedding venue with a full water park at the same location",
       "On-site parking for wedding guests",
       "In-house catering or approved outside caterers",
       "Stage, decoration and DJ/sound arrangements available",
@@ -173,7 +173,7 @@ export const services = [
     keyword: "reception venue in Varanasi",
     title: "Reception Venue in Varanasi",
     metaDescription:
-      "Book the Varanasi Fun City lawn or one of two air-conditioned halls for your wedding reception in Varanasi — stage, decoration, catering and on-site parking for evening functions.",
+      "Book the lawn or one of two air-conditioned halls for your wedding reception in Varanasi — stage, decoration, catering and parking.",
     h1: "Reception Venue in Varanasi",
     eyebrow: "Weddings",
     intro: [
@@ -229,7 +229,7 @@ export const services = [
       },
       {
         q: "Can we arrange DJ and lighting for the evening?",
-        a: "Yes, DJ/sound and basic lighting arrangements can be organised as part of the stage and decoration setup.",
+        a: "Yes, DJ/sound can be organised as part of the stage and decoration setup. Mention any lighting requirements when you enquire.",
       },
     ],
     related: ["wedding-lawn-varanasi", "engagement-venue-varanasi", "event-venue-varanasi"],
@@ -296,13 +296,13 @@ export const services = [
     keyword: "event venue in Varanasi",
     title: "Event Venue in Varanasi",
     metaDescription:
-      "Varanasi Fun City's lawn and air-conditioned halls work as an event venue in Varanasi for family functions, corporate events, seminars and private celebrations.",
+      "Lawn and air-conditioned halls for family functions, corporate events, seminars and private celebrations in Varanasi.",
     h1: "Event Venue in Varanasi",
     eyebrow: "Events",
     intro: [
       "Beyond weddings, Varanasi Fun City is booked as a general-purpose event venue — for family functions, private celebrations, social gatherings, seminars and corporate get-togethers that don't fit neatly into a single category. The open lawn and two air-conditioned halls are all available, depending on what the event needs.",
       "None of the spaces are set up around one fixed event format, which is useful if what you're planning doesn't map cleanly to \"wedding\" or \"birthday\" — a community gathering, a felicitation function, a reunion, or any event that just needs space, parking and catering support.",
-      "On-site parking, catering and decoration/stage support are available for whichever kind of event you're planning, and — unlike most standalone banquet halls in the city — the venue also sits next to a full working water park, which some groups choose to add on for a more active event.",
+      "On-site parking, catering and decoration/stage support are available for whichever kind of event you're planning, and the venue also sits next to a full working water park, which some groups choose to add on for a more active event.",
     ],
     useCases: [
       "Family functions and get-togethers",
@@ -359,7 +359,7 @@ export const services = [
     keyword: "corporate event venue in Varanasi",
     title: "Corporate Event & Seminar Venue in Varanasi",
     metaDescription:
-      "Plan a corporate event, seminar or office outing in Varanasi at Varanasi Fun City — two air-conditioned halls, an open lawn, AC guest rooms and water-park access.",
+      "Corporate event, seminar or office outing venue in Varanasi — two air-conditioned halls, an open lawn, AC guest rooms and a water park.",
     h1: "Corporate Event & Seminar Venue in Varanasi",
     eyebrow: "Events",
     intro: [
@@ -376,7 +376,7 @@ export const services = [
     whyChoose: [
       "Two air-conditioned halls for formal functions and seminars, open lawn for outdoor team days",
       "On-site AC Deluxe Rooms for multi-day events or outstation attendees",
-      "Only local option that also pairs a function venue with an actual water park",
+      "Function venue and a full water park at the same location",
       "On-site parking for staff and guests",
       "Catering arranged in-house or via approved caterers",
       "Stage/DJ setup available for the event portion",
@@ -413,7 +413,7 @@ export const services = [
       },
       {
         q: "Can we book just the water park for a team outing, without the venue space?",
-        a: `Yes — a group water-park booking can be arranged on its own. Call ${siteConfig.contact.phone} for group rates and timing.`,
+        a: `Yes — a group water-park booking can be arranged on its own. Call ${siteConfig.contact.phone} for details and timing.`,
       },
     ],
     related: ["event-venue-varanasi", "water-park-varanasi", "party-venue-varanasi"],
@@ -433,7 +433,7 @@ export const services = [
     intro: [
       "For birthdays, kitty parties, anniversaries and other family celebrations, Varanasi Fun City is available as a party venue — with an open lawn and two air-conditioned halls to choose from — and catering, decoration and parking arranged on-site.",
       "Parties booked here range from small, low-key family get-togethers to larger celebrations with music and decoration. The lawn suits an outdoor, informal feel; the halls suit a more controlled, air-conditioned setting, particularly useful in hot weather or the monsoon.",
-      "Private parties can also be combined with a water-park visit for a more active celebration, which is a genuine point of difference from a standard function hall — guests can spend part of the time on the rides and wave pool before moving to the lawn or a hall for food and cake-cutting.",
+      "Private parties can also be combined with a water-park visit for a more active celebration — guests can spend part of the time on the rides and wave pool before moving to the lawn or a hall for food and cake-cutting.",
     ],
     useCases: [
       "Birthday parties",

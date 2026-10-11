@@ -33,7 +33,7 @@ export default function Occasions() {
           <span className="eyebrow">Beyond the water park</span>
           <h2 className="section-title">Weddings, Events &amp; Parties</h2>
           <p className="section-sub">
-            Varanasi Fun City&apos;s open lawn and air-conditioned hall host weddings, receptions,
+            Varanasi Fun City&apos;s open lawn and two air-conditioned halls host weddings, receptions,
             engagements, corporate events and family parties — with catering, decoration and parking arranged on-site.
           </p>
         </div>

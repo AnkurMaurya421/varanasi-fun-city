@@ -28,8 +28,6 @@ export const siteConfig = {
   //  status: "open" | "closed" | "info"
   // ----------------------------------------------------------
   announcements: [
-    { status: "closed", label: "Notice", text: "Night Shift will remain closed on 26th June" },
-    { status: "closed", label: "Notice", text: "Night Shift will remain closed on 26th June" },
 
     // { status: "closed", label: "Notice", text: "Closed for season — reopening 5th March 2026" },
   ],
@@ -260,7 +258,7 @@ export const siteConfig = {
     // No fixed number of rooms or nightly rate is published — route to an
     // enquiry instead of guessing.
     roomsNote:
-      "Room availability and rates for AC Deluxe Room stays — call to check for your dates.",
+      "AC Deluxe Room availability and rates depend on your dates — call to check.",
     // No fixed number is published — capacity depends on layout, so we
     // route guests to an enquiry instead of guessing a figure.
     capacityNote:
@@ -277,7 +275,7 @@ export const siteConfig = {
     title: "Varanasi Fun City | Water Park in Varanasi",
     titleTemplate: "%s | Varanasi Fun City",
     description:
-      "Varanasi Fun City is Varanasi's largest water park — wave pool, mega slides, rain dance and a kids' zone on Pandeypur-Panchkoshi Road. Also a wedding lawn, banquet hall & event venue.",
+      "Varanasi's largest water park — wave pool, mega slides, rain dance, kids' zone. Also a wedding lawn, banquet halls & event venue on Panchkoshi Road.",
     keywords:
       "water park Varanasi, waterpark Varanasi, wave pool Varanasi, Varanasi Fun City, fun city water park, wedding lawn Varanasi, event venue Varanasi, party venue Varanasi",
     // Production (Vercel) redirects the apex domain to www — this must match

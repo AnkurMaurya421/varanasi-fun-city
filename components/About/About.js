@@ -1,4 +1,5 @@
 import { siteConfig } from "@/siteConfig";
+import googleReviews from "@/data/google-reviews.json";
 import styles from "./About.module.css";
 
 export default function About() {
@@ -38,8 +39,8 @@ export default function About() {
                 <span className={styles.hlLabel}>Daily Shifts</span>
               </div>
               <div className={styles.hlCard}>
-                <span className={styles.hlNum}>5★</span>
-                <span className={styles.hlLabel}>Family Rated</span>
+                <span className={styles.hlNum}>{googleReviews.rating ? `${googleReviews.rating.toFixed(1)}★` : "★"}</span>
+                <span className={styles.hlLabel}>Google Rating</span>
               </div>
             </div>
           </div>
@@ -56,12 +57,6 @@ export default function About() {
                 playsInline
                 className={styles.reelVideo}
               />
-              <div className={styles.reelPlaceholder}>
-                <span className={styles.playIcon}>▶</span>
-                <p className={styles.reelNote}>
-                  TODO: Add YouTube embed or reel video here
-                </p>
-              </div>
             </div>
           </div>
         </div>

@@ -35,6 +35,7 @@ export default function Hero() {
           <div className={styles.copy}>
 
             {/* Announce pill */}
+            {current && (
             <div className={styles.announce}>
               <span className={styles.announceDot} aria-hidden="true" />
               <span className={styles.announceLabel}>{current.label}</span>
@@ -42,6 +43,7 @@ export default function Hero() {
                 {current.text}
               </span>
             </div>
+            )}
 
             <h1 className={styles.title}>
               Dive Into Fun at{" "}

@@ -22,6 +22,7 @@ export default function AnnouncementBar() {
   }, [announcements.length]);
 
   const current = announcements[index];
+  if (!current) return null;
 
   return (
     <div className={`${styles.bar} ${styles[current.status]}`} role="status" aria-live="polite">
