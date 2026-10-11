@@ -60,6 +60,7 @@ try {
 
   const used = new Set();
   const useAi = aiEnabled();
+  const seenOpenings = new Set();
   let aiOff = false;
   let aiFails = 0;
   let aiCount = 0;
@@ -72,11 +73,11 @@ try {
     let comment = verdict.comment; // template reply is always the safe fallback
     let source = "template";
     if (useAi && !aiOff) {
-      const r = await aiReply(review);
+      const r = await aiReply(review, { seenOpenings });
       if (r.ok) { comment = r.comment; source = "ai"; aiFails = 0; }
       else {
         source = `template (${r.reason})`;
-        aiFails++;
+        if (r.transient) aiFails++;
         if (r.fatal || aiFails >= 3) { aiOff = true; log(`AI turned off for the rest of this run: ${r.reason}`); }
       }
     }
