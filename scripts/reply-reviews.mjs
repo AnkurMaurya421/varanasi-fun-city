@@ -14,6 +14,7 @@ const MAX_PAGES = Number(process.env.MAX_PAGES || 40);
 const MIN_PAGES = 6; // always scan the newest ~300 so the 24h count is accurate
 const HOLD_DAYS = Number(process.env.HOLD_WINDOW_DAYS || 30);
 const DELAY_MS = Number(process.env.REPLY_DELAY_MS ?? 1500);
+const AI_DELAY_MS = Number(process.env.AI_DELAY_MS ?? 5000); // keeps us under Groq's per-minute limits
 const HOLD_FILE = process.env.HOLD_REPORT || "review-hold.md";
 const DAY = 24 * 60 * 60 * 1000;
 
@@ -62,6 +63,7 @@ try {
   const useAi = aiEnabled();
   const seenOpenings = new Set();
   let aiOff = false;
+  let aiCalls = 0;
   let aiFails = 0;
   let aiCount = 0;
   let templateCount = 0;
@@ -73,6 +75,7 @@ try {
     let comment = verdict.comment; // template reply is always the safe fallback
     let source = "template";
     if (useAi && !aiOff) {
+      if (aiCalls++ > 0) await sleep(AI_DELAY_MS);
       const r = await aiReply(review, { seenOpenings });
       if (r.ok) { comment = r.comment; source = "ai"; aiFails = 0; }
       else {

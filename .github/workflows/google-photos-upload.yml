@@ -1,0 +1,34 @@
+# One-off: uploads the real wedding-venue photos to the Google Business Profile.
+# Run it from the Actions tab. "Dry run" (the default) only lists what it would upload.
+# Run it live ONCE: re-running skips photos already on the profile, but only if Google returns their descriptions.
+name: Upload venue photos to Google profile
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (list what would be uploaded, upload nothing)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Upload photos
+        env:
+          GBP_CLIENT_ID: ${{ secrets.GBP_CLIENT_ID }}
+          GBP_CLIENT_SECRET: ${{ secrets.GBP_CLIENT_SECRET }}
+          GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
+          GBP_ACCOUNT_ID: ${{ secrets.GBP_ACCOUNT_ID }}
+          GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: node --no-warnings scripts/upload-media.mjs

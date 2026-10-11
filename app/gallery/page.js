@@ -3,6 +3,7 @@ import Footer from "@/components/Footer/Footer";
 import Chatbot from "@/components/Chatbot/Chatbot";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { siteConfig } from "@/siteConfig";
+import googleMedia from "@/data/google-media.json";
 import styles from "./gallery.module.css";
 
 const BASE_URL = siteConfig.seo.canonicalUrl;
@@ -91,6 +92,37 @@ export default function GalleryPage() {
                 </div>
               </div>
             ))}
+
+            {googleMedia.items.length > 0 && (
+              <div className={styles.category}>
+                <h2 className={styles.categoryTitle}>Latest from our Google profile</h2>
+                <div className={styles.grid}>
+                  {googleMedia.items.map((m) => {
+                    const alt = `${m.label} at Varanasi Fun City`;
+                    const img = (
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={m.file} alt={alt} loading="lazy" className={styles.photo} />
+                        {m.video && <span className={styles.play} aria-hidden="true">▶</span>}
+                      </>
+                    );
+                    return (
+                      <figure key={m.id} className={styles.gfig}>
+                        {m.video ? (
+                          <a href={siteConfig.contact.mapUrl} target="_blank" rel="noopener noreferrer" aria-label={`${alt} (video, watch on Google)`}>
+                            {img}
+                          </a>
+                        ) : img}
+                        {m.credit && <figcaption className={styles.credit}>Photo: {m.credit}</figcaption>}
+                      </figure>
+                    );
+                  })}
+                </div>
+                <p className={styles.moreLink}>
+                  <a href={siteConfig.contact.mapUrl} target="_blank" rel="noopener noreferrer">See more photos and videos on Google →</a>
+                </p>
+              </div>
+            )}
 
             <div className={styles.category}>
               <h2 className={styles.categoryTitle}>Weddings, Events &amp; Parties</h2>

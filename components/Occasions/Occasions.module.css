@@ -25,21 +25,36 @@
 
 .card {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
+  flex-direction: column;
+  overflow: hidden;
   background: var(--clr-white);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
-  padding: var(--space-4) var(--space-5);
   font-weight: 700;
   color: var(--clr-ocean-dark);
-  transition: border-color var(--transition), transform var(--transition);
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 
 .card:hover {
   border-color: var(--clr-sky-400);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--clr-sky-100);
+}
+
+.cardBody {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  flex: 1;
 }
 
 .cardArrow {

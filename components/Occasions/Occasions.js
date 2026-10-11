@@ -9,6 +9,22 @@ function byslug(slugs) {
   return slugs.map((slug) => services.find((s) => s.slug === slug)).filter(Boolean);
 }
 
+function Card({ service }) {
+  const img = service.hero?.image ? service.hero : service.gallery?.[0];
+  return (
+    <Link href={`/${service.slug}/`} className={styles.card}>
+      {img && (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img src={img.image} alt={img.alt} loading="lazy" className={styles.thumb} />
+      )}
+      <span className={styles.cardBody}>
+        <span className={styles.cardTitle}>{service.h1}</span>
+        <span className={styles.cardArrow}>→</span>
+      </span>
+    </Link>
+  );
+}
+
 export default function Occasions() {
   return (
     <section className={`${styles.section} section alt`} id="occasions">
@@ -26,10 +42,7 @@ export default function Occasions() {
           <h3 className={styles.groupTitle}>Weddings &amp; Celebrations</h3>
           <div className={styles.grid}>
             {byslug(weddingSlugs).map((s) => (
-              <Link key={s.slug} href={`/${s.slug}/`} className={styles.card}>
-                <span className={styles.cardTitle}>{s.h1}</span>
-                <span className={styles.cardArrow}>→</span>
-              </Link>
+              <Card key={s.slug} service={s} />
             ))}
           </div>
         </div>
@@ -38,10 +51,7 @@ export default function Occasions() {
           <h3 className={styles.groupTitle}>Events &amp; Parties</h3>
           <div className={styles.grid}>
             {byslug(eventPartySlugs).map((s) => (
-              <Link key={s.slug} href={`/${s.slug}/`} className={styles.card}>
-                <span className={styles.cardTitle}>{s.h1}</span>
-                <span className={styles.cardArrow}>→</span>
-              </Link>
+              <Card key={s.slug} service={s} />
             ))}
           </div>
         </div>

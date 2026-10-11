@@ -93,3 +93,32 @@ export async function listReviewsPage(token, { accountId, locationId }, pageToke
 export async function postReply(token, review, comment) {
   return api(token, `${V4_BASE}/${review.name}/reply`, { method: "PUT", body: JSON.stringify({ comment }) });
 }
+
+export async function listMediaPage(token, { accountId, locationId }, pageToken = "") {
+  const q = new URLSearchParams({ pageSize: "100" });
+  if (pageToken) q.set("pageToken", pageToken);
+  return api(token, `${V4_BASE}/accounts/${accountId}/locations/${locationId}/media?${q}`);
+}
+
+export async function listAllMedia(token, loc, max = 400) {
+  const items = [];
+  let pageToken = "";
+  do {
+    const page = await listMediaPage(token, loc, pageToken);
+    items.push(...(page.mediaItems || []));
+    pageToken = page.nextPageToken || "";
+  } while (pageToken && items.length < max);
+  return items;
+}
+
+export async function createPhoto(token, { accountId, locationId }, { category, sourceUrl, description }) {
+  return api(token, `${V4_BASE}/accounts/${accountId}/locations/${locationId}/media`, {
+    method: "POST",
+    body: JSON.stringify({
+      mediaFormat: "PHOTO",
+      locationAssociation: { category },
+      sourceUrl,
+      ...(description ? { description } : {}),
+    }),
+  });
+}

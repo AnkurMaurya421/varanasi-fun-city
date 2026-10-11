@@ -62,7 +62,7 @@ test("featured reviews are positive, named, readable and capped", () => {
 });
 
 // ---- mock Google server ----
-let server, base, puts, reviews, tokenOk, groqMode, groqCalls;
+let server, base, puts, reviews, tokenOk, groqMode, groqCalls, media, mediaPosts;
 before(async () => {
   server = http.createServer((req, res) => {
     const url = new URL(req.url, "http://x");
@@ -70,27 +70,42 @@ before(async () => {
     if (url.pathname === "/groq/chat/completions") {
       groqCalls++;
       if (groqMode === "429") return send(429, { error: { message: "rate limited" } });
+      if (groqMode === "429once" && groqCalls === 1) return send(429, { error: { message: "slow down" } });
       let raw = "";
       req.on("data", (c) => (raw += c));
       req.on("end", () => {
         const user = JSON.parse(raw).messages[1].content;
         const hindi = /Reply language: Hindi/.test(user);
-        const en = ["Alpha","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel","India","Juliet","Kilo","Lima","Mike","November","Oscar","Papa","Quebec","Romeo","Sierra","Tango","Uniform","Victor","Whiskey","Xray","Yankee","Zulu"];
-        const hi = ["अनंत","आभार","इंद्र","ईश","उदय","ऊषा","ऋषि","एक","ऐश","ओम","औषधि","कमल","खुशी","गगन","घर","चंद्र","छवि","जय","झील","टीका","ठाठ","डमरू","ढोल","तारा","थाल","दीप","धर्म","नदी","पवन","फूल"];
+        const opener = (user.match(/exactly these words: "([^"]+)"/) || [])[1] || "Thanks";
+        const hiWords = ["अनंत","आभार","इंद्र","ईश","उदय","ऊषा","ऋषि","एक","ऐश","ओम","औषधि","कमल","खुशी","गगन","घर","चंद्र","छवि","जय","झील","टीका","ठाठ","डमरू","ढोल","तारा","थाल","दीप","धर्म","नदी","पवन","फूल"];
         const replies = {
-          good: hindi ? `${hi[groqCalls % hi.length]} धन्यवाद, हमें खुशी है कि आपका दिन अच्छा रहा।` : `${en[groqCalls % en.length]} thanks, we are so glad the kids enjoyed the wave pool today.`,
-          dupe: "Thanks a lot, we are glad you visited us and hope to see you again soon.",
-          staff: "We are glad our staff could make your day so pleasant and relaxed.",
-          free: "Thanks so much! Enjoy a free ticket on your next visit with us.",
-          url: "Thanks, see https://example.com for more details about our park.",
-          emoji: "Thank you so much for visiting us today 😀 hope to see you again.",
+          "429once": `${opener} the kids enjoyed the wave pool today.`,
+          good: hindi ? `${hiWords[groqCalls % hiWords.length]} धन्यवाद, हमें खुशी है कि आपका दिन अच्छा रहा।` : `${opener} the kids enjoyed the wave pool today.`,
+          dupe: hindi ? "धन्यवाद, हमें खुशी है कि आप आए और आपका स्वागत है।" : `${opener} you visited us and hope to see you again soon.`,
+          noopener: "We are so glad you enjoyed the day with us here today.",
+          staff: `${opener} our staff could make your day so pleasant and relaxed.`,
+          free: `${opener} you enjoyed it. Enjoy a free ticket on your next visit with us.`,
+          url: `${opener} you came, see https://example.com for more details about our park.`,
+          emoji: `${opener} you visited us today 😀 hope to see you again soon.`,
           wronglang: hindi ? "Thank you so much for the kind words, we hope to see you again." : "आपके अच्छे शब्दों के लिए धन्यवाद, फिर मिलेंगे।",
-          long: "Thank you for visiting ".repeat(40),
-          digits: "Thanks for the 5 stars, we hope you visit us again very soon.",
-          sorry: "We are sorry to hear that, and hope to see you again soon.",
+          long: `${opener} you visited. `.repeat(40),
+          digits: `${opener} the 5 stars, we hope you visit us again very soon.`,
+          sorry: `${opener} you came, we are sorry about the rest and hope to see you soon.`,
         };
         send(200, { choices: [{ message: { content: replies[groqMode] } }] });
       });
+      return;
+    }
+    if (url.pathname.startsWith("/img/") || url.pathname.startsWith("/site/")) {
+      if (req.method === "HEAD" && url.pathname.includes("missing")) { res.writeHead(404); return res.end(); }
+      res.writeHead(200, { "Content-Type": "image/jpeg" });
+      return res.end(req.method === "HEAD" ? undefined : Buffer.alloc(3000, 1));
+    }
+    if (url.pathname === "/v4/accounts/1/locations/2/media" && req.method === "GET") return send(200, { mediaItems: media, totalMediaItemCount: media.length });
+    if (url.pathname === "/v4/accounts/1/locations/2/media" && req.method === "POST") {
+      let raw = "";
+      req.on("data", (c) => (raw += c));
+      req.on("end", () => { const b = JSON.parse(raw); mediaPosts.push(b); send(200, { name: `accounts/1/locations/2/media/NEW${mediaPosts.length}`, ...b }); });
       return;
     }
     if (url.pathname === "/token") return tokenOk ? send(200, { access_token: "t" }) : send(400, { error: "invalid_grant", error_description: "Token revoked" });
@@ -122,7 +137,7 @@ const run = (script, env = {}) => new Promise((resolve) => {
     env: {
       PATH: process.env.PATH, GBP_CLIENT_ID: "id", GBP_CLIENT_SECRET: "s", GBP_REFRESH_TOKEN: "r",
       GBP_TOKEN_URL: `${base}/token`, GBP_ACCOUNTS_BASE: `${base}/v1`, GBP_INFO_BASE: `${base}/v1`, GBP_V4_BASE: `${base}/v4`,
-      REPLY_DELAY_MS: "0", HOLD_REPORT: hold, GOOGLE_REVIEWS_OUT: out, ...env,
+      REPLY_DELAY_MS: "0", AI_DELAY_MS: "0", AI_RETRY_WAIT_MS: "0", HOLD_REPORT: hold, GOOGLE_REVIEWS_OUT: out, ...env,
     },
   });
   let stdout = "", stderr = "";
@@ -137,6 +152,8 @@ const run = (script, env = {}) => new Promise((resolve) => {
 
 const seed = () => {
   puts = [];
+  media = [];
+  mediaPosts = [];
   groqCalls = 0;
   groqMode = "good";
   tokenOk = true;
@@ -230,12 +247,13 @@ test("AI replies are used when valid, with name and sign-off added by code", asy
   assert.equal(r.status, 0, r.stderr);
   assert.equal(puts.length, 20);
   assert.match(r.stdout, /AI \(Groq\) 20, template fallback 0/);
-  assert.ok(puts.every((p) => /^Hi Rahul! \w+ thanks, we are so glad the kids enjoyed the wave pool today\. — Team Varanasi Fun City$/.test(p.comment)));
-  assert.equal(new Set(puts.map((p) => p.comment.split(" ")[2])).size, 20, "every reply opens differently");
+  assert.ok(puts.every((p) => /^Hi Rahul! .+ the kids enjoyed the wave pool today\. — Team Varanasi Fun City$/.test(p.comment)));
+  const starts = puts.map((p) => p.comment.replace("Hi Rahul! ", "").split(" ").slice(0, 3).join(" ").toLowerCase());
+  assert.equal(new Set(starts).size, 20, "every reply opens differently");
 });
 
 test("every kind of bad AI output falls back to a safe template", async () => {
-  for (const mode of ["free", "url", "emoji", "wronglang", "long", "digits", "sorry", "staff"]) {
+  for (const mode of ["free", "url", "emoji", "wronglang", "long", "digits", "sorry", "staff", "noopener"]) {
     seed();
     groqMode = mode;
     const r = await run("reply-reviews.mjs", { DRY_RUN: "false", ...AI() });
@@ -257,8 +275,8 @@ test("a review that tries to instruct the AI never reaches it", async () => {
   assert.equal(r.status, 0, r.stderr);
   assert.equal(puts.length, 2);
   assert.equal(groqCalls, 1);
-  assert.ok(!/glad the kids/.test(puts.find((p) => /inj/.test(p.path)).comment));
-  assert.ok(/glad the kids/.test(puts.find((p) => /fine/.test(p.path)).comment));
+  assert.ok(!/kids enjoyed the wave pool/.test(puts.find((p) => /inj/.test(p.path)).comment));
+  assert.ok(/kids enjoyed the wave pool/.test(puts.find((p) => /fine/.test(p.path)).comment));
 });
 
 test("rate-limited AI stops after one call and templates cover the rest", async () => {
@@ -267,7 +285,7 @@ test("rate-limited AI stops after one call and templates cover the rest", async 
   const r = await run("reply-reviews.mjs", { DRY_RUN: "false", ...AI() });
   assert.equal(r.status, 0, r.stderr);
   assert.equal(puts.length, 20);
-  assert.equal(groqCalls, 1);
+  assert.equal(groqCalls, 2, "waits once and retries, then gives up");
   assert.match(r.stdout, /AI turned off/);
 });
 
@@ -291,9 +309,97 @@ test("complaints and low ratings are held and never sent to the AI", async () =>
 test("a repeated AI opening is rejected so a batch does not read like copy-paste", async () => {
   seed();
   groqMode = "dupe";
+  reviews = Array.from({ length: 5 }, (_, i) => rev(`h${i}`, 5, "बहुत बढ़िया जगह, बच्चों को मज़ा आया", { ageHours: i + 1 }));
   const r = await run("reply-reviews.mjs", { DRY_RUN: "false", ...AI() });
   assert.equal(r.status, 0, r.stderr);
-  assert.equal(puts.length, 20);
-  assert.match(r.stdout, /AI \(Groq\) 1, template fallback 19/);
+  assert.equal(puts.length, 5);
+  assert.match(r.stdout, /AI \(Groq\) 1, template fallback 4/);
   assert.doesNotMatch(r.stdout, /AI turned off/);
+});
+
+test("a 429 that clears after waiting does not lose the AI reply", async () => {
+  seed();
+  reviews = [rev("one", 5, "The kids loved the wave pool", { ageHours: 1 })];
+  groqMode = "429once";
+  const r = await run("reply-reviews.mjs", { DRY_RUN: "false", ...AI() });
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stdout, /AI \(Groq\) 1, template fallback 0/);
+  assert.equal(groqCalls, 2);
+});
+
+const mediaItem = (key, category, extra = {}) => ({
+  name: `accounts/1/locations/2/media/${key}`,
+  mediaFormat: extra.video ? "VIDEO" : "PHOTO",
+  locationAssociation: { category },
+  googleUrl: `${base}/img/${key}`,
+  createTime: extra.createTime || new Date().toISOString(),
+  dimensions: { widthPixels: 1280, heightPixels: 720 },
+  description: extra.description || "",
+  ...(extra.credit ? { attribution: { profileName: extra.credit } } : {}),
+});
+
+test("photo upload: dry run uploads nothing, live uses the right categories, a rerun makes no duplicates", async () => {
+  seed();
+  const env = { SITE_URL: `${base}/site` };
+  let r = await run("upload-media.mjs", env);
+  assert.equal(r.status, 0, r.stderr);
+  assert.equal(mediaPosts.length, 0);
+  assert.match(r.stdout, /Would upload 4 photo/);
+
+  r = await run("upload-media.mjs", { ...env, DRY_RUN: "false" });
+  assert.equal(r.status, 0, r.stderr);
+  assert.equal(mediaPosts.length, 4);
+  const byCat = Object.fromEntries(mediaPosts.map((p) => [p.locationAssociation.category, p.sourceUrl.split("/").pop()]));
+  assert.deepEqual(byCat, {
+    EXTERIOR: "varanasi-fun-city-wedding-stage.jpg",
+    INTERIOR: "varanasi-fun-city-banquet-hall.jpg",
+    COMMON_AREA: "varanasi-fun-city-wedding-entrance.jpg",
+    ROOMS: "varanasi-fun-city-ac-room.jpg",
+  });
+  assert.ok(mediaPosts.every((p) => p.mediaFormat === "PHOTO" && p.description.endsWith("Varanasi Fun City") || /Deluxe Room/.test(p.description)));
+
+  // profile now has them -> nothing more to upload
+  media = mediaPosts.map((p, i) => mediaItem(`UP${i}`, p.locationAssociation.category, { description: p.description }));
+  mediaPosts = [];
+  r = await run("upload-media.mjs", { ...env, DRY_RUN: "false" });
+  assert.equal(mediaPosts.length, 0);
+  assert.match(r.stdout, /Uploaded 0 photo/);
+});
+
+test("photo upload skips anything the site can't serve as an image", async () => {
+  seed();
+  const r = await run("upload-media.mjs", { SITE_URL: `${base}/missing`, DRY_RUN: "false" });
+  assert.equal(r.status, 0, r.stderr);
+  assert.equal(mediaPosts.length, 0);
+  assert.match(r.stdout, /SKIP \(not reachable/);
+});
+
+test("photo sync downloads photos, skips the logo and our own uploads, keeps video previews, and cleans up", async () => {
+  seed();
+  media = [
+    mediaItem("A1", "EXTERIOR", { createTime: "2026-10-01T00:00:00Z", credit: "Varanasi Fun City" }),
+    mediaItem("B2", "INTERIOR", { createTime: "2026-09-01T00:00:00Z" }),
+    mediaItem("LOGO", "PROFILE"),
+    mediaItem("OURS", "EXTERIOR", { description: "Decorated wedding stage on the lawn at Varanasi Fun City" }),
+    mediaItem("V1", "ADDITIONAL", { video: true, createTime: "2026-08-01T00:00:00Z" }),
+  ];
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "gm-"));
+  const outFile = path.join(dir, "google-media.json");
+  const photos = path.join(dir, "photos");
+  fs.mkdirSync(photos);
+  fs.writeFileSync(path.join(photos, "STALE.jpg"), "x");
+  const r = await run("sync-media.mjs", { GOOGLE_MEDIA_DIR: photos, GOOGLE_MEDIA_OUT: outFile, GOOGLE_MEDIA_PREFIX: "/google-media" });
+  assert.equal(r.status, 0, r.stderr);
+  assert.deepEqual(fs.readdirSync(photos).sort(), ["A1.jpg", "B2.jpg", "V1.jpg"]);
+  assert.match(r.stdout, /Saved 3 photo\(s\) \(5 on the profile, 1 video preview/);
+  const data = JSON.parse(fs.readFileSync(outFile, "utf8"));
+  assert.deepEqual(data.items.map((i) => i.id), ["A1", "B2", "V1"], "newest first");
+  assert.equal(data.items[0].file, "/google-media/A1.jpg");
+  assert.equal(data.items[0].label, "Outside");
+  assert.equal(data.items[0].credit, "Varanasi Fun City");
+  assert.equal(data.items[2].video, true);
+  assert.equal(data.videos, 1);
+  // a second run changes nothing
+  const again = await run("sync-media.mjs", { GOOGLE_MEDIA_DIR: photos, GOOGLE_MEDIA_OUT: outFile });
+  assert.match(again.stdout, /No changes to the Google photos/);
 });

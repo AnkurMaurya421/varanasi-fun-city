@@ -1,6 +1,7 @@
-# Refreshes the homepage reviews (data/google-reviews.json) from Google every week.
+# Refreshes the homepage reviews (data/google-reviews.json) and the gallery photos (data/google-media.json,
+# public/google-media/) from Google every week.
 # Needs repo secrets: GBP_CLIENT_ID, GBP_CLIENT_SECRET, GBP_REFRESH_TOKEN (optional: GBP_ACCOUNT_ID, GBP_LOCATION_ID)
-name: Sync Google reviews to homepage
+name: Sync Google reviews and photos
 
 on:
   schedule:
@@ -33,15 +34,24 @@ jobs:
           GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
         run: node --no-warnings scripts/sync-reviews.mjs
 
+      - name: Fetch photos for the gallery
+        env:
+          GBP_CLIENT_ID: ${{ secrets.GBP_CLIENT_ID }}
+          GBP_CLIENT_SECRET: ${{ secrets.GBP_CLIENT_SECRET }}
+          GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
+          GBP_ACCOUNT_ID: ${{ secrets.GBP_ACCOUNT_ID }}
+          GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
+        run: node --no-warnings scripts/sync-media.mjs
+
       - name: Commit if changed (Vercel redeploys on push)
         run: |
-          if git diff --quiet data/google-reviews.json; then
+          git add -A data/google-reviews.json data/google-media.json public/google-media
+          if git diff --cached --quiet; then
             echo "Nothing to commit."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/google-reviews.json
-            git commit -m "Update Google reviews on homepage"
+            git commit -m "Update Google reviews and photos"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin "HEAD:${GITHUB_REF_NAME}"
           fi

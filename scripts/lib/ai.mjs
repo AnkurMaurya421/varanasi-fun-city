@@ -59,16 +59,33 @@ export function validate(body, { hindi, reviewText = "" }) {
 }
 
 function clean(raw) {
-  let t = (raw || "").trim().replace(/^["“”']+|["“”']+$/g, "").replace(/^(reply|response)\s*:\s*/i, "");
+  let t = (raw || "").trim().replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/^["']+|["']+$/g, "").replace(/^(reply|response)\s*:\s*/i, "");
   t = t.split("\n").filter((l) => !/^\s*[—–-]\s*\S/.test(l)).join(" ");
   t = t.replace(/^(hi|hello|dear|namaste|नमस्ते)\b[^.!?\n]{0,40}[!,.]\s*/i, "");
   t = t.replace(/\s*[—–-]?\s*(team|टीम)\s+(varanasi|वाराणसी).*$/i, "");
   return t.replace(/\s+/g, " ").trim();
 }
 
-const OPENERS = ["Happy to hear", "So glad", "What lovely words", "We truly appreciate", "Thanks a lot", "It's wonderful to hear", "We're delighted", "Great to know", "That's great to hear", "Lovely to hear"];
+const OPENERS = [
+  "Happy to hear", "So glad you", "What lovely words", "We truly appreciate", "Thanks a lot", "It's wonderful to",
+  "We're delighted that", "Great to know", "That's great to", "Lovely to hear", "We're thrilled you", "Really glad you",
+  "How lovely to", "Glad you enjoyed", "We love hearing", "Wonderful to hear", "Delighted to hear", "We're so happy",
+  "Nice to hear", "Our pleasure to", "Warm thanks for", "Many thanks for", "We're pleased you", "Heartfelt thanks for",
+];
 const hashStr = (str) => { let h = 0; for (const c of str) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; };
-const opening = (body) => body.toLowerCase().replace(/[^\p{L}\s]/gu, "").split(/\s+/).slice(0, 3).join(" ");
+const letters = (t) => t.toLowerCase().replace(/[’']/g, "'").replace(/[^\p{L}\p{M}\s']/gu, "");
+const opening = (body) => letters(body).split(/\s+/).filter(Boolean).slice(0, 3).join(" ");
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Pick an opener this run hasn't used yet, so a batch of replies doesn't all start alike.
+function pickOpener(review, seen) {
+  const start = hashStr(review.reviewId || review.name || "") % OPENERS.length;
+  for (let i = 0; i < OPENERS.length; i++) {
+    const cand = OPENERS[(start + i) % OPENERS.length];
+    if (!seen?.has(opening(cand))) return cand;
+  }
+  return OPENERS[start];
+}
 
 // Returns { ok: true, comment } or { ok: false, reason, fatal?, transient? }.
 // seenOpenings (a Set) keeps one run from starting many replies the same way.
@@ -77,10 +94,12 @@ export async function aiReply(review, { seenOpenings } = {}) {
   if (ctx.text && (INJECTION.test(ctx.text) || /https?:|www\.|@/i.test(ctx.text))) {
     return { ok: false, reason: "review text looks unsafe for AI" };
   }
-  const hint = ctx.hindi ? "" : `\nStart the reply with the words: "${OPENERS[hashStr(review.reviewId || review.name || "") % OPENERS.length]}"`;
+  const opener = ctx.hindi ? "" : pickOpener(review, seenOpenings);
+  const hint = opener ? `\nBegin the reply with exactly these words: "${opener}"` : "";
   const user = `Rating: ${ctx.stars} out of 5 stars\nReply language: ${ctx.hindi ? "Hindi" : "English"}${hint}\n<review>\n${ctx.text ? ctx.text.slice(0, 600) : "(no text, rating only)"}\n</review>`;
 
   let lastReason = "AI output rejected";
+  let waited = false;
   for (let attempt = 0; attempt < 2; attempt++) {
     let res;
     try {
@@ -100,11 +119,21 @@ export async function aiReply(review, { seenOpenings } = {}) {
     } catch {
       return { ok: false, reason: "AI request failed", transient: true };
     }
+    if (res.status === 429 && !waited) {
+      // Groq rate limit: wait as long as it asks (once), then try the same review again.
+      waited = true;
+      const asked = Number(res.headers.get("retry-after"));
+      const ms = process.env.AI_RETRY_WAIT_MS !== undefined ? Number(process.env.AI_RETRY_WAIT_MS) : Math.min(45, asked > 0 ? asked + 1 : 15) * 1000;
+      await sleep(ms);
+      attempt--;
+      continue;
+    }
     if ([401, 403, 429].includes(res.status)) return { ok: false, reason: `AI service ${res.status}`, fatal: true };
     if (!res.ok) return { ok: false, reason: `AI service ${res.status}`, transient: true };
     const data = await res.json().catch(() => ({}));
     const body = clean(data.choices?.[0]?.message?.content);
     let bad = validate(body, { hindi: ctx.hindi, reviewText: ctx.text });
+    if (!bad && opener && !letters(body).startsWith(letters(opener))) bad = "ignored the required opening";
     if (!bad && seenOpenings?.has(opening(body))) bad = "repeated opening";
     if (!bad) {
       seenOpenings?.add(opening(body));

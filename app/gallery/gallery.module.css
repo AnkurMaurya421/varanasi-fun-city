@@ -63,3 +63,44 @@
 @media (min-width: 1024px) {
   .grid { grid-template-columns: repeat(4, 1fr); }
 }
+
+.gfig {
+  position: relative;
+  margin: 0;
+}
+
+.gfig a {
+  display: block;
+  position: relative;
+}
+
+.play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-white);
+  font-size: 2rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.credit {
+  margin-top: var(--space-1);
+  font-size: 0.7rem;
+  color: var(--clr-text-muted);
+}
+
+.moreLink {
+  margin-top: var(--space-4);
+}
+
+.moreLink a {
+  color: var(--clr-sky-600);
+  font-weight: 700;
+}
+
+.moreLink a:hover {
+  text-decoration: underline;
+}
