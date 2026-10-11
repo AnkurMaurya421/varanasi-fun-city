@@ -2,7 +2,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { services } from "@/servicesConfig";
-import { siteConfig } from "@/siteConfig";
+import { getSiteConfig } from "@/lib/siteConfigStore";
 import styles from "./not-found.module.css";
 
 export const metadata = {
@@ -10,7 +10,8 @@ export const metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function NotFound() {
+export default async function NotFound() {
+  const siteConfig = await getSiteConfig();
   return (
     <>
       <Navbar />

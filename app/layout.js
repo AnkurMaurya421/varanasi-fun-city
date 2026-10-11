@@ -1,43 +1,46 @@
-import { siteConfig } from "@/siteConfig";
+import { siteConfig as defaultConfig } from "@/siteConfig";
 import { services } from "@/servicesConfig";
 import WhatsAppButton from "@/components/WhatsAppButton/WhatsAppButton";
+import ConfigProvider from "@/components/ConfigProvider/ConfigProvider";
+import HideOnAdmin from "@/components/HideOnAdmin/HideOnAdmin";
+import { getSiteConfig } from "@/lib/siteConfigStore";
 import Tracking from "@/components/Tracking/Tracking";
 import "./globals.css";
 
 export const metadata = {
   title: {
-    default: siteConfig.seo.title,
-    template: siteConfig.seo.titleTemplate,
+    default: defaultConfig.seo.title,
+    template: defaultConfig.seo.titleTemplate,
   },
-  description: siteConfig.seo.description,
-  keywords: siteConfig.seo.keywords,
+  description: defaultConfig.seo.description,
+  keywords: defaultConfig.seo.keywords,
   authors: [{ name: "Ankur Maurya" }],
   creator: "Ankur Maurya",
-  metadataBase: new URL(siteConfig.seo.canonicalUrl),
+  metadataBase: new URL(defaultConfig.seo.canonicalUrl),
   alternates: {
-    canonical: siteConfig.seo.canonicalUrl,
+    canonical: defaultConfig.seo.canonicalUrl,
   },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: siteConfig.seo.canonicalUrl,
-    siteName: siteConfig.name,
-    title: siteConfig.seo.title,
-    description: siteConfig.seo.description,
+    url: defaultConfig.seo.canonicalUrl,
+    siteName: defaultConfig.name,
+    title: defaultConfig.seo.title,
+    description: defaultConfig.seo.description,
     images: [
       {
-        url: siteConfig.seo.ogImage,
+        url: defaultConfig.seo.ogImage,
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} — Waterpark in Varanasi`,
+        alt: `${defaultConfig.name} — Waterpark in Varanasi`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.seo.title,
-    description: siteConfig.seo.description,
-    images: [siteConfig.seo.ogImage],
+    title: defaultConfig.seo.title,
+    description: defaultConfig.seo.description,
+    images: [defaultConfig.seo.ogImage],
   },
   robots: {
     index: true,
@@ -55,11 +58,11 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: siteConfig.seo.themeColor,
+  themeColor: defaultConfig.seo.themeColor,
 };
 
 // JSON-LD Local Business Schema
-function JsonLd() {
+function JsonLd({ siteConfig }) {
   const eventServices = services.filter((s) => s.category !== "park");
 
   const schema = {
@@ -132,11 +135,12 @@ function JsonLd() {
   );
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const siteConfig = await getSiteConfig();
   return (
     <html lang="en">
       <head>
-        <JsonLd />
+        <JsonLd siteConfig={siteConfig} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -145,9 +149,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        {children}
-        <WhatsAppButton />
-        <Tracking />
+        <ConfigProvider config={siteConfig}>{children}</ConfigProvider>
+        <HideOnAdmin>
+          <WhatsAppButton />
+          <Tracking />
+        </HideOnAdmin>
       </body>
     </html>
   );

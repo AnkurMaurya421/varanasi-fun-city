@@ -2,10 +2,11 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import Chatbot from "@/components/Chatbot/Chatbot";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import { siteConfig } from "@/siteConfig";
+import { siteConfig as defaultConfig } from "@/siteConfig";
+import { getSiteConfig } from "@/lib/siteConfigStore";
 import styles from "./contact.module.css";
 
-const BASE_URL = siteConfig.seo.canonicalUrl;
+const BASE_URL = defaultConfig.seo.canonicalUrl;
 
 export const metadata = {
   title: "Contact Us",
@@ -14,8 +15,8 @@ export const metadata = {
   alternates: { canonical: `${BASE_URL}/contact/` },
 };
 
-export default function ContactPage() {
-  const { contact } = siteConfig;
+export default async function ContactPage() {
+  const { contact } = await getSiteConfig();
 
   return (
     <>

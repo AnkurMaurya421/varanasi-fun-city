@@ -42,3 +42,6 @@ next-env.d.ts
 
 # review bot output
 review-hold.md
+
+# local admin test settings
+.data/

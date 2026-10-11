@@ -1,4 +1,4 @@
-import { siteConfig } from "@/siteConfig";
+import { getSiteConfig } from "@/lib/siteConfigStore";
 import styles from "./Timings.module.css";
 
 function SunIcon() {
@@ -27,7 +27,8 @@ function ClockIcon() {
   );
 }
 
-export default function Timings() {
+export default async function Timings() {
+  const siteConfig = await getSiteConfig();
   const { day, night } = siteConfig.shifts;
 
   return (

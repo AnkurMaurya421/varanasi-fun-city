@@ -1,8 +1,8 @@
-import { siteConfig } from "@/siteConfig";
+import { getSiteConfig } from "@/lib/siteConfigStore";
 import styles from "./WhatsAppButton.module.css";
 
-export default function WhatsAppButton() {
-  const number = siteConfig.contact.whatsapp;
+export default async function WhatsAppButton() {
+  const number = (await getSiteConfig()).contact.whatsapp;
   if (!number) return null;
   const text = encodeURIComponent("Hi Varanasi Fun City, I'd like to know more about ");
   return (

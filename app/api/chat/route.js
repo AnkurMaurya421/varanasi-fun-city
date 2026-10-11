@@ -68,7 +68,7 @@ export async function POST(request) {
     const stream = await groq.chat.completions.create({
       model: "openai/gpt-oss-20b",
       messages: [
-        { role: "system", content: buildSystemPrompt() },
+        { role: "system", content: await buildSystemPrompt() },
         ...trimmedMessages,
       ],
       stream: true,

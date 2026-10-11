@@ -1,11 +1,28 @@
 import Link from "next/link";
-import { siteConfig } from "@/siteConfig";
+import { siteConfig as defaults } from "@/siteConfig";
+import { getSiteConfig } from "@/lib/siteConfigStore";
 import { getRelated, categories } from "@/servicesConfig";
 import { JsonLdScript, faqSchema, serviceSchema } from "@/lib/seo";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import styles from "./ServicePage.module.css";
 
-export default function ServicePage({ service }) {
+// Page copy is written with the default phone numbers / reopening month; swap in the live values from /admin.
+function fillDeep(value, pairs) {
+  if (typeof value === "string") return pairs.reduce((s, [from, to]) => (from && to ? s.split(from).join(to) : s), value);
+  if (Array.isArray(value)) return value.map((v) => fillDeep(v, pairs));
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, fillDeep(v, pairs)]));
+  return value;
+}
+
+export default async function ServicePage({ service: rawService }) {
+  const siteConfig = await getSiteConfig();
+  const closure = siteConfig.isOpen ? "" : ` The water park is closed for the season and reopens in ${siteConfig.reopeningText}.`;
+  const service = fillDeep(rawService, [
+    ["{{closure}}", closure || " "],
+    [defaults.contact.phone2, siteConfig.contact.phone2],
+    [defaults.contact.phone, siteConfig.contact.phone],
+    [defaults.reopeningText, siteConfig.reopeningText],
+  ]);
   const related = getRelated(service);
   const hub = categories[service.category];
   const breadcrumbItems = [{ label: "Home", href: "/" }];
@@ -16,7 +33,7 @@ export default function ServicePage({ service }) {
 
   return (
     <>
-      <JsonLdScript data={serviceSchema(service)} />
+      <JsonLdScript data={serviceSchema(service, siteConfig.contact.phone)} />
       <JsonLdScript data={faqSchema(service.faqs)} />
 
       <div className="shell">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { siteConfig } from "@/siteConfig";
+import { useSiteConfig } from "@/components/ConfigProvider/ConfigProvider";
 import styles from "./Pricing.module.css";
 
 function SunIcon() {
@@ -50,6 +50,7 @@ function ClockIcon() {
 const TAB_KEYS = ["weekday", "weekend", "holiday"];
 
 export default function Pricing() {
+  const siteConfig = useSiteConfig();
   const [activeTab, setActiveTab] = useState("weekday");
   const { pricing, pricingMeta, extras, shifts } = siteConfig;
   const nightEnabled = shifts.night.enabled;

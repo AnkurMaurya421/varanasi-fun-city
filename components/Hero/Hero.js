@@ -1,9 +1,10 @@
 "use client";
-import { siteConfig } from "@/siteConfig";
+import { useSiteConfig } from "@/components/ConfigProvider/ConfigProvider";
 import styles from "./Hero.module.css";
 import { useState, useEffect } from "react";
 
 export default function Hero() {
+  const siteConfig = useSiteConfig();
   const { name, subTagline, heroImage, isOpen, openingDate, announcements } = siteConfig;
   const [index, setIndex] = useState(0);
   const [animating, setAnimating] = useState(false);

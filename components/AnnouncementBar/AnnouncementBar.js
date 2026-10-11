@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { siteConfig } from "@/siteConfig";
+import { useSiteConfig } from "@/components/ConfigProvider/ConfigProvider";
 import styles from "./AnnouncementBar.module.css";
 
 export default function AnnouncementBar() {
+  const siteConfig = useSiteConfig();
   const announcements = siteConfig.announcements;
   const [index, setIndex] = useState(0);
   const [animating, setAnimating] = useState(false);

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { siteConfig } from "@/siteConfig";
+import { getSiteConfig } from "@/lib/siteConfigStore";
 import googleReviews from "@/data/google-reviews.json";
 import styles from "./Footer.module.css";
 
@@ -44,8 +44,8 @@ function PhoneIcon() {
   );
 }
 
-export default function Footer() {
-  const { name, contact, socials, agency } = siteConfig;
+export default async function Footer() {
+  const { name, contact, socials, agency } = await getSiteConfig();
 
   return (
     <footer className={styles.footer} id="contact">
