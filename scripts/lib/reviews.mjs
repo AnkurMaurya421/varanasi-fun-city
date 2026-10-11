@@ -4,11 +4,16 @@ import { siteConfig } from "../../siteConfig.js";
 const STAR = { ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5 };
 export const starsOf = (review) => STAR[review.starRating] || 0;
 
-// Google adds "(Translated by Google) ... (Original) ..." to non-English reviews.
+// Google adds a translation to non-English reviews, in one of two layouts:
+//   "(Translated by Google) <english>  (Original) <text>"   or   "<text>  (Translated by Google) <english>"
+// We always want the reviewer's own words, never the machine translation.
 export function originalText(comment = "") {
-  const parts = comment.split("(Original)");
-  if (parts.length > 1) return parts[parts.length - 1].trim();
-  return comment.replace("(Translated by Google)", "").trim();
+  if (comment.includes("(Original)")) return comment.split("(Original)").pop().trim();
+  const marker = "(Translated by Google)";
+  const i = comment.indexOf(marker);
+  if (i === -1) return comment.trim();
+  const before = comment.slice(0, i).trim();
+  return before || comment.slice(i + marker.length).trim();
 }
 
 // Anything that sounds like a complaint, suggestion or sensitive issue goes to a human, never a template.

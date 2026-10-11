@@ -31,6 +31,8 @@ test("language, flags and tiers", () => {
   assert.doesNotMatch(decide(rev("i", 5, "Loved it", { anon: true })).comment, /Hi ,/);
   assert.equal(flagged("Loved every minute of it"), null);
   assert.equal(originalText("(Translated by Google)\nNice\n\n(Original)\nबढ़िया"), "बढ़िया");
+  assert.equal(originalText("Maza aa gaya bahut badhiya\n\n\n(Translated by Google)\nHad a lot of fun, very nice"), "Maza aa gaya bahut badhiya");
+  assert.equal(originalText("Plain English review"), "Plain English review");
 });
 
 test("names are tidied and a batch does not repeat the same wording", () => {
