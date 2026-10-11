@@ -185,7 +185,8 @@ export const siteConfig = {
     phone2Href: "tel:+919918404351",
     email: "varanasifuncity@gmail.com",
     address: "Sona Talab Pandeypur, Panchkoshi Rd, in front of St. Mary Convent School, Daniyalpur, Varanasi, Uttar Pradesh 221007",
-    mapUrl: "https://goo.gl/maps/uzaa7EXVEd3uv7v18",
+    // Opens the Google Maps listing (reviews, photos, videos, directions). The old goo.gl short link no longer responds.
+    mapUrl: "https://www.google.com/maps?cid=9349609389350833699",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14423.27355188813!2d83.02539509999998!3d25.34387455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2e5ceabeb383%3A0x81c07c3408e9ce23!2sVaranasi%20Fun%20City%20%7C%20Best%20Waterpark%20in%20Varanasi!5e0!3m2!1sen!2sin!4v1779026791676!5m2!1sen!2sin",
   },
 
@@ -296,8 +297,8 @@ export const siteConfig = {
     priceRange: "₹400",
     currenciesAccepted: "INR",
     paymentAccepted: "Cash, UPI",
-    latitude: 25.3176,    // TODO: verify exact coordinates
-    longitude: 82.9739,   // TODO: verify exact coordinates
+    latitude: 25.3452134,   // from the Google Maps listing
+    longitude: 83.0193378,  // from the Google Maps listing
   },
   agency :{
     name:"Ontoweb",

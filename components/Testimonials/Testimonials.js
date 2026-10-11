@@ -1,4 +1,5 @@
 import googleReviews from "@/data/google-reviews.json";
+import { siteConfig } from "@/siteConfig";
 import styles from "./Testimonials.module.css";
 
 function Stars({ count }) {
@@ -18,7 +19,8 @@ const monthYear = (iso) =>
   new Date(iso).toLocaleDateString("en-IN", { month: "short", year: "numeric" });
 
 export default function Testimonials() {
-  const { reviews, rating, total, reviewsUrl } = googleReviews;
+  const { reviews, rating, total } = googleReviews;
+  const reviewsUrl = siteConfig.contact.mapUrl;
   if (!reviews || reviews.length === 0) return null;
 
   return (
