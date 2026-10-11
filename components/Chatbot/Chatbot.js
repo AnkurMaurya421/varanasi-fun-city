@@ -300,11 +300,12 @@ export default function Chatbot() {
 
       {/* Floating bubble */}
       <button
-        className={`${styles.bubble} ${open ? styles.bubbleActive : ""}`}
+        className={`${styles.launcher} ${open ? styles.launcherActive : ""}`}
         onClick={() => setOpen((o) => !o)}
-        aria-label={open ? "Close chat" : "Open chat"}
+        aria-label={open ? "Close chat" : "Ask our AI assistant"}
       >
         {open ? <CloseIcon /> : <BotIcon />}
+        {!open && <span className={styles.launcherLabel}>Ask AI</span>}
         {!open && <span className={styles.bubblePulse} aria-hidden="true" />}
       </button>
     </>

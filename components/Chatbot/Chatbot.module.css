@@ -47,6 +47,56 @@
   100% { opacity: 0; transform: scale(1.5); }
 }
 
+/* ---- Labelled launcher ("Ask AI" pill) ---- */
+.launcher {
+  position: fixed;
+  bottom: var(--space-5);
+  right: var(--space-5);
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 52px;
+  height: 52px;
+  padding: 0 var(--space-4) 0 var(--space-3);
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--clr-sky-600);
+  color: var(--clr-white);
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.45);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.launcher svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.launcher:hover {
+  background: var(--clr-sky-700);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(14, 165, 233, 0.55);
+}
+
+.launcherActive {
+  width: 52px;
+  padding: 0;
+  background: var(--clr-ocean-dark);
+}
+
+.launcherLabel {
+  white-space: nowrap;
+}
+
+.launcher .bubblePulse {
+  inset: -4px;
+}
+
 /* ---- Chat window ---- */
 .window {
   position: fixed;
