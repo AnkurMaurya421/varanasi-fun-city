@@ -62,7 +62,7 @@ test("featured reviews are positive, named, readable and capped", () => {
 });
 
 // ---- mock Google server ----
-let server, base, puts, reviews, tokenOk, groqMode, groqCalls, media, mediaPosts;
+let server, base, puts, reviews, tokenOk, groqMode, groqCalls, media, mediaPosts, mediaFail = "";
 before(async () => {
   server = http.createServer((req, res) => {
     const url = new URL(req.url, "http://x");
@@ -105,7 +105,7 @@ before(async () => {
     if (url.pathname === "/v4/accounts/1/locations/2/media" && req.method === "POST") {
       let raw = "";
       req.on("data", (c) => (raw += c));
-      req.on("end", () => { const b = JSON.parse(raw); mediaPosts.push(b); send(200, { name: `accounts/1/locations/2/media/NEW${mediaPosts.length}`, ...b }); });
+      req.on("end", () => { const b = JSON.parse(raw); if (mediaFail && b.sourceUrl.includes(mediaFail)) return send(400, { error: { message: "Request contains an invalid argument." } }); mediaPosts.push(b); send(200, { name: `accounts/1/locations/2/media/NEW${mediaPosts.length}`, ...b }); });
       return;
     }
     if (url.pathname === "/token") return tokenOk ? send(200, { access_token: "t" }) : send(400, { error: "invalid_grant", error_description: "Token revoked" });
@@ -338,25 +338,22 @@ const mediaItem = (key, category, extra = {}) => ({
   ...(extra.credit ? { attribution: { profileName: extra.credit } } : {}),
 });
 
-test("photo upload: dry run uploads nothing, live uses the right categories, a rerun makes no duplicates", async () => {
+test("photo upload: dry run uploads nothing, live uses valid categories, earlier uploads and reruns never duplicate", async () => {
   seed();
   const env = { SITE_URL: `${base}/site` };
   let r = await run("upload-media.mjs", env);
   assert.equal(r.status, 0, r.stderr);
   assert.equal(mediaPosts.length, 0);
-  assert.match(r.stdout, /Would upload 4 photo/);
+  assert.match(r.stdout, /Would upload 2 photo/);
+  assert.match(r.stdout, /SKIP \(uploaded earlier\): varanasi-fun-city-wedding-stage\.jpg/);
 
   r = await run("upload-media.mjs", { ...env, DRY_RUN: "false" });
   assert.equal(r.status, 0, r.stderr);
-  assert.equal(mediaPosts.length, 4);
-  const byCat = Object.fromEntries(mediaPosts.map((p) => [p.locationAssociation.category, p.sourceUrl.split("/").pop()]));
-  assert.deepEqual(byCat, {
-    EXTERIOR: "varanasi-fun-city-wedding-stage.jpg",
-    INTERIOR: "varanasi-fun-city-banquet-hall.jpg",
-    COMMON_AREA: "varanasi-fun-city-wedding-entrance.jpg",
-    ROOMS: "varanasi-fun-city-ac-room.jpg",
-  });
-  assert.ok(mediaPosts.every((p) => p.mediaFormat === "PHOTO" && p.description.endsWith("Varanasi Fun City") || /Deluxe Room/.test(p.description)));
+  assert.equal(mediaPosts.length, 2);
+  const byFile = Object.fromEntries(mediaPosts.map((p) => [p.sourceUrl.split("/").pop(), p.locationAssociation.category]));
+  assert.deepEqual(byFile, { "varanasi-fun-city-wedding-entrance.jpg": "EXTERIOR", "varanasi-fun-city-ac-room.jpg": "INTERIOR" });
+  assert.ok(mediaPosts.every((p) => p.mediaFormat === "PHOTO" && /Varanasi Fun City/.test(p.description)));
+  assert.ok(!mediaPosts.some((p) => ["COMMON_AREA", "ROOMS"].includes(p.locationAssociation.category)), "hotel-only categories are rejected for this business");
 
   // profile now has them -> nothing more to upload
   media = mediaPosts.map((p, i) => mediaItem(`UP${i}`, p.locationAssociation.category, { description: p.description }));
@@ -364,6 +361,16 @@ test("photo upload: dry run uploads nothing, live uses the right categories, a r
   r = await run("upload-media.mjs", { ...env, DRY_RUN: "false" });
   assert.equal(mediaPosts.length, 0);
   assert.match(r.stdout, /Uploaded 0 photo/);
+});
+
+test("one failed photo does not stop the others, and the run reports failure", async () => {
+  seed();
+  mediaFail = "ac-room";
+  const r = await run("upload-media.mjs", { SITE_URL: `${base}/site`, DRY_RUN: "false" });
+  assert.equal(r.status, 1);
+  assert.equal(mediaPosts.length, 1, "the entrance photo still uploaded");
+  assert.match(r.stdout, /FAILED varanasi-fun-city-ac-room\.jpg/);
+  mediaFail = "";
 });
 
 test("photo upload skips anything the site can't serve as an image", async () => {
