@@ -176,37 +176,6 @@ export const siteConfig = {
   ],
 
   // ----------------------------------------------------------
-  //  TESTIMONIALS
-  //  TODO: Replace with real verified Google reviews.
-  // ----------------------------------------------------------
-  testimonials: [
-    {
-      id: 1,
-      name: "Satyam Tiwari",
-      location: "Varanasi",
-      initials: "ST",
-      stars: 5,
-      text: "This is the best waterpark I have visited in Purvanchal. Many cool and thrilling rides with wavy wave pool is one of the best things about this. The customer experience is also top notch. I really love this place.",
-    },
-    {
-      id: 2,
-      name: "Priya Sharma",
-      location: "Lucknow",
-      initials: "PS",
-      stars: 5,
-      text: "Visited with my family on a Sunday and it was absolutely worth it. The wave pool is massive and the kids had a blast in the splash zone. Staff was helpful and the place was well maintained. Will definitely come back!",
-    },
-    {
-      id: 3,
-      name: "Rohit Verma",
-      location: "Allahabad",
-      initials: "RV",
-      stars: 5,
-      text: "Came for the night shift with friends — the pool lights and DJ made it a completely different experience. Rain dance was the highlight. Affordable tickets compared to other parks in UP. Highly recommended!",
-    },
-  ],
-
-  // ----------------------------------------------------------
   //  CONTACT & LOCATION
   // ----------------------------------------------------------
   contact: {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/siteConfig";
+import googleReviews from "@/data/google-reviews.json";
 import styles from "./Footer.module.css";
 
 function YoutubeIcon() {
@@ -129,7 +130,7 @@ export default function Footer() {
                 <li><Link href="/#timings">Timings</Link></li>
                 <li><Link href="/#pricing">Pricing</Link></li>
                 <li><Link href="/#rides">Rides</Link></li>
-                <li><Link href="/#testimonials">Reviews</Link></li>
+                {googleReviews.reviews.length > 0 && <li><Link href="/#testimonials">Reviews</Link></li>}
                 <li><Link href="/gallery/">Gallery</Link></li>
               </ul>
             </nav>
@@ -156,7 +157,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className={styles.bottom}>
-          <p>© {new Date().getFullYear()} {name}. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {name}. All rights reserved. · <Link href="/privacy-policy/">Privacy Policy</Link></p>
           <p>
             Designed &amp; Developed by{" "}
             <a

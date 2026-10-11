@@ -1,0 +1,21 @@
+.prose {
+  max-width: 760px;
+  color: var(--clr-text-muted);
+  line-height: 1.75;
+}
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--clr-ocean-dark);
+  margin: var(--space-8) 0 var(--space-2);
+}
+
+.prose p {
+  margin-bottom: var(--space-3);
+}
+
+.updated {
+  font-size: 0.85rem;
+  margin-bottom: var(--space-5);
+}

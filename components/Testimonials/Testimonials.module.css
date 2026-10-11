@@ -100,3 +100,17 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+.more {
+  text-align: center;
+  margin-top: var(--space-6);
+}
+
+.more a {
+  color: var(--clr-sky-600);
+  font-weight: 700;
+}
+
+.more a:hover {
+  text-decoration: underline;
+}

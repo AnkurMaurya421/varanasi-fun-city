@@ -1,0 +1,67 @@
+# Replies to new Google reviews once a day (max 20). Needs repo secrets:
+#   GBP_CLIENT_ID, GBP_CLIENT_SECRET, GBP_REFRESH_TOKEN  (optional: GBP_ACCOUNT_ID, GBP_LOCATION_ID)
+# Scheduled runs only POST replies when the repo variable AUTO_REPLY_ENABLED is "true";
+# until then they are dry runs (they log what they would send and post nothing).
+name: Reply to Google reviews
+
+on:
+  schedule:
+    - cron: "30 4 * * *" # 10:00 AM IST
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (log what would be sent, post nothing)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: google-review-replies
+  cancel-in-progress: false
+
+jobs:
+  reply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Decide dry run or live
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            DRY="${{ inputs.dry_run }}"
+          elif [ "${{ vars.AUTO_REPLY_ENABLED }}" = "true" ]; then
+            DRY=false
+          else
+            DRY=true
+          fi
+          echo "DRY_RUN=$DRY" >> "$GITHUB_ENV"
+
+      - name: Reply to reviews
+        env:
+          GBP_CLIENT_ID: ${{ secrets.GBP_CLIENT_ID }}
+          GBP_CLIENT_SECRET: ${{ secrets.GBP_CLIENT_SECRET }}
+          GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
+          GBP_ACCOUNT_ID: ${{ secrets.GBP_ACCOUNT_ID }}
+          GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
+          MAX_REPLIES: "20"
+        run: node scripts/reply-reviews.mjs
+
+      - name: List reviews that need a person
+        if: always() && hashFiles('review-hold.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create review-hold --color D93F0B --description "Google reviews waiting for a personal reply" --force
+          n=$(gh issue list --label review-hold --state open --json number -q '.[0].number')
+          if [ -n "$n" ]; then
+            gh issue edit "$n" --body-file review-hold.md
+          else
+            gh issue create --title "Google reviews waiting for a personal reply" --label review-hold --body-file review-hold.md
+          fi
