@@ -50,6 +50,7 @@ export default function About() {
               <video
                 src={siteConfig.reelVideo}
                 autoPlay
+                poster="/waterparkvideo-poster.webp"
                 muted
                 loop
                 playsInline

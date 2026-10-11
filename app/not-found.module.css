@@ -1,0 +1,5 @@
+.box { text-align: center; max-width: 720px; margin: 0 auto; }
+.code { font-family: var(--font-display); font-size: 4.5rem; line-height: 1; color: var(--clr-sky-500); margin-bottom: var(--space-3); }
+.links { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-top: var(--space-6); }
+.link { padding: var(--space-2) var(--space-4); background: var(--clr-white); border: 1px solid var(--clr-border); border-radius: 999px; font-weight: 700; color: var(--clr-ocean-dark); }
+.link:hover { border-color: var(--clr-sky-400); }

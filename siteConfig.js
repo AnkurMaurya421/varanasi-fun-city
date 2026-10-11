@@ -13,7 +13,7 @@ export const siteConfig = {
   subTagline: "Varanasi's largest waterpark — slides, wave pool, rain dance & more.",
   logo: "/mainlogo.png",
   heroImage: "/main.jpg",
-  reelVideo: "/waterparkvideo.mp4",
+  reelVideo: "/waterparkvideo-lite.mp4",
 
   // ----------------------------------------------------------
   //  PARK STATUS
@@ -141,21 +141,21 @@ export const siteConfig = {
       name: "Wave Pool",
       tag: "Signature",
       desc: "Ride the ocean right in Varanasi. ",
-      image: "/night1.jpg"
+      image: "/night1.webp"
     },
     {
       id: "mega-slides",
       name: "Mega Slide Tower",
       tag: "Thrill",
       desc: "Cyclone,Pendulum,tornado and what not...we have extensive range of rides.",
-      image: "/bigrides1.jpg",
+      image: "/bigrides1.webp",
     },
     {
       id: "rain-dance",
       name: "Rain Dance",
       tag: "Party",
       desc: "Bollywood beats, sprinklers everywhere, and the best dance floor in town.",
-      image: "/raindance2.jpg",
+      image: "/raindance2.webp",
     },
 
     {
@@ -163,14 +163,14 @@ export const siteConfig = {
       name: "Child Pool",
       tag: "Family",
       desc: "Calm, shallow pool designed for the youngest visitors. Lifeguards always present.",
-      image: "/childpool1.jpg",
+      image: "/childpool1.webp",
     },
     {
       id: "night-zone",
       name: "Night Zone",
       tag: "Chill",
       desc: "Enjoy cool night weather with your family and friends.",
-      image: "/night3.jpg",
+      image: "/night3.webp",
     },
 
   ],
@@ -181,6 +181,7 @@ export const siteConfig = {
   contact: {
     phone: "9918375703",
     phoneHref: "tel:+919918375703",
+    whatsapp: "919918375703", // international format, no "+"; shown as the floating WhatsApp button
     phone2: "99184 04351",        // add this
     phone2Href: "tel:+919918404351",
     email: "varanasifuncity@gmail.com",

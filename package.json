@@ -12,6 +12,7 @@
     "reviews:test": "node --no-warnings --test scripts/reviews.test.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "groq-sdk": "^1.2.0",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",

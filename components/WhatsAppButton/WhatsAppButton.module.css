@@ -1,0 +1,28 @@
+.btn {
+  position: fixed;
+  left: var(--space-5);
+  bottom: var(--space-5);
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 52px;
+  padding: 0 var(--space-4);
+  border-radius: 999px;
+  background: #25d366;
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* icon-only on phones so it doesn't crowd the chatbot button */
+@media (max-width: 639px) {
+  .btn { width: 52px; padding: 0; justify-content: center; }
+  .label { display: none; }
+}

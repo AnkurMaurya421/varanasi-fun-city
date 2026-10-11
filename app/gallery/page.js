@@ -21,37 +21,37 @@ const photoCategories = [
   {
     id: "wave-pool",
     label: "Wave Pool",
-    images: ["/wavepool1.jpg", "/wavepool2.jpg", "/wavepool3.jpg", "/wavepool4.jpg"],
+    images: ["/wavepool1.webp", "/wavepool2.webp", "/wavepool3.webp", "/wavepool4.webp"],
   },
   {
     id: "slides",
     label: "Slides & Big Rides",
-    images: ["/bigrides1.jpg", "/bigrides2.jpg", "/bigrides3.jpg", "/bigrides4.jpg", "/waterrides1.jpg", "/waterrides2.jpg"],
+    images: ["/bigrides1.webp", "/bigrides2.webp", "/bigrides3.webp", "/bigrides4.webp", "/waterrides1.webp", "/waterrides2.webp"],
   },
   {
     id: "rain-dance",
     label: "Rain Dance",
-    images: ["/raindance1.jpg", "/raindance2.jpg"],
+    images: ["/raindance1.webp", "/raindance2.webp"],
   },
   {
     id: "kids-zone",
     label: "Kids' Zone",
-    images: ["/kidsplay1.jpg", "/kidsplay2.jpg", "/kidsplay3.jpg", "/kidsplay4.jpg", "/kidsplay5.jpg", "/childpool1.jpg", "/childpool2.jpg", "/childpool3.jpg"],
+    images: ["/kidsplay1.webp", "/kidsplay2.webp", "/kidsplay3.webp", "/kidsplay4.webp", "/kidsplay5.webp", "/childpool1.webp", "/childpool2.webp", "/childpool3.webp"],
   },
   {
     id: "night-shift",
     label: "Night Shift",
-    images: ["/night1.jpg", "/night2.jpg", "/night3.jpg"],
+    images: ["/night1.webp", "/night2.webp", "/night3.webp"],
   },
   {
     id: "weddings-halls",
     label: "Weddings & Banquet Halls",
     images: [
-      "/varanasi-fun-city-wedding-stage.jpg",
-      "/varanasi-fun-city-banquet-hall.jpg",
-      "/varanasi-fun-city-wedding-entrance.jpg",
-      "/varanasi-fun-city-wedding-event.jpg",
-      "/varanasi-fun-city-ac-room.jpg",
+      "/varanasi-fun-city-wedding-stage.webp",
+      "/varanasi-fun-city-banquet-hall.webp",
+      "/varanasi-fun-city-wedding-entrance.webp",
+      "/varanasi-fun-city-wedding-event.webp",
+      "/varanasi-fun-city-ac-room.webp",
     ],
   },
 ];

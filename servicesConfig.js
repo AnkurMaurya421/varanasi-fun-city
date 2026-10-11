@@ -160,11 +160,11 @@ export const services = [
     ],
     related: ["reception-venue-varanasi", "engagement-venue-varanasi", "event-venue-varanasi"],
     gallery: [
-      { image: "/varanasi-fun-city-wedding-stage.jpg", alt: "Decorated wedding stage and mandap on the lawn at Varanasi Fun City" },
-      { image: "/varanasi-fun-city-banquet-hall.jpg", alt: "Air-conditioned banquet hall at Varanasi Fun City" },
-      { image: "/varanasi-fun-city-wedding-entrance.jpg", alt: "Decorated wedding entrance walkway at Varanasi Fun City" },
-      { image: "/varanasi-fun-city-wedding-event.jpg", alt: "Wedding reception in progress at Varanasi Fun City" },
-      { image: "/varanasi-fun-city-ac-room.jpg", alt: "AC Deluxe Room for wedding guest stays at Varanasi Fun City" },
+      { image: "/varanasi-fun-city-wedding-stage.webp", alt: "Decorated wedding stage and mandap on the lawn at Varanasi Fun City" },
+      { image: "/varanasi-fun-city-banquet-hall.webp", alt: "Air-conditioned banquet hall at Varanasi Fun City" },
+      { image: "/varanasi-fun-city-wedding-entrance.webp", alt: "Decorated wedding entrance walkway at Varanasi Fun City" },
+      { image: "/varanasi-fun-city-wedding-event.webp", alt: "Wedding reception in progress at Varanasi Fun City" },
+      { image: "/varanasi-fun-city-ac-room.webp", alt: "AC Deluxe Room for wedding guest stays at Varanasi Fun City" },
     ],
   },
   {
@@ -233,7 +233,7 @@ export const services = [
       },
     ],
     related: ["wedding-lawn-varanasi", "engagement-venue-varanasi", "event-venue-varanasi"],
-    hero: { image: "/varanasi-fun-city-wedding-event.jpg", alt: "Evening wedding reception in progress at Varanasi Fun City" },
+    hero: { image: "/varanasi-fun-city-wedding-event.webp", alt: "Evening wedding reception in progress at Varanasi Fun City" },
   },
   {
     slug: "engagement-venue-varanasi",
@@ -286,7 +286,7 @@ export const services = [
       },
     ],
     related: ["wedding-lawn-varanasi", "reception-venue-varanasi", "event-venue-varanasi"],
-    hero: { image: "/ai-engagement-venue.jpg", alt: "Illustration of a decorated engagement ceremony stage with floral arch" },
+    hero: { image: "/ai-engagement-venue.webp", alt: "Illustration of a decorated engagement ceremony stage with floral arch" },
   },
 
   // ---------------- EVENTS ----------------
@@ -351,7 +351,7 @@ export const services = [
       },
     ],
     related: ["corporate-events-varanasi", "party-venue-varanasi", "wedding-lawn-varanasi"],
-    hero: { image: "/ai-event-venue.jpg", alt: "Illustration of an event hall set up with round tables for a family function" },
+    hero: { image: "/ai-event-venue.webp", alt: "Illustration of an event hall set up with round tables for a family function" },
   },
   {
     slug: "corporate-events-varanasi",
@@ -417,7 +417,7 @@ export const services = [
       },
     ],
     related: ["event-venue-varanasi", "water-park-varanasi", "party-venue-varanasi"],
-    hero: { image: "/ai-corporate-seminar.jpg", alt: "Illustration of a seminar hall with theatre-style seating" },
+    hero: { image: "/ai-corporate-seminar.webp", alt: "Illustration of a seminar hall with theatre-style seating" },
   },
 
   // ---------------- PARTIES ----------------
@@ -482,7 +482,7 @@ export const services = [
       },
     ],
     related: ["birthday-party-varanasi", "kitty-party-varanasi", "event-venue-varanasi"],
-    hero: { image: "/ai-party-venue.jpg", alt: "Illustration of a festive party setup with balloons and lights" },
+    hero: { image: "/ai-party-venue.webp", alt: "Illustration of a festive party setup with balloons and lights" },
   },
   {
     slug: "birthday-party-varanasi",
@@ -535,7 +535,7 @@ export const services = [
       },
     ],
     related: ["party-venue-varanasi", "pool-party-varanasi", "kitty-party-varanasi"],
-    hero: { image: "/ai-birthday-party.jpg", alt: "Illustration of a birthday party setup with balloon arch and cake table" },
+    hero: { image: "/ai-birthday-party.webp", alt: "Illustration of a birthday party setup with balloon arch and cake table" },
   },
   {
     slug: "kitty-party-varanasi",
@@ -588,7 +588,7 @@ export const services = [
       },
     ],
     related: ["party-venue-varanasi", "birthday-party-varanasi", "event-venue-varanasi"],
-    hero: { image: "/ai-kitty-party.jpg", alt: "Illustration of a daytime kitty party setup with floral centrepieces" },
+    hero: { image: "/ai-kitty-party.webp", alt: "Illustration of a daytime kitty party setup with floral centrepieces" },
   },
   {
     slug: "pool-party-varanasi",
@@ -637,7 +637,7 @@ export const services = [
       },
     ],
     related: ["water-park-varanasi", "birthday-party-varanasi", "party-venue-varanasi"],
-    hero: { image: "/wavepool2.jpg", alt: "Group in the wave pool at Varanasi Fun City" },
+    hero: { image: "/wavepool2.webp", alt: "Group in the wave pool at Varanasi Fun City" },
   },
 ];
 
