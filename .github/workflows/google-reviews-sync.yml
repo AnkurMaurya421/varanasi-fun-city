@@ -43,6 +43,17 @@ jobs:
           GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
         run: node --no-warnings scripts/sync-media.mjs
 
+      - name: Probe whether Google serves playable video files (manual runs only)
+        if: github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        env:
+          GBP_CLIENT_ID: ${{ secrets.GBP_CLIENT_ID }}
+          GBP_CLIENT_SECRET: ${{ secrets.GBP_CLIENT_SECRET }}
+          GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
+          GBP_ACCOUNT_ID: ${{ secrets.GBP_ACCOUNT_ID }}
+          GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
+        run: node --no-warnings scripts/probe-video.mjs
+
       - name: Commit if changed (Vercel redeploys on push)
         run: |
           git add -A data/google-reviews.json data/google-media.json public/google-media
