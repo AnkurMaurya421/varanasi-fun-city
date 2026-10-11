@@ -65,7 +65,7 @@ export default function Footer() {
           <div className={styles.brand}>
             <h3 className={styles.brandName}>{name}</h3>
             <p className={styles.brandDesc}>
-              The biggest waterpark in Varanasi. Open all year — splash through summer, dance through monsoon.
+              The biggest waterpark in Varanasi. Splash through summer, dance through monsoon.
             </p>
             <div className={styles.socials}>
               <a href={socials.youtube} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="YouTube">

@@ -30,6 +30,12 @@ export default function ServicePage({ service }) {
             <div>
               <span className="eyebrow">{service.eyebrow}</span>
               <h1 className={styles.h1}>{service.h1}</h1>
+              {service.category === "park" && !siteConfig.isOpen && (
+                <p className={styles.closedNotice}>
+                  The water park is closed for the season and reopens in {siteConfig.reopeningText}.
+                  Weddings, events and parties: call us to enquire.
+                </p>
+              )}
               {service.intro.map((p, i) => (
                 <p key={i} className={styles.para}>{p}</p>
               ))}

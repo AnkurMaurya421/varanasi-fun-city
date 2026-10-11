@@ -55,7 +55,7 @@ export const services = [
       },
       {
         q: "What are the park's timings?",
-        a: "The day shift runs 11:00 AM – 5:00 PM, open all seven days. See the Timings section on the homepage for current shift status.",
+        a: `The day shift normally runs 11:00 AM – 5:00 PM, seven days a week. The water park is closed for the season and reopens in ${siteConfig.reopeningText}.`,
       },
       {
         q: "Is the water park suitable for non-swimmers and young children?",

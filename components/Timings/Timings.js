@@ -36,12 +36,20 @@ export default function Timings() {
         <div className="section-head">
           <span className="eyebrow">Park hours</span>
           <h2 className="section-title">Timings</h2>
-          <p className="section-sub">Two shifts every day — pick the one that fits your plan.</p>
+          <p className="section-sub">
+            {siteConfig.isOpen
+              ? "Two shifts every day — pick the one that fits your plan."
+              : `The water park is closed for the season and reopens in ${siteConfig.reopeningText}. These are the usual timings.`}
+          </p>
         </div>
 
         <div className={styles.grid}>
           {/* Day Shift */}
-          <div className={`${styles.card} ${styles.dayCard}`}>
+          <div className={`${styles.card} ${styles.dayCard} ${!day.enabled ? styles.closedCard : ""}`}>
+            <span className={`${styles.statusBadge} ${day.enabled ? styles.open : styles.closed}`}>
+              <span className={styles.statusDot} />
+              {day.enabled ? "Open" : "Closed"}
+            </span>
             <div className={styles.iconWrap}>
               <SunIcon />
             </div>
@@ -52,6 +60,12 @@ export default function Timings() {
             <div className={styles.noteBox}>
               <p className={styles.note}>{day.note}</p>
             </div>
+            {!day.enabled && (
+              <div className={styles.reopens}>
+                <ClockIcon />
+                <span>Reopens {day.reopensMonth}</span>
+              </div>
+            )}
           </div>
 
           {/* Night Shift */}

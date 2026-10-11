@@ -341,3 +341,15 @@
 
   .extraCard { flex: 1; }
 }
+
+.closedNotice {
+  max-width: 640px;
+  margin: var(--space-3) auto 0;
+  padding: var(--space-3) var(--space-4);
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-radius: var(--radius-md);
+  color: #9f1239;
+  font-weight: 700;
+  line-height: 1.5;
+}

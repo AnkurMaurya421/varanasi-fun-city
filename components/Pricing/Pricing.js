@@ -68,6 +68,11 @@ export default function Pricing() {
           <span className="eyebrow">Tickets</span>
           <h2 className="section-title">Pricing</h2>
           <p className="section-sub">All prices are per person, taxes included. Kids under 3 ft enter free.</p>
+          {!siteConfig.isOpen && (
+            <p className={styles.closedNotice}>
+              The water park is closed for the season and reopens in {siteConfig.reopeningText}. Prices below apply from reopening and may change.
+            </p>
+          )}
         </div>
 
         {/* Tabs */}

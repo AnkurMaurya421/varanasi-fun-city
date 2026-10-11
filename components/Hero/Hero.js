@@ -58,7 +58,7 @@ export default function Hero() {
 
             <div className={styles.actions}>
               <a href="#pricing" className={styles.ctaPrimary}>
-                🎟️ Check Tickets
+                🎟️ {siteConfig.isOpen ? "Check Tickets" : "Ticket Prices"}
               </a>
               <a href="#rides" className={styles.ctaSecondary}>
                 Explore Rides ↓

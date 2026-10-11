@@ -88,7 +88,7 @@ function JsonLd() {
       { "@type": "Place", name: "Ashapur, Varanasi" },
       { "@type": "Place", name: "Pahariya, Varanasi" },
     ],
-    openingHoursSpecification: [
+    ...(siteConfig.isOpen ? { openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: [
@@ -97,7 +97,7 @@ function JsonLd() {
         opens: "11:00",
         closes: "17:00",
       },
-    ],
+    ] } : {}),
     priceRange: siteConfig.schema.priceRange,
     currenciesAccepted: siteConfig.schema.currenciesAccepted,
     paymentAccepted: siteConfig.schema.paymentAccepted,

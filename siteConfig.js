@@ -19,8 +19,8 @@ export const siteConfig = {
   //  PARK STATUS
   //  Set isOpen: false during off-season to show a "closed" banner
   // ----------------------------------------------------------
-  isOpen: true,
-  openingDate: "5th March 2026",    // shown in announcement bar when isOpen: false
+  isOpen: false,                    // water park closed for the season
+  reopeningText: "March 2027",      // shown wherever the closure is mentioned
 
   // ----------------------------------------------------------
   //  ANNOUNCEMENT BAR
@@ -28,8 +28,7 @@ export const siteConfig = {
   //  status: "open" | "closed" | "info"
   // ----------------------------------------------------------
   announcements: [
-
-    // { status: "closed", label: "Notice", text: "Closed for season — reopening 5th March 2026" },
+    { status: "closed", label: "Park closed", text: "The water park is closed for the season and reopens in March 2027" },
   ],
 
   // ----------------------------------------------------------
@@ -37,7 +36,8 @@ export const siteConfig = {
   // ----------------------------------------------------------
   shifts: {
     day: {
-      enabled: true,
+      enabled: false,   // set true when the park reopens
+      reopensMonth: "March 2027",
       label: "Day Shift",
       sublabel: "Sun-up splash",
       hours: "11:00 AM – 5:00 PM",
@@ -52,7 +52,7 @@ export const siteConfig = {
       hours: "5:00 PM – 8:00 PM",
       days: "Open all 7 days",
       note: "Special slots for Families, Girls' Groups and Couples.",
-      reopensMonth: "April 2026",  // shown when enabled: false
+      reopensMonth: "March 2027",  // shown when enabled: false
       icon: "moon",
     },
   },
