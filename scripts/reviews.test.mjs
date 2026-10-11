@@ -397,11 +397,11 @@ test("photo sync downloads photos, skips the logo and our own uploads, keeps vid
   fs.writeFileSync(path.join(photos, "STALE.jpg"), "x");
   const r = await run("sync-media.mjs", { GOOGLE_MEDIA_DIR: photos, GOOGLE_MEDIA_OUT: outFile, GOOGLE_MEDIA_PREFIX: "/google-media" });
   assert.equal(r.status, 0, r.stderr);
-  assert.deepEqual(fs.readdirSync(photos).sort(), ["A1.jpg", "B2.jpg", "V1.jpg"]);
+  assert.deepEqual(fs.readdirSync(photos).sort(), ["A1_w900.jpg", "B2_w900.jpg", "V1_w900.jpg"]);
   assert.match(r.stdout, /Saved 3 photo\(s\) \(5 on the profile, 1 video preview/);
   const data = JSON.parse(fs.readFileSync(outFile, "utf8"));
-  assert.deepEqual(data.items.map((i) => i.id), ["A1", "B2", "V1"], "newest first");
-  assert.equal(data.items[0].file, "/google-media/A1.jpg");
+  assert.deepEqual(data.items.map((i) => i.id), ["A1", "B2", "V1"], "photos newest first, then videos");
+  assert.equal(data.items[0].file, "/google-media/A1_w900.jpg");
   assert.equal(data.items[0].label, "Outside");
   assert.equal(data.items[0].credit, "Varanasi Fun City");
   assert.equal(data.items[2].video, true);

@@ -93,33 +93,38 @@ export default function GalleryPage() {
               </div>
             ))}
 
-            {googleMedia.items.length > 0 && (
+            {googleMedia.items.some((m) => !m.video) && (
               <div className={styles.category}>
                 <h2 className={styles.categoryTitle}>Latest from our Google profile</h2>
                 <div className={styles.grid}>
-                  {googleMedia.items.map((m) => {
-                    const alt = `${m.label} at Varanasi Fun City`;
-                    const img = (
-                      <>
+                  {googleMedia.items.filter((m) => !m.video).map((m) => (
+                    <figure key={m.id} className={styles.gfig}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={m.file} alt="Photo from Varanasi Fun City" loading="lazy" className={styles.photo} />
+                      {m.credit && <figcaption className={styles.credit}>Photo: {m.credit}</figcaption>}
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {googleMedia.items.some((m) => m.video) && (
+              <div className={styles.category}>
+                <h2 className={styles.categoryTitle}>Videos on Google</h2>
+                <div className={styles.grid}>
+                  {googleMedia.items.filter((m) => m.video).map((m) => (
+                    <figure key={m.id} className={styles.gfig}>
+                      <a href={siteConfig.contact.mapUrl} target="_blank" rel="noopener noreferrer" aria-label="Video from Varanasi Fun City, watch on Google">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={m.file} alt={alt} loading="lazy" className={styles.photo} />
-                        {m.video && <span className={styles.play} aria-hidden="true">▶</span>}
-                      </>
-                    );
-                    return (
-                      <figure key={m.id} className={styles.gfig}>
-                        {m.video ? (
-                          <a href={siteConfig.contact.mapUrl} target="_blank" rel="noopener noreferrer" aria-label={`${alt} (video, watch on Google)`}>
-                            {img}
-                          </a>
-                        ) : img}
-                        {m.credit && <figcaption className={styles.credit}>Photo: {m.credit}</figcaption>}
-                      </figure>
-                    );
-                  })}
+                        <img src={m.file} alt="Video preview from Varanasi Fun City" loading="lazy" className={styles.photo} />
+                        <span className={styles.play} aria-hidden="true">▶</span>
+                      </a>
+                      {m.credit && <figcaption className={styles.credit}>Video: {m.credit}</figcaption>}
+                    </figure>
+                  ))}
                 </div>
                 <p className={styles.moreLink}>
-                  <a href={siteConfig.contact.mapUrl} target="_blank" rel="noopener noreferrer">See more photos and videos on Google →</a>
+                  <a href={siteConfig.contact.mapUrl} target="_blank" rel="noopener noreferrer">Watch these and more on Google →</a>
                 </p>
               </div>
             )}

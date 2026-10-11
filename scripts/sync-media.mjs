@@ -11,7 +11,9 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = process.env.GOOGLE_MEDIA_OUT || path.join(root, "data/google-media.json");
 const DIR = process.env.GOOGLE_MEDIA_DIR || path.join(root, "public/google-media");
 const PUBLIC_PREFIX = process.env.GOOGLE_MEDIA_PREFIX || "/google-media";
-const LIMIT = Number(process.env.MEDIA_LIMIT || 48);
+const PHOTO_LIMIT = Number(process.env.MEDIA_PHOTO_LIMIT || 36);
+const VIDEO_LIMIT = Number(process.env.MEDIA_VIDEO_LIMIT || 8);
+const SIZE = "w900"; // gallery thumbnails don't need full resolution; also part of the file name so a size change re-downloads
 const SKIP_CATEGORIES = new Set(["PROFILE"]); // the logo
 const ours = new Set(WEDDING_PHOTOS.map((p) => p.description)); // already shown in the site's own wedding gallery
 
@@ -22,7 +24,7 @@ const LABELS = {
 
 async function download(url, dest) {
   const bare = url.replace(/=[swh]\d+[^/]*$/i, "");
-  for (const candidate of [`${bare}=w1280`, url]) {
+  for (const candidate of [`${bare}=${SIZE}`, url]) {
     try {
       const res = await fetch(candidate, { signal: AbortSignal.timeout(30000) });
       if (!res.ok || !(res.headers.get("content-type") || "").startsWith("image/")) continue;
@@ -42,14 +44,16 @@ try {
     .filter((m) => m.googleUrl)
     .filter((m) => !SKIP_CATEGORIES.has(m.locationAssociation?.category))
     .filter((m) => !ours.has((m.description || "").trim()))
-    .sort((a, b) => new Date(b.createTime || 0) - new Date(a.createTime || 0))
-    .slice(0, LIMIT);
+    .sort((a, b) => new Date(b.createTime || 0) - new Date(a.createTime || 0));
+  const photosOnly = usable.filter((m) => m.mediaFormat !== "VIDEO").slice(0, PHOTO_LIMIT);
+  const videosOnly = usable.filter((m) => m.mediaFormat === "VIDEO").slice(0, VIDEO_LIMIT);
+  const chosen = [...photosOnly, ...videosOnly];
 
   fs.mkdirSync(DIR, { recursive: true });
   const items = [];
-  for (const m of usable) {
+  for (const m of chosen) {
     const id = m.name.split("/").pop().replace(/[^A-Za-z0-9_-]/g, "");
-    const file = `${id}.jpg`;
+    const file = `${id}_${SIZE}.jpg`;
     const dest = path.join(DIR, file);
     if (!fs.existsSync(dest) && !(await download(m.googleUrl, dest))) { console.log(`Could not download ${id}; skipping.`); continue; }
     const category = m.locationAssociation?.category || "ADDITIONAL";
@@ -67,7 +71,7 @@ try {
   }
 
   // remove files that are no longer on the profile
-  const keep = new Set(items.map((i) => `${i.id}.jpg`));
+  const keep = new Set(items.map((i) => i.file.split("/").pop()));
   for (const f of fs.readdirSync(DIR)) if (f.endsWith(".jpg") && !keep.has(f)) fs.rmSync(path.join(DIR, f));
 
   const next = {
