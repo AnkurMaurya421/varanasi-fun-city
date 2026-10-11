@@ -129,3 +129,11 @@ export function pickFeatured(reviews, { limit = 6 } = {}) {
       date: r.createTime,
     }));
 }
+
+// ---- helpers shared with the AI reply path ----
+export function replyContext(review) {
+  const text = originalText(review.comment || "");
+  return { stars: starsOf(review), text, hindi: isHindi(text), name: firstName(review) };
+}
+export const greeting = (name, hindi) => (hindi ? hiHindi(name) : hi(name));
+export const signature = (hindi) => (hindi ? SIGN_HI : SIGN);

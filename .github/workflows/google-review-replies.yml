@@ -1,5 +1,6 @@
 # Replies to new Google reviews once a day (max 20). Needs repo secrets:
-#   GBP_CLIENT_ID, GBP_CLIENT_SECRET, GBP_REFRESH_TOKEN  (optional: GBP_ACCOUNT_ID, GBP_LOCATION_ID)
+#   GBP_CLIENT_ID, GBP_CLIENT_SECRET, GBP_REFRESH_TOKEN  (optional: GBP_ACCOUNT_ID, GBP_LOCATION_ID, GROQ_API_KEY)
+# With GROQ_API_KEY set, replies are written by Groq (validated, with template fallback); without it, templates only.
 # Scheduled runs only POST replies when the repo variable AUTO_REPLY_ENABLED is "true";
 # until then they are dry runs (they log what they would send and post nothing).
 name: Reply to Google reviews
@@ -50,6 +51,7 @@ jobs:
           GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
           GBP_ACCOUNT_ID: ${{ secrets.GBP_ACCOUNT_ID }}
           GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           MAX_REPLIES: "20"
         run: node --no-warnings scripts/reply-reviews.mjs
 

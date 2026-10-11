@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
         <section className="section">
           <div className={`shell ${styles.prose}`}>
             <h1 className="section-title">Privacy Policy</h1>
-            <p className={styles.updated}>Last updated: 11 October 2026</p>
+            <p className={styles.updated}>Last updated: 12 October 2026</p>
 
             <p>
               This page explains what information {name} (&quot;we&quot;) handles when you use this website.
@@ -70,8 +70,9 @@ export default function PrivacyPolicyPage() {
             <h2>Google reviews</h2>
             <p>
               Reviews shown on this site are public reviews that customers chose to post on Google, shown with the name they used.
-              Reviews and our replies are managed through our Google Business Profile. To change or remove a review, use your
-              Google account.
+              Reviews and our replies are managed through our Google Business Profile. Short replies to positive reviews may be
+              drafted with an AI tool (Groq) using the review text, and are checked automatically before they are posted.
+              To change or remove a review, use your Google account.
             </p>
 
             <h2>Children</h2>
