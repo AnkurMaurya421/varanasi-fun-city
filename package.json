@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "reviews:sync": "node --env-file=.env.local scripts/sync-reviews.mjs",
-    "reviews:reply": "node --env-file=.env.local scripts/reply-reviews.mjs",
-    "reviews:test": "node --test scripts/reviews.test.mjs"
+    "reviews:sync": "node --no-warnings --env-file=.env.local scripts/sync-reviews.mjs",
+    "reviews:reply": "node --no-warnings --env-file=.env.local scripts/reply-reviews.mjs",
+    "reviews:test": "node --no-warnings --test scripts/reviews.test.mjs"
   },
   "dependencies": {
     "groq-sdk": "^1.2.0",

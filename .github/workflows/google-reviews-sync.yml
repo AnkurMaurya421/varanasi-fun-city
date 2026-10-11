@@ -31,7 +31,7 @@ jobs:
           GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
           GBP_ACCOUNT_ID: ${{ secrets.GBP_ACCOUNT_ID }}
           GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
-        run: node scripts/sync-reviews.mjs
+        run: node --no-warnings scripts/sync-reviews.mjs
 
       - name: Commit if changed (Vercel redeploys on push)
         run: |

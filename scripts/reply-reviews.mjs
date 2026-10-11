@@ -57,10 +57,12 @@ try {
   const budget = Math.max(0, MAX - repliedLast24h);
   log(`Scanned ${pages} page(s). Replies already posted in the last 24h: ${repliedLast24h}. Budget left today: ${budget}.`);
 
+  const used = new Set();
   let posted = 0;
   let failures = 0;
   let consecutive = 0;
-  for (const { review, verdict } of toReply.slice(0, budget)) {
+  for (const { review } of toReply.slice(0, budget)) {
+    const verdict = decide(review, { minStars: MIN_STARS, avoid: used });
     const who = review.reviewer?.isAnonymous ? "anonymous" : (review.reviewer?.displayName || "reviewer").split(" ")[0];
     if (DRY) {
       log(`[dry run] ${starsOf(review)}★ ${who} → ${verdict.comment}`);

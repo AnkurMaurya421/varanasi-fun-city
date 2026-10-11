@@ -33,6 +33,16 @@ test("language, flags and tiers", () => {
   assert.equal(originalText("(Translated by Google)\nNice\n\n(Original)\nबढ़िया"), "बढ़िया");
 });
 
+test("names are tidied and a batch does not repeat the same wording", () => {
+  assert.match(decide(rev("n1", 5, "Great", { name: "SAMEER K" })).comment, /^Hi Sameer!/);
+  assert.match(decide(rev("n2", 5, "Great", { name: "abhay" })).comment, /^Hi Abhay!/);
+  assert.match(decide(rev("n3", 5, "Great", { name: "McDonald Lee" })).comment, /^Hi McDonald!/);
+  const used = new Set();
+  const texts = Array.from({ length: 10 }, (_, i) =>
+    decide(rev(`batch${i}`, 5, "Lovely day", { name: "Same" }), { avoid: used }).comment);
+  assert.equal(new Set(texts).size, 10);
+});
+
 test("featured reviews are positive, named, readable and capped", () => {
   const list = [
     rev("1", 5, "Wonderful day out with the whole family, wave pool was superb."),

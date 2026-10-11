@@ -51,7 +51,7 @@ jobs:
           GBP_ACCOUNT_ID: ${{ secrets.GBP_ACCOUNT_ID }}
           GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
           MAX_REPLIES: "20"
-        run: node scripts/reply-reviews.mjs
+        run: node --no-warnings scripts/reply-reviews.mjs
 
       - name: List reviews that need a person
         if: always() && hashFiles('review-hold.md') != ''

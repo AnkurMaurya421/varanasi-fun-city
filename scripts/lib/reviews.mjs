@@ -30,7 +30,9 @@ const isHindi = (text) => /[ऀ-ॿ]/.test(text);
 function firstName(review) {
   const name = review.reviewer?.isAnonymous ? "" : (review.reviewer?.displayName || "").trim();
   const first = name.split(/\s+/)[0] || "";
-  return /^[\p{L}]{2,20}$/u.test(first) ? first : null;
+  if (!/^[\p{L}]{2,20}$/u.test(first)) return null;
+  const odd = first === first.toUpperCase() || first === first.toLowerCase();
+  return odd ? first[0].toUpperCase() + first.slice(1).toLowerCase() : first;
 }
 
 function hash(str) {
@@ -52,25 +54,34 @@ const EN5 = [
   (n) => `${hi(n)}Thank you for the 5-star review! Happy to hear you enjoyed your visit, and we hope to see you again very soon. ${SIGN}`,
   (n) => `${hi(n)}Your feedback means a lot to us. Thank you for choosing Varanasi Fun City and for sharing your experience. See you again! ${SIGN}`,
   (n) => `${hi(n)}Thank you so much! We're glad you had a great time. Come back and celebrate with us again soon! ${SIGN}`,
+  (n) => `${hi(n)}We're thrilled to hear you had such a good time! Thank you for the lovely review. Hope to welcome you back soon. ${SIGN}`,
+  (n) => `${hi(n)}Thank you for your kind words and for choosing Varanasi Fun City! Reviews like yours keep our team going. See you next time! ${SIGN}`,
+  (n) => `${hi(n)}That's wonderful to hear, thank you for the 5 stars! We'd love to host you again soon. ${SIGN}`,
+  (n) => `${hi(n)}Thanks so much for sharing your experience! We're glad everything went well and look forward to seeing you again. ${SIGN}`,
 ];
 const EN4 = [
   (n) => `${hi(n)}Thank you for the 4 stars and the kind feedback! We're glad you enjoyed your visit. If there's anything we could do better, please call us on ${phone}. ${SIGN}`,
   (n) => `${hi(n)}Thanks for reviewing us! We're happy you had a good time at Varanasi Fun City, and we're always working to make each visit even better. ${SIGN}`,
   (n) => `${hi(n)}We appreciate your 4-star review. Hope to see you again soon, and if you have suggestions, we'd love to hear them on ${phone}. ${SIGN}`,
+  (n) => `${hi(n)}Thank you for the great rating! We're glad you enjoyed your time with us and hope to see you again soon. ${SIGN}`,
+  (n) => `${hi(n)}Thanks for your 4-star review! We're always looking to improve, so if you have any suggestions, feel free to call us on ${phone}. ${SIGN}`,
 ];
 const HI5 = [
   (n) => `${hiHindi(n)}आपके खूबसूरत रिव्यू और 5 स्टार के लिए बहुत-बहुत धन्यवाद! हमें खुशी है कि आपको वाराणसी फन सिटी में अच्छा लगा। जल्द ही फिर मिलेंगे! ${SIGN_HI}`,
   (n) => `${hiHindi(n)}रिव्यू देने के लिए समय निकालने का शुक्रिया! आप जैसे मेहमानों की बातें हमारी टीम का हौसला बढ़ाती हैं। अगली बार फिर आइए। ${SIGN_HI}`,
   (n) => `${hiHindi(n)}आपके अच्छे शब्दों के लिए दिल से धन्यवाद! यह जानकर बहुत अच्छा लगा कि आपका अनुभव शानदार रहा। हमें फिर से सेवा का मौका दीजिए। ${SIGN_HI}`,
   (n) => `${hiHindi(n)}वाराणसी फन सिटी को चुनने और अपना अनुभव साझा करने के लिए धन्यवाद! आपकी राय हमारे लिए बहुत मायने रखती है। फिर मिलेंगे! ${SIGN_HI}`,
+  (n) => `${hiHindi(n)}बहुत-बहुत शुक्रिया! आपका रिव्यू पढ़कर हमारी पूरी टीम खुश है। आपका फिर से स्वागत रहेगा। ${SIGN_HI}`,
+  (n) => `${hiHindi(n)}आपके प्यार और 5 स्टार के लिए दिल से आभार! उम्मीद है जल्द ही दोबारा मुलाकात होगी। ${SIGN_HI}`,
 ];
 const HI4 = [
   (n) => `${hiHindi(n)}4 स्टार और अच्छे फीडबैक के लिए धन्यवाद! हमें खुशी है कि आपको वाराणसी फन सिटी में अच्छा लगा। कुछ और बेहतर कर सकें तो कृपया ${phone} पर बताइए। ${SIGN_HI}`,
   (n) => `${hiHindi(n)}रिव्यू देने के लिए शुक्रिया! हम हर बार अनुभव को और बेहतर बनाने की कोशिश करते हैं। जल्द ही फिर मिलेंगे। ${SIGN_HI}`,
+  (n) => `${hiHindi(n)}आपकी रेटिंग के लिए धन्यवाद! हमें खुशी है कि आपको अच्छा लगा। कोई सुझाव हो तो ${phone} पर ज़रूर बताइए। ${SIGN_HI}`,
 ];
 
 // Returns { action: "reply" | "hold" | "skip", reason, comment? }
-export function decide(review, { minStars = 4 } = {}) {
+export function decide(review, { minStars = 4, avoid } = {}) {
   if (review.reviewReply?.comment || review.reviewReply?.reviewReplyState) {
     return { action: "skip", reason: "already replied" };
   }
@@ -83,7 +94,17 @@ export function decide(review, { minStars = 4 } = {}) {
 
   const hindi = isHindi(text);
   const list = hindi ? (stars >= 5 ? HI5 : HI4) : (stars >= 5 ? EN5 : EN4);
-  const comment = list[hash(review.reviewId || review.name || "") % list.length](firstName(review));
+  const start = hash(review.reviewId || review.name || "") % list.length;
+  let idx = start;
+  if (avoid) {
+    // Within one run, prefer a variant we haven't used yet so a batch doesn't read like copy-paste.
+    for (let i = 0; i < list.length; i++) {
+      const cand = (start + i) % list.length;
+      if (!avoid.has(`${hindi}${stars >= 5}:${cand}`)) { idx = cand; break; }
+    }
+    avoid.add(`${hindi}${stars >= 5}:${idx}`);
+  }
+  const comment = list[idx](firstName(review));
   return { action: "reply", reason: hindi ? "hindi" : "english", comment };
 }
 
