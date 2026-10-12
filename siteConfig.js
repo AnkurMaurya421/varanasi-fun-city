@@ -47,7 +47,7 @@ export const siteConfig = {
   // ----------------------------------------------------------
   shifts: {
     day: {
-      enabled: false,   // set true when the park reopens
+      enabled: true,    // the day shift runs whenever the park is open (isOpen)
       reopensMonth: "March 2027",
       label: "Day Shift",
       sublabel: "Sun-up splash",

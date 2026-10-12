@@ -234,7 +234,7 @@ export default function AdminApp() {
         <>
           <section className={styles.card}>
             <h2 className={styles.cardTitle}>Water park status</h2>
-            <p className={styles.cardSub}>Controls the banner, the hero button, timings, pricing note, the water park page and the chatbot. Weddings and events are not affected.</p>
+            <p className={styles.cardSub}>Closing the park closes both shifts, the banner, the water park page and the chatbot. When open, each shift can still be closed separately in the Timings tab. Weddings and events are not affected.</p>
             <div className={styles.row}>
               <Toggle checked={s.isOpen} onChange={(v) => set(["isOpen"], v)} onLabel="Open" offLabel="Closed for the season" />
             </div>
