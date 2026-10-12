@@ -196,7 +196,7 @@ export default function AdminApp() {
                   <option value="info">Info (blue)</option>
                 </select>
                 <input className={styles.input} value={a.label} onChange={(e) => set(["announcements", i, "label"], e.target.value)} placeholder="Label" />
-                <input className={`${styles.input} ${styles.grow}`} value={a.text} onChange={(e) => set(["announcements", i, "text"], e.target.value)} placeholder="Message" />
+                <input className={`${styles.input} ${styles.grow}`} value={a.text} onChange={(e) => set(["announcements", i, "text"], e.target.value)} placeholder="Message — {reopening} is replaced by the reopening text" title="Use {reopening} to insert the reopening text from above" />
                 <button className={styles.remove} onClick={() => set(["announcements"], s.announcements.filter((_, j) => j !== i))} aria-label="Remove announcement">✕</button>
               </div>
             ))}

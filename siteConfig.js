@@ -28,7 +28,7 @@ export const siteConfig = {
   //  status: "open" | "closed" | "info"
   // ----------------------------------------------------------
   announcements: [
-    { status: "closed", label: "Park closed", text: "The water park is closed for the season and reopens in March 2027" },
+    { status: "closed", label: "Park closed", text: "The water park is closed for the season and reopens in {reopening}" }, // {reopening} is replaced by reopeningText below
   ],
 
   // ----------------------------------------------------------

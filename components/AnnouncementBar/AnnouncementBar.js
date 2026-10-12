@@ -22,7 +22,8 @@ export default function AnnouncementBar() {
     return () => clearInterval(timer);
   }, [announcements.length]);
 
-  const current = announcements[index];
+  const raw = announcements[index];
+  const current = raw && { ...raw, text: raw.text.replaceAll("{reopening}", siteConfig.reopeningText) };
   if (!current) return null;
 
   return (

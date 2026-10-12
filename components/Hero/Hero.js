@@ -21,7 +21,8 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, [announcements.length]);
 
-  const current = announcements[index];
+  const raw = announcements[index];
+  const current = raw && { ...raw, text: raw.text.replaceAll("{reopening}", siteConfig.reopeningText) };
 
   return (
     <section className={styles.hero} id="hero">

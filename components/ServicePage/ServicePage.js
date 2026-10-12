@@ -17,12 +17,14 @@ function fillDeep(value, pairs) {
 export default async function ServicePage({ service: rawService }) {
   const siteConfig = await getSiteConfig();
   const closure = siteConfig.isOpen ? "" : ` The water park is closed for the season and reopens in ${siteConfig.reopeningText}.`;
-  const service = fillDeep(rawService, [
-    ["{{closure}}", closure || " "],
-    [defaults.contact.phone2, siteConfig.contact.phone2],
-    [defaults.contact.phone, siteConfig.contact.phone],
-    [defaults.reopeningText, siteConfig.reopeningText],
-  ]);
+  // phone numbers first, then the closure sentence last so its text is never swapped twice
+  const service = fillDeep(
+    fillDeep(rawService, [
+      [defaults.contact.phone2, siteConfig.contact.phone2],
+      [defaults.contact.phone, siteConfig.contact.phone],
+    ]),
+    [["{{closure}}", closure || " "]],
+  );
   const related = getRelated(service);
   const hub = categories[service.category];
   const breadcrumbItems = [{ label: "Home", href: "/" }];
