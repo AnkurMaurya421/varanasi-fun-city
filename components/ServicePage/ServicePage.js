@@ -18,13 +18,19 @@ export default async function ServicePage({ service: rawService }) {
   const siteConfig = await getSiteConfig();
   const closure = siteConfig.isOpen ? "" : ` The water park is closed for the season and reopens in ${siteConfig.reopeningText}.`;
   // phone numbers first, then the closure sentence last so its text is never swapped twice
-  const service = fillDeep(
+  const filled = fillDeep(
     fillDeep(rawService, [
       [defaults.contact.phone2, siteConfig.contact.phone2],
       [defaults.contact.phone, siteConfig.contact.phone],
     ]),
-    [["{{closure}}", closure || " "]],
+    [
+      ["{{closure}}", closure || " "],
+      ["{{capacityNote}}", siteConfig.events.capacityNote],
+      ["{{roomsNote}}", siteConfig.events.roomsNote],
+    ],
   );
+  // venue facilities are edited in /admin ("Venue" tab)
+  const service = filled.facilities ? { ...filled, facilities: siteConfig.events.facilities } : filled;
   const related = getRelated(service);
   const hub = categories[service.category];
   const breadcrumbItems = [{ label: "Home", href: "/" }];

@@ -1,15 +1,22 @@
-import { getService } from "@/servicesConfig";
+import { getLiveService } from "@/lib/siteConfigStore";
 import { buildServiceMetadata } from "@/lib/seo";
 import ServicePage from "@/components/ServicePage/ServicePage";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import Chatbot from "@/components/Chatbot/Chatbot";
 
-const service = getService("corporate-events-varanasi");
+const SLUG = "corporate-events-varanasi";
 
-export const metadata = buildServiceMetadata(service);
+export async function generateMetadata() {
+  return buildServiceMetadata(await getLiveService(SLUG));
+}
 
-export default function Page() {
+export default async function Page() {
+  const service = await getLiveService(SLUG);
+  return PageBody(service);
+}
+
+function PageBody(service) {
   return (
     <>
       <Navbar />

@@ -7,7 +7,10 @@
 
 import { siteConfig } from "@/siteConfig";
 
-const { facilities, capacityNote, roomsNote } = siteConfig.events;
+// capacityNote / roomsNote / facilities are swapped for the live values (edited in /admin) when a page renders.
+const { facilities } = siteConfig.events;
+const capacityNote = "{{capacityNote}}";
+const roomsNote = "{{roomsNote}}";
 
 export const categories = {
   park: { label: "Water Park", href: "/water-park-varanasi/" },

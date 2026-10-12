@@ -1,5 +1,5 @@
 import googleReviews from "@/data/google-reviews.json";
-import { siteConfig } from "@/siteConfig";
+import { getSiteConfig } from "@/lib/siteConfigStore";
 import styles from "./Testimonials.module.css";
 
 function Stars({ count }) {
@@ -18,7 +18,8 @@ const initials = (name) =>
 const monthYear = (iso) =>
   new Date(iso).toLocaleDateString("en-IN", { month: "short", year: "numeric" });
 
-export default function Testimonials() {
+export default async function Testimonials() {
+  const siteConfig = await getSiteConfig();
   const { reviews, rating, total } = googleReviews;
   const reviewsUrl = siteConfig.contact.mapUrl;
   if (!reviews || reviews.length === 0) return null;

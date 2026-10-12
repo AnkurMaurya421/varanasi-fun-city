@@ -7,12 +7,15 @@ import { getSiteConfig } from "@/lib/siteConfigStore";
 import Tracking from "@/components/Tracking/Tracking";
 import "./globals.css";
 
-export const metadata = {
+export async function generateMetadata() {
+  const live = await getSiteConfig();
+  const seo = { ...defaultConfig.seo, title: live.seo.title, description: live.seo.description };
+  return {
   title: {
-    default: defaultConfig.seo.title,
-    template: defaultConfig.seo.titleTemplate,
+    default: seo.title,
+    template: seo.titleTemplate,
   },
-  description: defaultConfig.seo.description,
+  description: seo.description,
   keywords: defaultConfig.seo.keywords,
   authors: [{ name: "Ankur Maurya" }],
   creator: "Ankur Maurya",
@@ -25,8 +28,8 @@ export const metadata = {
     locale: "en_IN",
     url: defaultConfig.seo.canonicalUrl,
     siteName: defaultConfig.name,
-    title: defaultConfig.seo.title,
-    description: defaultConfig.seo.description,
+    title: seo.title,
+    description: seo.description,
     images: [
       {
         url: defaultConfig.seo.ogImage,
@@ -38,8 +41,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: defaultConfig.seo.title,
-    description: defaultConfig.seo.description,
+    title: seo.title,
+    description: seo.description,
     images: [defaultConfig.seo.ogImage],
   },
   robots: {
@@ -56,6 +59,7 @@ export const metadata = {
     apple: "/apple-touch-icon.png",
   },
 };
+}
 
 export const viewport = {
   themeColor: defaultConfig.seo.themeColor,
@@ -137,6 +141,8 @@ function JsonLd({ siteConfig }) {
 
 export default async function RootLayout({ children }) {
   const siteConfig = await getSiteConfig();
+  // the per-page text isn't needed in the browser, so keep it out of the page payload
+  const { services: _pageText, ...clientConfig } = siteConfig;
   return (
     <html lang="en">
       <head>
@@ -149,7 +155,7 @@ export default async function RootLayout({ children }) {
         />
       </head>
       <body>
-        <ConfigProvider config={siteConfig}>{children}</ConfigProvider>
+        <ConfigProvider config={clientConfig}>{children}</ConfigProvider>
         <HideOnAdmin>
           <WhatsAppButton />
           <Tracking />

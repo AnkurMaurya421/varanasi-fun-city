@@ -1,4 +1,4 @@
-import { siteConfig } from "@/siteConfig";
+import { getSiteConfig } from "@/lib/siteConfigStore";
 import styles from "./Rides.module.css";
 
 const tagColors = {
@@ -10,8 +10,8 @@ const tagColors = {
   Events:    "tagOrange",
 };
 
-export default function Rides() {
-  const { rides } = siteConfig;
+export default async function Rides() {
+  const { rides } = await getSiteConfig();
 
   return (
     <section className={`${styles.section} section`} id="rides">

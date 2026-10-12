@@ -16,6 +16,17 @@ export const siteConfig = {
   reelVideo: "/waterparkvideo-lite.mp4",
 
   // ----------------------------------------------------------
+  //  ABOUT SECTION (homepage)
+  // ----------------------------------------------------------
+  about: {
+    title: "North India's coolest waterpark splash",
+    paragraphs: [
+      "Varanasi Fun City is an excellent water recreation paradise appealing to people of all age groups. Situated in Pandeypur, on Panchkoshi Road, in the heart of Kashi.",
+      "Decorated by mermaids and built extensively with fibreglass, it is a rare combination of modern technology and tradition — making it a place for exhilarating thrills and fun. The water rides are not just dumped here; each has been designed to deliver a unique thrill and challenge.",
+    ],
+  },
+
+  // ----------------------------------------------------------
   //  PARK STATUS
   //  Set isOpen: false during off-season to show a "closed" banner
   // ----------------------------------------------------------
@@ -196,6 +207,7 @@ export const siteConfig = {
   socials: {
     youtube: "https://www.youtube.com/@varanasifuncity100",
     instagram: "https://www.instagram.com/varanasifuncitywaterpark/",
+    facebook: "",   // add a Facebook page link in /admin to show the icon in the footer
   },
 
   // ----------------------------------------------------------

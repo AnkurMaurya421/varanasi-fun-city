@@ -1,25 +1,21 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { COOKIE, tokenOk, sameOrigin } from "@/lib/adminAuth";
-import { readOverridesFresh, saveSettings, defaultsEditable, storageReady } from "@/lib/siteConfigStore";
-import { pickEditable, ValidationError } from "@/lib/configSchema";
+import { saveSettings, getEditableSnapshot } from "@/lib/siteConfigStore";
+import { ValidationError } from "@/lib/configSchema";
+import { services } from "@/servicesConfig";
+import { IMAGE_CHOICES } from "@/lib/imageChoices";
 
 export const dynamic = "force-dynamic";
+
+const pages = services.map((s) => ({ slug: s.slug, title: s.h1 }));
 
 async function authed() {
   return tokenOk((await cookies()).get(COOKIE)?.value);
 }
 
 async function snapshot() {
-  const effective = await (async () => {
-    // read the stored file directly so the form always shows what is really saved
-    const { deepMerge, validate, applyDerived } = await import("@/lib/configSchema");
-    const { siteConfig } = await import("@/siteConfig");
-    let clean = {};
-    try { clean = validate(await readOverridesFresh()); } catch {}
-    return applyDerived(deepMerge(siteConfig, clean));
-  })();
-  return { settings: pickEditable(effective), defaults: defaultsEditable(), storageReady: storageReady() };
+  return { ...(await getEditableSnapshot()), pages, images: IMAGE_CHOICES };
 }
 
 export async function GET() {

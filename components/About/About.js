@@ -1,8 +1,11 @@
-import { siteConfig } from "@/siteConfig";
+import { siteConfig as defaults } from "@/siteConfig";
+import { getSiteConfig } from "@/lib/siteConfigStore";
 import googleReviews from "@/data/google-reviews.json";
 import styles from "./About.module.css";
 
-export default function About() {
+export default async function About() {
+  const siteConfig = await getSiteConfig();
+  const { about } = siteConfig;
   return (
     <section className={`${styles.section} section`} id="about">
       <div className="shell">
@@ -10,19 +13,10 @@ export default function About() {
           {/* Text */}
           <div className={styles.body}>
             <span className="eyebrow">About the park</span>
-            <h2 className={`section-title ${styles.title}`}>
-              North India&apos;s coolest waterpark splash
-            </h2>
-            <p className={styles.para}>
-              Varanasi Fun City is an excellent water recreation paradise appealing to people
-              of all age groups. Situated in Pandeypur, on Panchkoshi Road, in the heart of Kashi.
-            </p>
-            <p className={styles.para}>
-              Decorated by mermaids and built extensively with fibreglass, it is a rare combination
-              of modern technology and tradition — making it a place for exhilarating thrills and fun.
-              The water rides are not just dumped here; each has been designed to deliver a unique
-              thrill and challenge.
-            </p>
+            <h2 className={`section-title ${styles.title}`}>{about.title}</h2>
+            {about.paragraphs.map((p, i) => (
+              <p key={i} className={styles.para}>{p}</p>
+            ))}
 
             {/* Highlights */}
             <div className={styles.highlights}>
@@ -49,7 +43,7 @@ export default function About() {
           <div className={styles.reelWrap}>
             <div className={styles.reelFrame}>
               <video
-                src={siteConfig.reelVideo}
+                src={defaults.reelVideo}
                 autoPlay
                 poster="/waterparkvideo-poster.webp"
                 muted
