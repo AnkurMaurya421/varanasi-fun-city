@@ -10,7 +10,8 @@ import { aiEnabled, aiReply } from "./lib/ai.mjs";
 const DRY = process.env.DRY_RUN !== "false";
 const MAX = Number(process.env.MAX_REPLIES || 20);
 const MIN_STARS = Number(process.env.REPLY_MIN_STARS || 4);
-const MAX_PAGES = Number(process.env.MAX_PAGES || 40);
+// 200 pages x 50 = 10,000 reviews, so the scan can always reach the oldest unanswered review even after months of daily replies.
+const MAX_PAGES = Number(process.env.MAX_PAGES || 200);
 const MIN_PAGES = 6; // always scan the newest ~300 so the 24h count is accurate
 const HOLD_DAYS = Number(process.env.HOLD_WINDOW_DAYS || 30);
 const DELAY_MS = Number(process.env.REPLY_DELAY_MS ?? 1500);
@@ -52,6 +53,7 @@ try {
       }
     }
     pageToken = page.nextPageToken || "";
+    if (pageToken && pages >= 10) await sleep(150); // stay well under the API rate limit on deep scans
     const remaining = Math.max(0, MAX - repliedLast24h);
     if (pages >= MIN_PAGES && toReply.length >= remaining) break;
   } while (pageToken && pages < MAX_PAGES);

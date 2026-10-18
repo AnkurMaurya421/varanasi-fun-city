@@ -197,6 +197,43 @@ test("replies already sent in the last 24h count against the cap", async () => {
   assert.equal(puts.length, 12);
 });
 
+test("a pile of unanswered low-star reviews at the top never blocks the replies behind it", async () => {
+  seed();
+  // 450 unanswered 1-star reviews are the newest, then 60 happy ones
+  reviews = [
+    ...Array.from({ length: 450 }, (_, i) => rev(`bad${i}`, 1, "Terrible, very disappointed", { ageHours: 2 + i / 100 })),
+    ...Array.from({ length: 60 }, (_, i) => rev(`good${i}`, 5, `Lovely day out number ${i}, the kids enjoyed everything.`, { ageHours: 100 + i })),
+  ];
+  const day1 = await run("reply-reviews.mjs", { DRY_RUN: "false" });
+  assert.equal(day1.status, 0, day1.stderr);
+  assert.equal(puts.length, 20);
+  assert.ok(puts.every((p) => /good/.test(p.path)), "only 5-star reviews get replies");
+
+  // next day: those 20 are now answered (yesterday); the lows are still waiting for a person
+  const done = new Set(puts.map((p) => p.path.split("/").slice(-2)[0]));
+  reviews = reviews.map((r) => (done.has(r.reviewId) ? rev(r.reviewId, 5, "x", { reply: true, ageHours: 30 }) : r))
+    .map((r) => (r.reviewReply ? { ...r, reviewReply: { ...r.reviewReply, updateTime: new Date(Date.now() - 30 * 3600 * 1000).toISOString() } } : r));
+  puts = [];
+  const day2 = await run("reply-reviews.mjs", { DRY_RUN: "false" });
+  assert.equal(day2.status, 0, day2.stderr);
+  assert.equal(puts.length, 20);
+  assert.ok(puts.every((p) => /good/.test(p.path)));
+  assert.ok(!puts.some((p) => done.has(p.path.split("/").slice(-2)[0])), "never answers the same review twice");
+});
+
+test("it can still reach old unanswered reviews after months of replying", async () => {
+  seed();
+  // 2,400 reviews already answered or held on top; fresh unanswered ones are deeper than the old 2,000-review limit
+  reviews = [
+    ...Array.from({ length: 2400 }, (_, i) => (i % 2 ? { ...rev(`gone${i}`, 5, "Great", { reply: true, ageHours: 24 * 40 + i }), reviewReply: { comment: "thanks", updateTime: new Date(Date.now() - 39 * 24 * 3600 * 1000).toISOString() } } : rev(`low${i}`, 2, "Not good", { ageHours: 24 * 40 + i }))),
+    ...Array.from({ length: 30 }, (_, i) => rev(`deep${i}`, 5, `Really enjoyed it, deep review number ${i} from long ago.`, { ageHours: 24 * 400 + i })),
+  ];
+  const r = await run("reply-reviews.mjs", { DRY_RUN: "false" });
+  assert.equal(r.status, 0, r.stderr);
+  assert.equal(puts.length, 20);
+  assert.ok(puts.every((p) => /deep/.test(p.path)));
+});
+
 test("bad credentials fail loudly", async () => {
   seed();
   tokenOk = false;
