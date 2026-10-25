@@ -220,7 +220,7 @@ export default function AdminApp() {
 
       {!storageReady && (
         <div className={styles.warn}>
-          Storage isn&apos;t connected yet, so changes can&apos;t be saved. In Vercel open <b>Storage → Create → Blob</b>, connect it to this project, then redeploy.
+          Saving is switched off for now, so changes made here can&apos;t be published. The site shows its current saved content.
         </div>
       )}
 
