@@ -30,7 +30,7 @@ export const siteConfig = {
   //  PARK STATUS
   //  Set isOpen: false during off-season to show a "closed" banner
   // ----------------------------------------------------------
-  isOpen: false,                    // water park closed for the season
+  isOpen: true,                     // set false to show the water park as closed for the season
   reopeningText: "March 2027",      // shown wherever the closure is mentioned
 
   // ----------------------------------------------------------
@@ -39,7 +39,7 @@ export const siteConfig = {
   //  status: "open" | "closed" | "info"
   // ----------------------------------------------------------
   announcements: [
-    { status: "closed", label: "Park closed", text: "The water park is closed for the season and reopens in {reopening}" }, // {reopening} is replaced by reopeningText below
+    // { status: "closed", label: "Park closed", text: "The water park is closed for the season and reopens in {reopening}" }, // {reopening} is replaced by reopeningText
   ],
 
   // ----------------------------------------------------------
@@ -149,7 +149,7 @@ export const siteConfig = {
       id: "wave-pool",
       name: "Wave Pool",
       tag: "Signature",
-      desc: "Ride the ocean right in Varanasi. ",
+      desc: "Ride the ocean right in Varanasi.",
       image: "/night1.webp"
     },
     {
@@ -284,7 +284,7 @@ export const siteConfig = {
   seo: {
     // Homepage defaults to the water-park identity — wedding/event/party
     // pages carry their own titles and own that positioning individually.
-    title: "Varanasi Fun City | Water Park in Varanasi",
+    title: "Varanasi Fun City | Best Water Park in Varanasi",
     titleTemplate: "%s | Varanasi Fun City",
     description:
       "Varanasi's largest water park — wave pool, mega slides, rain dance, kids' zone. Also a wedding lawn, banquet halls & event venue on Panchkoshi Road.",
