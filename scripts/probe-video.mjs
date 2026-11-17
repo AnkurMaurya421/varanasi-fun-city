@@ -1,25 +1,37 @@
-// One-off check: does Google serve a playable video file for the profile's videos?
-// Prints only content types and sizes (no secrets). Run via the "Sync Google reviews and photos" workflow's probe step.
-import { getAccessToken, resolveLocation, listAllMedia } from "./lib/gbp.mjs";
+// Read-only diagnostic of the Google Business Profile (categories, hours, status). Prints settings only; changes nothing.
+// (Kept under this name because the manual "Probe" step in the sync workflow already runs it.)
+import { getAccessToken, resolveLocation } from "./lib/gbp.mjs";
 
 try {
   const token = await getAccessToken();
-  const loc = await resolveLocation(token);
-  const videos = (await listAllMedia(token, loc)).filter((m) => m.mediaFormat === "VIDEO").slice(0, 3);
-  console.log(`Videos on profile: ${videos.length} probed`);
-  for (const m of videos) {
-    console.log("fields:", Object.keys(m).join(","), "| format:", m.mediaFormat, "| duration:", m.videoMetadata?.durationMillis ?? "n/a");
-    const bare = m.googleUrl.replace(/=[swh]\d+[^/]*$/i, "");
-    for (const suffix of ["", "=m18", "=m22", "=m37", "=dv"]) {
-      const url = suffix ? bare + suffix : m.googleUrl;
-      try {
-        const res = await fetch(url, { headers: { Range: "bytes=0-1023" }, signal: AbortSignal.timeout(20000) });
-        console.log(`  ${suffix || "(as given)"}: ${res.status} ${res.headers.get("content-type")} total=${res.headers.get("content-range") || res.headers.get("content-length")}`);
-      } catch (e) {
-        console.log(`  ${suffix || "(as given)"}: failed (${e.message})`);
-      }
-    }
-  }
+  const { locationId } = await resolveLocation(token);
+  const mask = ["name", "title", "categories", "openInfo", "regularHours", "specialHours", "profile", "websiteUri", "phoneNumbers", "metadata", "storefrontAddress", "latlng", "serviceItems", "labels"].join(",");
+  const res = await fetch(`https://mybusinessbusinessinformation.googleapis.com/v1/locations/${locationId}?readMask=${mask}`, { headers: { Authorization: `Bearer ${token}` } });
+  const d = await res.json();
+  if (!res.ok) throw new Error(`Business Information API ${res.status}: ${d?.error?.message}`);
+
+  const periods = (d.regularHours?.periods || []).map((p) => `${p.openDay} ${p.openTime?.hours ?? 0}:${String(p.openTime?.minutes ?? 0).padStart(2, "0")}-${p.closeTime?.hours ?? 0}:${String(p.closeTime?.minutes ?? 0).padStart(2, "0")}`);
+  console.log(JSON.stringify({
+    title: d.title,
+    primaryCategory: d.categories?.primaryCategory?.displayName,
+    additionalCategories: (d.categories?.additionalCategories || []).map((c) => c.displayName),
+    openStatus: d.openInfo?.status,
+    openingDate: d.openInfo?.openingDate,
+    regularHours: periods,
+    specialHoursCount: d.specialHours?.specialHourPeriods?.length || 0,
+    descriptionLength: (d.profile?.description || "").length,
+    descriptionStart: (d.profile?.description || "").slice(0, 160),
+    website: d.websiteUri,
+    phones: { primary: Boolean(d.phoneNumbers?.primaryPhone), additional: (d.phoneNumbers?.additionalPhones || []).length },
+    hasVoiceOfMerchant: d.metadata?.hasVoiceOfMerchant,
+    canModifyServiceList: d.metadata?.canModifyServiceList,
+    duplicateLocation: d.metadata?.duplicateLocation || null,
+    placeId: d.metadata?.placeId,
+    address: d.storefrontAddress,
+    latlng: d.latlng,
+    serviceItems: (d.serviceItems || []).map((s) => s.structuredServiceItem?.description || s.freeFormServiceItem?.label?.displayName).filter(Boolean),
+    labels: d.labels || [],
+  }, null, 2));
 } catch (err) {
   console.error(err.message);
   process.exit(1);
